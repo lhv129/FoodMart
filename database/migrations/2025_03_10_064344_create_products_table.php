@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('fileImage',255)->nullable();
             $table->decimal('entry_price', 15, 2);
             $table->decimal('retail_price', 15, 2);
-            $table->string('slug',255);
+            $table->string('slug',255)->unique();
             $table->timestamps();
             $table->softDeletes('deleted_at');
 
