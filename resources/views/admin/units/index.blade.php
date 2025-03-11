@@ -45,7 +45,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
-                                <thead>
+                                <thead class="text-center">
                                     <tr role="row">
                                         <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 102px;">Số TT</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Tên đơn vị</th>
@@ -53,13 +53,13 @@
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Chức năng</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="text-center">
                                     @foreach ($units as $index => $unit)
                                     <tr class="odd">
                                         <td class="sorting_1">{{$index+1}}</td>
                                         <td>{{ $unit->name }}</td>
                                         <td>{{ $unit->slug }}</td>
-                                        <td>
+                                        <td @if ($loop->last) class="" @else class="text-center" @endif>
                                             <form method="POST" action="{{ route('admin.units.delete', ['slug' => $unit->slug]) }}">
                                                 @csrf
                                                 @method('DELETE')

@@ -24,11 +24,14 @@ Sản phẩm
                 @endif
                 <form class="col-xl-4 col-lg-5 col-md-6 col-12" method="POST" enctype="multipart/form-data" action="{{ route('admin.products.update', ['id' => $product->id]) }}">
                     @csrf
+                    @method('PUT')
                     <div class="form-group">
                         <label>Danh mục sản phẩm</label>
                         <select class="form-control" name="category_id">
                             @foreach ($categories as $index => $category)
-                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }} @if ($category->id == $product->category_id) selected @endif>
+                                {{ $category->name }}
+                            </option>
                             @endforeach
                         </select>
                         @error('category_id')
@@ -38,7 +41,7 @@ Sản phẩm
 
                     <div class="form-group">
                         <label>Tên sản phẩm</label>
-                        <input type="text" name="name" class="form-control" placeholder="Nhập tên sản phẩm" value="{{ old('name') }}">
+                        <input type="text" name="name" class="form-control" placeholder="Nhập tên sản phẩm" value="{{ old('name') ? old('name') : $product->name }}">
                         @error("name")
                         <div class="mt-2"><i class="fa fa-exclamation-triangle text-danger" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-danger">{{ $message }}</span></div>
                         @enderror
@@ -46,6 +49,7 @@ Sản phẩm
 
                     <div class="form-group">
                         <label for="image">Ảnh sản phẩm</label>
+                        <img src="{{ asset($product->image) }}" alt="Hình ảnh sản phẩm" width="150px">
                         <input type="file" name="image" class="form-control-file">
                         @error('image')
                         <div class="mt-2"><i class="fa fa-exclamation-triangle text-danger" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-danger">{{ $message }}</span></div>
@@ -56,7 +60,7 @@ Sản phẩm
                         <label>Đơn vị</label>
                         <select class="form-control" name="unit_id">
                             @foreach ($units as $index => $unit)
-                            <option value="{{ $unit->id }}" {{ old('unit_id') == $unit->id ? 'selected' : '' }}>{{ $unit->name }}</option>
+                            <option value="{{ $unit->id }}" {{ old('unit_id') == $unit->id ? 'selected' : '' }} @if ($unit->id == $product->unit_id) selected @endif>{{ $unit->name }}</option>
                             @endforeach
                         </select>
                         @error('unit_id')
@@ -66,7 +70,7 @@ Sản phẩm
 
                     <div class="form-group">
                         <label>Gía nhập</label>
-                        <input type="number" name="entry_price" class="form-control" placeholder="Gía nhập sản phẩm" value="{{ old('entry_price') }}">
+                        <input type="number" name="entry_price" class="form-control" placeholder="Gía nhập sản phẩm" value="{{ old('entry_price') ? old('entry_price') : $product->entry_price }}">
                         @error("entry_price")
                         <div class="mt-2"><i class="fa fa-exclamation-triangle text-danger" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-danger">{{ $message }}</span></div>
                         @enderror
@@ -74,7 +78,7 @@ Sản phẩm
 
                     <div class="form-group">
                         <label>Gía bán</label>
-                        <input type="number" name="retail_price" class="form-control" placeholder="Vd: Dâu tây thì nhập là dau-tay" value="{{ old('retail_price') }}">
+                        <input type="number" name="retail_price" class="form-control" placeholder="Gía bán sản phẩm" value="{{ old('retail_price') ? old('retail_price') : $product->retail_price }}">
                         @error("retail_price")
                         <div class="mt-2"><i class="fa fa-exclamation-triangle text-danger" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-danger">{{ $message }}</span></div>
                         @enderror
@@ -82,7 +86,7 @@ Sản phẩm
 
                     <div class="form-group">
                         <label>Slug</label>
-                        <input type="text" name="slug" class="form-control" placeholder="Vd: Dâu tây thì nhập là dau-tay" value="{{ old('slug') }}">
+                        <input type="text" name="slug" class="form-control" placeholder="Vd: Dâu tây thì nhập là dau-tay" value="{{ old('slug') ? old('slug') : $product->slug }}">
                         @error("slug")
                         <div class="mt-2"><i class="fa fa-exclamation-triangle text-danger" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-danger">{{ $message }}</span></div>
                         @enderror

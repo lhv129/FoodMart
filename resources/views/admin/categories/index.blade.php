@@ -14,7 +14,7 @@ Sản phẩm
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Quản lý thương hiệu</h1>
+    <h1 class="h3 mb-2 text-gray-800">Quản lý danh mục sản phẩm</h1>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
@@ -47,7 +47,7 @@ Sản phẩm
                     <div class="row">
                         <div class="col-sm-12">
                             <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
-                                <thead>
+                                <thead class="text-center">
                                     <tr role="row">
                                         <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 102px;">Số TT</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Tên thương hiệu</th>
@@ -55,13 +55,13 @@ Sản phẩm
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Chức năng</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="text-center">
                                     @foreach ($categories as $index => $category)
                                     <tr class="odd">
                                         <td class="sorting_1">{{$index+1}}</td>
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->slug }}</td>
-                                        <td>
+                                        <td @if ($loop->last) class="" @else class="text-center" @endif>
                                             <form method="POST" action="{{ route('admin.categories.delete', ['slug' => $category->slug]) }}">
                                                 @csrf
                                                 @method('DELETE')

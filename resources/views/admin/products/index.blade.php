@@ -45,7 +45,7 @@ Sản phẩm
                     <div class="row">
                         <div class="col-sm-12">
                             <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
-                                <thead>
+                                <thead class="text-center">
                                     <tr role="row">
                                         <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 102px;">Số TT</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Tên sản phẩm</th>
@@ -58,25 +58,26 @@ Sản phẩm
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Chức năng</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="text-center">
                                     @foreach ($products as $index => $product)
                                     <tr class="odd">
                                         <td class="sorting_1">{{$index+1}}</td>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->category_name }}</td>
-                                        <td class="d-flex justify-content-center">
+                                        <td>
                                             <img src="{{ asset($product->image) }}" alt="Ảnh sản phẩm" width="100px">
                                         </td>
-                                        <td>{{ $product->entry_price }}</td>
-                                        <td>{{ $product->retail_price }}</td>
+                                        <td>{{ number_format($product->entry_price, 0, ',', '.') }} vnđ</td>
+                                        <td>{{ number_format($product->retail_price, 0, ',', '.') }} vnđ</td>
                                         <td>{{ $product->unit_name }}</td>
                                         <td>{{ $product->slug }}</td>
-                                        <td>
-                                            <form method="POST" action="{{ route('admin.products.delete', ['slug' => $product->slug]) }}">
+                                        <!-- {{-- Thẻ td cuối cùng --}} -->
+                                        <td @if ($loop->last) class="" @else class="text-center" @endif>
+                                            <form method="POST" action="{{ route('admin.products.delete', $product->slug) }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a href="{{ route('admin.products.edit', ['slug' => $product->slug]) }}"><button type="button" class="btn btn-primary">Sửa<i class="ml-2 fas fa-edit"></i></button></a>
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa không?')">Xóa<i class="ml-2 fa fa-trash" aria-hidden="true"></i></button>
+                                                <a href="{{ route('admin.products.edit', $product->slug) }}" class="btn btn-primary">Sửa</a>
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</button>
                                             </form>
                                         </td>
                                     </tr>
