@@ -29,6 +29,7 @@ class StoreProductRequest extends FormRequest
             'entry_price' => 'required|min:0',
             'retail_price' => 'required|min:0',
             'slug' => 'required|unique:products,slug',
+            'description' => 'required|min:100|max:1000'
         ];
     }
 
@@ -44,6 +45,8 @@ class StoreProductRequest extends FormRequest
             'image.required' => 'Vui lòng chọn ảnh sản phẩm.',
             'image.image' => 'File tải lên phải là ảnh.',
             'image.mimes' => 'Ảnh phải có định dạng: jpeg, png, jpg, gif, svg.',
+            'description.min' => 'Mô tả sản phẩm ít nhất 100 kí tự',
+            'description.max' => 'Mô tả sản phẩm quá dài, vui lòng viết ngắn hơn'
         ];
     }
 }

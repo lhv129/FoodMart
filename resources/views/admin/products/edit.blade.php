@@ -91,7 +91,15 @@ Sản phẩm
                         <div class="mt-2"><i class="fa fa-exclamation-triangle text-danger" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-danger">{{ $message }}</span></div>
                         @enderror
                     </div>
-                    <button type="submit" class="btn btn-primary">Thêm mới</button>
+
+                    <div class="form-group">
+                        <label for="description">Mô tả sản phẩm</label>
+                        <textarea name="description" class="form-control" rows="5" placeholder="Mô tả sản phẩm">{{ old('description') ? old('description') : $product->description }}</textarea>
+                        @error('description')
+                        <i class="at-2 fas fa-exclamation-triangle text-danger" style="font-size: 11px;" aria-hidden="true"></i><span class="pl-2 text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <button type="submit" class="btn btn-success">Cập nhật</button>
                 </form>
             </div>
         </div>

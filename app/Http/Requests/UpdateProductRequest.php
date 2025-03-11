@@ -29,6 +29,7 @@ class UpdateProductRequest extends FormRequest
             'entry_price' => 'required|numeric|min:1',
             'retail_price' => 'required|numeric|min:1',
             'slug' => 'required|unique:products,slug,'.$this->id.'id',
+            'description' => 'required|min:100|max:1000'
         ];
     }
 
@@ -44,6 +45,8 @@ class UpdateProductRequest extends FormRequest
             'image.required' => 'Vui lòng chọn ảnh sản phẩm.',
             'image.image' => 'File tải lên phải là ảnh.',
             'image.mimes' => 'Ảnh phải có định dạng: jpeg, png, jpg, gif, svg.',
+            'description.min' => 'Mô tả sản phẩm ít nhất 100 kí tự',
+            'description.max' => 'Mô tả sản phẩm quá dài, vui lòng viết ngắn hơn'
         ];
     }
 }

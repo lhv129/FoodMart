@@ -54,6 +54,7 @@ Sản phẩm
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Gía nhập</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Gía bán</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Đơn vị</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Mô tả</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Slug</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Chức năng</th>
                                     </tr>
@@ -70,6 +71,9 @@ Sản phẩm
                                         <td>{{ number_format($product->entry_price, 0, ',', '.') }} vnđ</td>
                                         <td>{{ number_format($product->retail_price, 0, ',', '.') }} vnđ</td>
                                         <td>{{ $product->unit_name }}</td>
+                                        <td>
+                                            <div style="width:150px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{ $product->description }}</div>
+                                        </td>
                                         <td>{{ $product->slug }}</td>
                                         <!-- {{-- Thẻ td cuối cùng --}} -->
                                         <td @if ($loop->last) class="" @else class="text-center" @endif>

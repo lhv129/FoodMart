@@ -20,6 +20,7 @@ class Product extends Model
         'entry_price',
         'retail_price',
         'slug',
-        'deleted_at'
+        'deleted_at',
+        'description'
     ];
 }
