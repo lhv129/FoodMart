@@ -12,7 +12,7 @@ class Product extends Model
     // protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'brand_id',
+        'category_id',
         'unit_id',
         'name',
         'image',

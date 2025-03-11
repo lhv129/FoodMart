@@ -6,7 +6,7 @@
 @endsection
 
 @section('title')
-Đơn vị
+Sản phẩm
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Quản lý đơn vị</h1>
+    <h1 class="h3 mb-2 text-gray-800">Quản lý thương hiệu</h1>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
@@ -37,33 +37,35 @@
                             </form>
                         </div>
                     </div>
+
                     @session('message')
                     <div class="alert alert-success"><svg class="bi flex-shrink-0 me-2 mr-2" width="24" height="24" role="img" aria-label="Success:">
                             <use xlink:href="#check-circle-fill" />
                         </svg>{{ session('message') }}</div>
                     @endsession
+
                     <div class="row">
                         <div class="col-sm-12">
                             <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                                 <thead>
                                     <tr role="row">
                                         <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 102px;">Số TT</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Tên đơn vị</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Tên thương hiệu</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Slug</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Chức năng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($units as $index => $unit)
+                                    @foreach ($categories as $index => $category)
                                     <tr class="odd">
                                         <td class="sorting_1">{{$index+1}}</td>
-                                        <td>{{ $unit->name }}</td>
-                                        <td>{{ $unit->slug }}</td>
+                                        <td>{{ $category->name }}</td>
+                                        <td>{{ $category->slug }}</td>
                                         <td>
-                                            <form method="POST" action="{{ route('admin.units.delete', ['slug' => $unit->slug]) }}">
+                                            <form method="POST" action="{{ route('admin.categories.delete', ['slug' => $category->slug]) }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a href="{{ route('admin.units.edit', ['slug' => $unit->slug]) }}"><button type="button" class="btn btn-primary">Sửa<i class="ml-2 fas fa-edit"></i></button></a>
+                                                <a href="{{ route('admin.categories.edit', ['slug' => $category->slug]) }}"><button type="button" class="btn btn-primary">Sửa<i class="ml-2 fas fa-edit"></i></button></a>
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa không?')">Xóa<i class="ml-2 fa fa-trash" aria-hidden="true"></i></button>
                                             </form>
                                         </td>
@@ -71,7 +73,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $units->links() }}
+                            {{ $categories->links() }}
                         </div>
                     </div>
                 </div>

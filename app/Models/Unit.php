@@ -13,6 +13,7 @@ class Unit extends Model
 
     protected $fillable = [
         'name',
+        'slug',
         'deleted_at'
     ];
 }
