@@ -35,41 +35,16 @@
 
 <body class="page-top">
     <div id="wrapper">
-        @include('admin.blocks.sidebar')
-        <div id="content-wrapper" class="d-flex flex-column">
-            <!-- Main Content -->
-            <div id="content">
-                @include('admin.blocks.topbar')
-                @yield('content')
+        <div class="container-fluid">
+            <!-- 404 Error Text -->
+            <div class="text-center">
+                <div class="error mx-auto" data-text="404">404</div>
+                <p class="lead text-gray-800 mb-5">Trang không tồn tại</p>
+                <p class="text-gray-500 mb-0">Token đã hết hạn hoặc đã được sử dụng.</p>
+                <a href="{{ route('login') }}">← Trở về trang đăng nhập</a>
             </div>
         </div>
     </div>
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Bạn có chắc muốn đăng xuất không?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Chọn "Đăng xuất" bên dưới nếu bạn đã sẵn sàng kết thúc phiên làm việc hiện tại.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
-                    <a class="btn btn-primary" href="{{ route('logout') }}">Đăng xuất</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Bootstrap core JavaScript !-->
     <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
