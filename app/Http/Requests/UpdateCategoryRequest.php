@@ -23,7 +23,6 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:categories,name,'.$this->id.'id',
-            'slug' => 'required|unique:categories,slug,'.$this->id.'id',
         ];
     }
 
@@ -32,8 +31,6 @@ class UpdateCategoryRequest extends FormRequest
         return [
             'name.required' => 'Danh mục sản phẩm không được để trống',
             'name.unique' => 'Danh mục sản phẩm này đã có, vui lòng nhập tên khác',
-            'slug.required' => 'Slug của danh mục sản phẩm không được để trống',
-            'slug.unique' => 'Slug này đã có, vui lòng chọn slug khác'
         ];
     }
 }

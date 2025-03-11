@@ -23,7 +23,6 @@ class UpdateUnitRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:units,name,' . $this->id . 'id',
-            'slug' => 'required|unique:units,slug,' . $this->id . 'id',
         ];
     }
 
@@ -32,8 +31,6 @@ class UpdateUnitRequest extends FormRequest
         return [
             'name.required' => 'Tên đơn vị không được để trống',
             'name.unique' => 'Tên đơn vị này đã có, vui lòng nhập tên khác',
-            'slug.required' => 'Slug của tên đơn vị không được để trống',
-            'slug.unique' => 'Slug này đã có, vui lòng chọn slug khác'
         ];
     }
 }

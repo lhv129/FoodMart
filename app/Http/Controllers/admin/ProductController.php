@@ -50,7 +50,7 @@ class ProductController extends Controller
                 'unit_id' => $request->unit_id,
                 'entry_price' => $request->entry_price,
                 'retail_price' => $request->retail_price,
-                'slug' => $request->slug,
+                'slug' => Str::slug($request->name),
                 'description' => $request->description,
             ]);
             return redirect('admin/san-pham')->with('message', 'Thêm mới thành công');
@@ -92,7 +92,7 @@ class ProductController extends Controller
             'unit_id' => $request->unit_id,
             'entry_price' => $request->entry_price,
             'retail_price' => $request->retail_price,
-            'slug' => $request->slug,
+            'slug' => Str::slug($request->name),
             'description' => $request->description,
         ]);
         return redirect('admin/san-pham')->with('message', 'Chỉnh sửa sản phẩm thành công');

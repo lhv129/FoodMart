@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Models\Category;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
-use App\Models\Category;
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -22,7 +23,7 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request){
         Category::create([
             'name' => $request->name,
-            'slug' => $request->slug
+            'slug' => Str::slug($request->name)
         ]);
         return redirect('admin/danh-muc-san-pham')->with('message', 'Thêm mới thành công');
     }
@@ -35,7 +36,7 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request,$id){
         $category = [
             'name' => $request->name,
-            'slug' => $request->slug,
+            'slug' => Str::slug($request->name),
         ];
         Category::where('id',$id)->update($category);
         return redirect('admin/danh-muc-san-pham')->with('message', 'Cập nhật thành công');

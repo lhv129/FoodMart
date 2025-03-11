@@ -6,7 +6,7 @@
 @endsection
 
 @section('title')
-Sản phẩm
+Đơn vị
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@ Sản phẩm
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Chỉnh sửa thương hiệu</h1>
+    <h1 class="h3 mb-2 text-gray-800">Chỉnh sửa đơn vị</h1>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
@@ -23,16 +23,9 @@ Sản phẩm
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <label>Tên thương hiệu</label>
-                        <input type="text" name="name" class="form-control" placeholder="Nhập tên thương hiệu" value="{{ old('name') ?? $unit->name }}">
+                        <label>Tên đơn vị</label>
+                        <input type="text" name="name" class="form-control" placeholder="Nhập tên đơn vị" value="{{ old('name') ?? $unit->name }}">
                         @error("name")
-                        <div class="mt-2"><i class="fa fa-exclamation-triangle text-danger" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-danger">{{ $message }}</span></div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label>Slug</label>
-                        <input type="text" name="slug" class="form-control" placeholder="Nhập tên thương hiệu" value="{{ old('slug') ?? $unit->slug }}">
-                        @error("slug")
                         <div class="mt-2"><i class="fa fa-exclamation-triangle text-danger" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-danger">{{ $message }}</span></div>
                         @enderror
                     </div>

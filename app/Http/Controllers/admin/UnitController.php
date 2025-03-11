@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Models\Unit;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUnitRequest;
 use App\Http\Requests\UpdateUnitRequest;
-use App\Models\Unit;
-use Illuminate\Http\Request;
 
 class UnitController extends Controller
 {
@@ -23,8 +24,10 @@ class UnitController extends Controller
 
     public function store(StoreUnitRequest $request)
     {
-        $unit = $request->all();
-        Unit::create($unit);
+        Unit::create([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name)
+        ]);
         return redirect('admin/don-vi')->with('message', 'Thêm mới thành công');
     }
 
@@ -38,7 +41,7 @@ class UnitController extends Controller
     {
         $unit = [
             'name' => $request->name,
-            'slug' => $request->slug,
+            'slug' => Str::slug($request->name),
         ];
         Unit::where('id', $id)->update($unit);
         return redirect('admin/don-vi')->with('message', 'Cập nhật thành công');

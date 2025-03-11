@@ -29,13 +29,6 @@ Sản phẩm
                         <div class="mt-2"><i class="fa fa-exclamation-triangle text-danger" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-danger">{{ $message }}</span></div>
                         @enderror
                     </div>
-                    <div class="form-group">
-                        <label>Slug</label>
-                        <input type="text" name="slug" class="form-control" placeholder="Nhập tên danh mục sản phẩm" value="{{ old('slug') ?? $category->slug }}">
-                        @error("slug")
-                        <div class="mt-2"><i class="fa fa-exclamation-triangle text-danger" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-danger">{{ $message }}</span></div>
-                        @enderror
-                    </div>
                     <button type="submit" class="btn btn-success">Cập nhật</button>
                 </form>
             </div>

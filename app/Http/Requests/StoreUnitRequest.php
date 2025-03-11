@@ -23,7 +23,6 @@ class StoreUnitRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:units,name',
-            'slug' => 'required|unique:units,slug',
         ];
     }
 
@@ -32,8 +31,6 @@ class StoreUnitRequest extends FormRequest
         return [
             'name.required' => 'Tên đơn vị không được để trống',
             'name.unique' => 'Tên đơn vị này đã có, vui lòng nhập tên khác',
-            'slug.required' => 'Slug tên đơn vị không được để trống',
-            'slug.unique' => 'Slug tên đơn vị này đã có, vui lòng nhập tên khác'
         ];
     }
 }

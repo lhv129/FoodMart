@@ -6,7 +6,7 @@
 @endsection
 
 @section('title')
-Sản phẩm
+Đơn vị
 @endsection
 
 @section('content')
@@ -25,13 +25,6 @@ Sản phẩm
                         <label>Tên đơn vị</label>
                         <input type="text" name="name" class="form-control" placeholder="Nhập đơn vị" value="{{ old('name') }}">
                         @error("name")
-                        <div class="mt-2"><i class="fa fa-exclamation-triangle text-danger" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-danger">{{ $message }}</span></div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label>Slug</label>
-                        <input type="text" name="slug" class="form-control" placeholder="Vd: Chai thì nhập slug là chai" value="{{ old('slug') }}">
-                        @error("slug")
                         <div class="mt-2"><i class="fa fa-exclamation-triangle text-danger" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-danger">{{ $message }}</span></div>
                         @enderror
                     </div>
