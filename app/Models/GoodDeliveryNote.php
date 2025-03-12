@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class GoodReceiptNote extends Model
+class GoodDeliveryNote extends Model
 {
     use HasFactory;
 
@@ -13,13 +13,12 @@ class GoodReceiptNote extends Model
     // protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'supplier_id',
         'user_id',
         'payment_method_id',
+        'customer',
         'code',
         'total_price',
         'status',
-        'created_at',
         'deleted_at'
     ];
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreGoodReceiptNote extends FormRequest
+class StoreGoodDeliveryNoteDetail extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,14 +22,15 @@ class StoreGoodReceiptNote extends FormRequest
     public function rules(): array
     {
         return [
-            'created_at' => 'required',
+            'quantity' => 'required|min:0',
         ];
     }
 
     public function messages()
     {
         return [
-            'created_at.required' => 'Thời gian tạo phiếu không được để trống',
+            'quantity.required' => 'Số lượng không được để trống',
+            'quantity.min' => 'Giá nhập phải lớn hơn hoặc bằng 0.',
         ];
     }
 }

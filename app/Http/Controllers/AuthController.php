@@ -37,10 +37,12 @@ class AuthController extends Controller
                 return back()->withErrors(['message' => "Tài khoản của bạn chưa được kích hoạt, vui lòng kiểm tra email"])->withInput();
             } else {
                 Auth::logout();
-                return back()->withErrors(['message' => "403 (Forbidden) - tài khoản đã bị khóa"])->withInput();
+                toast('Tài khoản của bạn đã bị khóa, vui lòng liên hệ với nhân viên để được hỗ trợ','error');
+                return back()->withInput();
             }
         }
-        return back()->withErrors(['email' => "Thông tin đăng nhập không chính xác"])->withInput();
+        toast('Thông tin đăng nhập không đúng','error');
+        return back()->withInput();
     }
 
     public function register()

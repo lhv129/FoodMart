@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.dashboard') }}">
@@ -122,7 +122,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('admin.warehouses') }}" data-toggle="collapse" data-target="#collapseWarehouses"
             aria-expanded="true" aria-controls="collapseWarehouses">
-            <i class="fas fa-fw fa-wrench"></i>
+            <i class="fa fa-archive" aria-hidden="true"></i>
             <span>Kho hàng</span>
         </a>
         <div id="collapseWarehouses" class="collapse" aria-labelledby="headingWarehouses"
@@ -147,6 +147,23 @@
                 <h6 class="collapse-header">Chức năng:</h6>
                 <a class="collapse-item" href="{{ route('admin.goods') }}">Danh sách</a>
                 <a class="collapse-item" href="{{ route('admin.goods.create') }}">Thêm mới</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Delivery Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('admin.delivery') }}" data-toggle="collapse" data-target="#collapseDelivery"
+            aria-expanded="true" aria-controls="collapseDelivery">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Đơn bán hàng</span>
+        </a>
+        <div id="collapseDelivery" class="collapse" aria-labelledby="headingDelivery"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Chức năng:</h6>
+                <a class="collapse-item" href="{{ route('admin.delivery') }}">Danh sách</a>
+                <a class="collapse-item" href="{{ route('admin.delivery.create') }}">Thêm mới</a>
             </div>
         </div>
     </li>

@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\GoodReceiptNoteDetail;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use App\Http\Requests\StoreGoodReceiptNote;
 
 class GoodReceiptNoteController extends Controller
 {
@@ -36,7 +36,7 @@ class GoodReceiptNoteController extends Controller
         return view('admin/good-receipt-notes/create', compact('suppliers', 'payments', 'products'));
     }
 
-    public function store(StoreGoodReceiptNote $request)
+    public function store(Request $request)
     {
         $cart = Session::get('cart');
         // Kiểm tra xem session 'cart' có tồn tại hay không
@@ -53,9 +53,8 @@ class GoodReceiptNoteController extends Controller
             'payment_method_id' => $request->payment_method_id,
             'code' => 'HD-' . rand(1, 99999999),
             'total_price' => 0,
-            'created_at' => $request->created_at
+            'created_at' => now(),
         ]);
-
         $total = 0;
         foreach ($cart as $item) {
             $total += $item['sub_total'];

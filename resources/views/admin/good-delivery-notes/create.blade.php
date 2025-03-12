@@ -6,7 +6,7 @@
 @endsection
 
 @section('title')
-Đơn nhập hàng
+Đơn bán hàng
 @endsection
 
 @section('content')
@@ -14,12 +14,12 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Thêm mới đơn nhập hàng</h1>
+    <h1 class="h3 mb-2 text-gray-800">Thêm mới đơn bán hàng</h1>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
             <h5 class="mt-2">Chi tiết đơn hàng</h5>
-            <form class="col-xl-4 col-lg-5 col-md-6 col-12" method="POST" enctype="multipart/form-data" action="{{ route('admin.good.details.store') }}">
+            <form class="col-xl-4 col-lg-5 col-md-6 col-12" method="POST" enctype="multipart/form-data" action="{{ route('admin.delivery.details.store') }}">
                 @csrf
 
                 <div class="form-group">
@@ -65,8 +65,8 @@
                                             @php
                                             $total = 0;
                                             @endphp
-                                            @if (Session::has('cart'))
-                                            @foreach (session('cart') as $item)
+                                            @if (Session::has('cartDelivery'))
+                                            @foreach (session('cartDelivery') as $item)
                                             @php
                                             $total += $item['sub_total'];
                                             @endphp
@@ -78,8 +78,8 @@
                                     </tr>
                                 </tfoot>
                                 <tbody class="text-center">
-                                    @if (Session::has('cart'))
-                                    @foreach (session('cart') as $item)
+                                    @if (Session::has('cartDelivery'))
+                                    @foreach (session('cartDelivery') as $item)
                                     <tr class="odd">
                                         <td>{{ $item['product'] }}</td>
                                         <td>{{ $item['quantity'] }}</td>
@@ -87,7 +87,7 @@
                                         <td>{{ number_format($item['sub_total'], 0, ',', '.') }} vnđ</td>
                                         <!-- {{-- Thẻ td cuối cùng --}} -->
                                         <td @if ($loop->last) class="" @else class="text-center" @endif>
-                                            <form method="POST" action="{{ route('admin.good.details.delete', $item['product']) }}">
+                                            <form method="POST" action="{{ route('admin.delivery.details.delete', $item['product']) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</button>
@@ -106,7 +106,7 @@
         <div class="card-body">
             <h4>Tạo phiếu</h4>
             <div class="row">
-                <form class="col-xl-4 col-lg-5 col-md-6 col-12" method="POST" enctype="multipart/form-data" action="{{ route('admin.goods.store') }}">
+                <form class="col-xl-4 col-lg-5 col-md-6 col-12" method="POST" enctype="multipart/form-data" action="{{ route('admin.delivery.store') }}">
                     @csrf
                     <div class="form-group">
                         <label>Người tạo đơn</label>
@@ -117,14 +117,11 @@
                         <div class="mt-2"><i class="fa fa-exclamation-triangle text-danger" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-danger">{{ $message }}</span></div>
                         @enderror
                     </div>
+
                     <div class="form-group">
-                        <label>Nhà cung cấp</label>
-                        <select class="form-control" name="supplier_id">
-                            @foreach ($suppliers as $index => $supplier)
-                            <option value="{{ $supplier->id }}" {{ old('supplier_id') == $supplier->id ? 'selected' : '' }}>{{ $supplier->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('supplier_id')
+                        <label>Khách hàng</label>
+                        <input type="text" name="customer" class="form-control" placeholder="Nhập tên khách hàng" value="{{ old('customer') }}">
+                        @error("customer")
                         <div class="mt-2"><i class="fa fa-exclamation-triangle text-danger" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-danger">{{ $message }}</span></div>
                         @enderror
                     </div>
