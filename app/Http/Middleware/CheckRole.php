@@ -26,7 +26,6 @@ class CheckRole
             // return abort(403, 'Bạn không có quyền truy cập trang này.');
             return back();
         }
-
         return $next($request); // Cho phép request tiếp tục nếu có quyền truy cập
     }
 }

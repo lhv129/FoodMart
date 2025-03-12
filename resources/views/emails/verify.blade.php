@@ -106,7 +106,7 @@
 
 </head>
 
-<body style="background-color: #E0E1DA;">
+<body style="background-color:white;">
 
     <!-- start preheader -->
     <div class="preheader" style="display: none; max-width: 0; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #E0E1DA; opacity: 0;">
@@ -118,7 +118,7 @@
 
         <!-- start logo -->
         <tr>
-            <td align="center" bgcolor="#e9ecef">
+            <td align="center" bgcolor="white">
                 <!--[if (gte mso 9)|(IE)]>
         <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
         <tr>
@@ -128,7 +128,7 @@
                     <tr>
                         <td align="center" valign="top" style="padding: 36px 24px;">
                             <a href="" target="_blank" style="display: inline-block;">
-                                <img src="{{ $message->embed(public_path('/images/logo/logo.png')) }}" alt="Logo" border="0" width="88" style="display: block; width: 88px; max-width: 88px; min-width: 88px;">
+                                <img src="{{ $message->embed(public_path('/images/logo/logo.png')) }}" alt="Logo" border="0" width="150" style="display: block; width: 150px; max-width: 150px; min-width: 88px;">
                             </a>
                         </td>
                     </tr>
@@ -144,7 +144,7 @@
 
         <!-- start hero -->
         <tr>
-            <td align="center" bgcolor="#e9ecef">
+            <td align="center" bgcolor="white">
                 <!--[if (gte mso 9)|(IE)]>
         <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
         <tr>
@@ -168,7 +168,7 @@
 
         <!-- start copy block -->
         <tr>
-            <td align="center" bgcolor="#e9ecef">
+            <td align="center" bgcolor="white">
                 <!--[if (gte mso 9)|(IE)]>
         <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
         <tr>
@@ -232,7 +232,7 @@
         <!-- end copy block -->
         <!-- start footer -->
         <tr>
-            <td align="center" bgcolor="#e9ecef" style="padding: 24px;">
+            <td align="center" bgcolor="white" style="padding: 24px;">
                 <!--[if (gte mso 9)|(IE)]>
         <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
         <tr>
@@ -242,7 +242,7 @@
 
                     <!-- start permission -->
                     <tr>
-                        <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
+                        <td align="center" bgcolor="white" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
                             <p style="margin: 0;">Cảm ơn bạn đã tin tưởng và đồng hành cùng chúng tôi</p>
                         </td>
                     </tr>

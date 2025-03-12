@@ -134,5 +134,22 @@
         </div>
     </li>
 
+    <!-- Nav Item - Goods Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('admin.goods') }}" data-toggle="collapse" data-target="#collapseGoods"
+            aria-expanded="true" aria-controls="collapseGoods">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Đơn nhập hàng</span>
+        </a>
+        <div id="collapseGoods" class="collapse" aria-labelledby="headingGoods"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Chức năng:</h6>
+                <a class="collapse-item" href="{{ route('admin.goods') }}">Danh sách</a>
+                <a class="collapse-item" href="{{ route('admin.goods.create') }}">Thêm mới</a>
+            </div>
+        </div>
+    </li>
+
 </ul>
 <!-- End of Sidebar -->

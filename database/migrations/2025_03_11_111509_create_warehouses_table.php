@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('suppliers', function (Blueprint $table) {
+        Schema::create('warehouses', function (Blueprint $table) {
             $table->id();
-            $table->string('name',255);
-            $table->string('phone',255)->nullable();
-            $table->string('email',255)->nullable();
-            $table->string('slug')->nullable();
+            $table->unsignedBigInteger('product_id'); //FK
+            $table->integer('quantity');
             $table->timestamps();
             $table->softDeletes('deleted_at');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('suppliers');
+        Schema::dropIfExists('warehouses');
     }
 };

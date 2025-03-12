@@ -27,8 +27,10 @@ class AuthController extends Controller
         if (Auth::attempt($data)) {
             if (Auth::user()->status === 'active') {
                 if (Auth::user()->role_id === 3) {
+                    toast('Đăng nhập thành công','success');
                     return redirect('/');
                 } else {
+                    toast('Đăng nhập thành công','success');
                     return redirect('/admin');
                 }
             } else if (Auth::user()->status === 'inactive') {
@@ -52,6 +54,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'avatar' => 'http://127.0.0.1:8000/images/avatars/default.jpg',
             'verification_token' => Str::random(40),
             'role_id' => 3,
         ]);
@@ -67,7 +70,12 @@ class AuthController extends Controller
             $user->status = 'active';
             $user->verification_token = null;
             $user->save();
-            return redirect('/dang-nhap')->with('message', 'Kích hoạt tài khoản thành công.');
+
+            // Tự động đăng nhập người dùng sau khi đăng ký
+            Auth::login($user);
+
+            toast('Đăng nhập thành công','success');
+            return redirect('/');
         } else {
             return view('404');
         }

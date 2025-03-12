@@ -28,7 +28,9 @@ class PaymentMethodController extends Controller
             'name' => $request->name,
             'slug' => Str::slug($request->name)
         ]);
-        return redirect('admin/phuong-thuc-thanh-toan')->with('message', 'Thêm mới thành công.');
+
+        toast('Thêm mới thành công','success');
+        return redirect('admin/phuong-thuc-thanh-toan');
     }
 
     public function edit($slug)
@@ -44,12 +46,16 @@ class PaymentMethodController extends Controller
             'slug' => Str::slug($request->name),
         ];
         Payment_method::where('id', $id)->update($payment);
-        return redirect('admin/phuong-thuc-thanh-toan')->with('message', 'Cập nhật thành công.');
+
+        toast('Cập nhật thành công','success');
+        return redirect('admin/phuong-thuc-thanh-toan');
     }
 
     public function delete($slug)
     {
         Payment_method::where('slug', $slug)->delete();
-        return redirect('admin/phuong-thuc-thanh-toan')->with('message', 'Xóa thành công.');
+
+        toast('Xóa thành công','success');
+        return redirect('admin/phuong-thuc-thanh-toan');
     }
 }

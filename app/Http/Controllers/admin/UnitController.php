@@ -28,7 +28,9 @@ class UnitController extends Controller
             'name' => $request->name,
             'slug' => Str::slug($request->name)
         ]);
-        return redirect('admin/don-vi')->with('message', 'Thêm mới thành công');
+
+        toast('Thêm mới thành công','success');
+        return redirect('admin/don-vi');
     }
 
     public function edit($slug)
@@ -44,12 +46,16 @@ class UnitController extends Controller
             'slug' => Str::slug($request->name),
         ];
         Unit::where('id', $id)->update($unit);
-        return redirect('admin/don-vi')->with('message', 'Cập nhật thành công');
+
+        toast('Cập nhật thành công','success');
+        return redirect('admin/don-vi');
     }
 
     public function delete($slug)
     {
         Unit::where('slug', $slug)->delete();
-        return redirect('admin/don-vi')->with('message', 'Xóa thành công');
+
+        toast('Xóa thành công','success');
+        return redirect('admin/don-vi');
     }
 }

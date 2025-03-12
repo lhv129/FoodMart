@@ -30,7 +30,9 @@ class SupplierController extends Controller
             'email' => $request->email,
             'slug' => Str::slug($request->name),
         ]);
-        return redirect('admin/nha-cung-cap')->with('message', 'Thêm mới thành công');
+
+        toast('Thêm mới thành công','success');
+        return redirect('admin/nha-cung-cap');
     }
 
     public function edit($slug)
@@ -46,12 +48,16 @@ class SupplierController extends Controller
             'slug' => Str::slug($request->name),
         ];
         Supplier::where('id', $id)->update($supplier);
-        return redirect('admin/nha-cung-cap')->with('message', 'Cập nhật thành công');
+
+        toast('Cập nhật thành công','success');
+        return redirect('admin/nha-cung-cap');
     }
 
     public function delete($slug)
     {
         Supplier::where('slug', $slug)->delete();
-        return redirect('admin/nha-cung-cap')->with('message', 'Xóa thành công');
+
+        toast('Xóa thành công','success');
+        return redirect('admin/nha-cung-cap');
     }
 }

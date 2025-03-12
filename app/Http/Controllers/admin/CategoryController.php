@@ -25,7 +25,9 @@ class CategoryController extends Controller
             'name' => $request->name,
             'slug' => Str::slug($request->name)
         ]);
-        return redirect('admin/danh-muc-san-pham')->with('message', 'Thêm mới thành công');
+
+        toast('Thêm mới thành công','success');
+        return redirect('admin/danh-muc-san-pham');
     }
 
     public function edit($slug){
@@ -39,11 +41,15 @@ class CategoryController extends Controller
             'slug' => Str::slug($request->name),
         ];
         Category::where('id',$id)->update($category);
-        return redirect('admin/danh-muc-san-pham')->with('message', 'Cập nhật thành công');
+
+        toast('Cập nhật thành công','success');
+        return redirect('admin/danh-muc-san-pham');
     }
 
     public function delete($slug){
         Category::where('slug',$slug)->delete();
-        return redirect('admin/danh-muc-san-pham')->with('message', 'Xóa thành công');
+
+        toast('Xóa thành công','success');
+        return redirect('admin/danh-muc-san-pham');
     }
 }

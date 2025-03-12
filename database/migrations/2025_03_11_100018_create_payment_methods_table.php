@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('suppliers', function (Blueprint $table) {
+        Schema::create('payment_methods', function (Blueprint $table) {
             $table->id();
-            $table->string('name',255);
-            $table->string('phone',255)->nullable();
-            $table->string('email',255)->nullable();
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->string('logo')->nullable();
+            $table->string('fileLogo')->nullable();
             $table->string('slug')->nullable();
-            $table->timestamps();
             $table->softDeletes('deleted_at');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('suppliers');
+        Schema::dropIfExists('payment_methods');
     }
 };

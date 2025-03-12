@@ -4,12 +4,12 @@ namespace App\Http\Controllers\admin;
 
 use App\Models\Unit;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -53,7 +53,9 @@ class ProductController extends Controller
                 'slug' => Str::slug($request->name),
                 'description' => $request->description,
             ]);
-            return redirect('admin/san-pham')->with('message', 'Thêm mới thành công');
+
+            toast('Thêm mới thành công','success');
+            return redirect('admin/san-pham');
         }
     }
 
@@ -84,7 +86,7 @@ class ProductController extends Controller
             $path_image = $product->image;
         }
 
-        $product ->update([
+        $product->update([
             'name' => $request->name,
             'category_id' => $request->category_id,
             'image' => $path_image,
@@ -95,11 +97,13 @@ class ProductController extends Controller
             'slug' => Str::slug($request->name),
             'description' => $request->description,
         ]);
-        return redirect('admin/san-pham')->with('message', 'Chỉnh sửa sản phẩm thành công');
+        toast('Cập nhật thành công','success');
+        return redirect('admin/san-pham');
     }
 
-    public function delete($slug) {
-        $product = Product::where('slug',$slug)->first();
+    public function delete($slug)
+    {
+        $product = Product::where('slug', $slug)->first();
         // Đường dẫn ảnh
         $imageDirectory = 'images/products/';
         // Xóa sản phẩm thì xóa luôn ảnh sản phẩm đó
@@ -107,6 +111,7 @@ class ProductController extends Controller
 
         $product->delete();
 
-        return redirect('admin/san-pham')->with('message', 'Xóa sản phẩm thành công');
+        toast('Xóa thành công','success');
+        return redirect('admin/san-pham');
     }
 }

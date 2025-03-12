@@ -37,13 +37,6 @@ Sản phẩm
                             </form>
                         </div>
                     </div>
-
-                    @session('message')
-                    <div class="alert alert-success"><svg class="bi flex-shrink-0 me-2 mr-2" width="24" height="24" role="img" aria-label="Success:">
-                            <use xlink:href="#check-circle-fill" />
-                        </svg>{{ session('message') }}</div>
-                    @endsession
-
                     <div class="row">
                         <div class="col-sm-12">
                             <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">

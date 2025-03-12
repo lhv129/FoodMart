@@ -19,9 +19,6 @@ Sản phẩm
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="row">
-                @if(session('uploaded_image'))
-                <img src="{{ asset(session('uploaded_image')) }}" alt="Ảnh đã tải lên" style="max-width: 200px;">
-                @endif
                 <form class="col-xl-4 col-lg-5 col-md-6 col-12" method="POST" enctype="multipart/form-data" action="{{ route('admin.products.store') }}">
                     @csrf
                     <div class="form-group">

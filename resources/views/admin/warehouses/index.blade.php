@@ -48,21 +48,26 @@ Kho hàng
                                 <thead class="text-center">
                                     <tr role="row">
                                         <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 102px;">Số TT</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Danh mục</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Tên sản phẩm</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Đơn vị</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Ảnh sản phẩm</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Gía nhập</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Gía bán</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Số lượng</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Đơn vị</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-center">
                                     @foreach ($warehouses as $index => $warehouse)
                                     <tr class="odd">
                                         <td class="sorting_1">{{$index+1}}</td>
-                                        <td>{{ $warehouse->name }}</td>
-
+                                        <td>{{ $warehouse->product_name }}</td>
+                                        <td>
+                                            <img src="{{ asset($warehouse->image) }}" alt="Ảnh sản phẩm" width="100px">
+                                        </td>
+                                        <td>{{ number_format($warehouse->entry_price, 0, ',', '.') }} vnđ</td>
+                                        <td>{{ number_format($warehouse->retail_price, 0, ',', '.') }} vnđ</td>
+                                        <td>{{ $warehouse->quantity }}</td>
+                                        <td>{{ $warehouse->unit_name }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>

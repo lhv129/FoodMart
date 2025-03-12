@@ -1,14 +1,18 @@
 <?php
 
-use App\Http\Controllers\admin\CategoryController;
-use App\Http\Controllers\admin\DashboardController;
-use App\Http\Controllers\admin\PaymentMethodController;
-use App\Http\Controllers\admin\ProductController;
-use App\Http\Controllers\admin\SupplierController;
-use App\Http\Controllers\admin\UnitController;
-use App\Http\Controllers\admin\WarehouseController;
-use App\Http\Controllers\AuthController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\admin\UnitController;
+use App\Http\Controllers\client\HomeController;
+use App\Http\Controllers\admin\ProductController;
+use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\SupplierController;
+use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\WarehouseController;
+use App\Http\Controllers\admin\PaymentMethodController;
+use App\Http\Controllers\admin\GoodReceiptNoteController;
+use App\Http\Controllers\admin\GoodReceiptNoteDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,15 +35,38 @@ Route::get('dang-xuat', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['checkRole:1,2'])->prefix('admin')->group(function () {
     // Route mà Admin, Staff có thể truy cập
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
+
+    //Route products
     Route::get('/san-pham', [ProductController::class, 'index'])->name('admin.products');
+
+    //Route categories
     Route::get('/danh-muc-san-pham', [CategoryController::class, 'index'])->name('admin.categories');
+
+    //Route units
     Route::get('/don-vi', [UnitController::class, 'index'])->name('admin.units');
+
+    //Route suppliers
     Route::get('/nha-cung-cap', [SupplierController::class, 'index'])->name('admin.suppliers');
+
+    //Route payment_methods
     Route::get('/phuong-thuc-thanh-toan', [PaymentMethodController::class, 'index'])->name('admin.payments');
+
+    //Route warehouses
     Route::get('/kho-hang', [WarehouseController::class, 'index'])->name('admin.warehouses');
 
+    //Route good_receipt_notes (nhập hàng)
+    Route::get('/don-nhap-hang', [GoodReceiptNoteController::class, 'index'])->name('admin.goods');
+    Route::get('/don-nhap-hang/them-moi', [GoodReceiptNoteController::class, 'create'])->name('admin.goods.create');
+    Route::post('/don-nhap-hang/them-moi', [GoodReceiptNoteController::class, 'store'])->name('admin.goods.store');
+    Route::get('/don-nhap-hang/{id}/xac-nhan', [GoodReceiptNoteController::class, 'confirm'])->name('admin.goods.confirm');
+    Route::get('/don-nhap-hang/{code}/chi-tiet', [GoodReceiptNoteController::class, 'detail'])->name('admin.goods.detail');
+    Route::delete('/don-nhap-hang/{code}/xoa', [GoodReceiptNoteController::class, 'delete'])->name('admin.goods.delete');
+
+    Route::post('/them-chi-tiet-don-hang', [GoodReceiptNoteDetailController::class, 'store'])->name('admin.good.details.store');
+    Route::delete('/xoa/{product}/chi-tiet-don-hang',[GoodReceiptNoteDetailController::class,'delete'])->name('admin.good.details.delete');
+
     Route::middleware(['checkRole:1'])->group(function () {
-        
+
         Route::get('/san-pham/them-moi', [ProductController::class, 'create'])->name('admin.products.create');
         Route::post('/san-pham/them-moi', [ProductController::class, 'store'])->name('admin.products.store');
         Route::get('/san-pham/{slug}/chinh-sua', [ProductController::class, 'edit'])->name('admin.products.edit');
@@ -71,3 +98,5 @@ Route::middleware(['checkRole:1,2'])->prefix('admin')->group(function () {
         Route::delete('/phuong-thuc-thanh-toan/{slug}/xoa', [PaymentMethodController::class, 'delete'])->name('admin.payments.delete');
     });
 });
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
