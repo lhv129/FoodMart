@@ -56,8 +56,8 @@ Sản phẩm
                                             <form method="POST" action="{{ route('admin.categories.delete', ['slug' => $category->slug]) }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a href="{{ route('admin.categories.edit', ['slug' => $category->slug]) }}"><button type="button" class="btn btn-primary">Sửa<i class="ml-2 fas fa-edit"></i></button></a>
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa không?')">Xóa<i class="ml-2 fa fa-trash" aria-hidden="true"></i></button>
+                                                <a href="{{ route('admin.categories.edit', ['slug' => $category->slug]) }}"><button type="button" class="btn btn-primary mb-1">Sửa<i class="ml-1 fas fa-edit"></i></button></a>
+                                                <button type="submit" class="btn btn-danger mb-1" onclick="return confirm('Bạn có muốn xóa không?')">Xóa<i class="ml-1 fa fa-trash" aria-hidden="true"></i></button>
                                             </form>
                                         </td>
                                     </tr>

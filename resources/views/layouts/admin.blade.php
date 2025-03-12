@@ -32,7 +32,7 @@
     </svg>
 </head>
 
-<body class="page-top">
+<body id="page-top" class="sidebar-toggled">
     <div id="wrapper">
         @include('admin.blocks.sidebar')
         <div id="content-wrapper" class="d-flex flex-column">
@@ -81,6 +81,7 @@
 
     <!-- Sử dụng sweetalert2 để thông báo -->
     @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
+    <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11') }}"></script>
 
 </body>
 

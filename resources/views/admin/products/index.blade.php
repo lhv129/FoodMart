@@ -73,8 +73,8 @@ Sản phẩm
                                             <form method="POST" action="{{ route('admin.products.delete', $product->slug) }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a href="{{ route('admin.products.edit', $product->slug) }}" class="btn btn-primary">Sửa</a>
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</button>
+                                                <a href="{{ route('admin.products.edit', $product->slug) }}"><button type="button" class="btn btn-primary mb-1">Sửa<i class="ml-1 fas fa-edit"></i></button></a>
+                                                <button type="submit" class="btn btn-danger mb-1" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa<i class="ml-1 fa fa-trash" aria-hidden="true"></i></button>
                                             </form>
                                         </td>
                                     </tr>

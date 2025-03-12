@@ -60,8 +60,8 @@ Nhà cung cấp
                                             <form method="POST" action="{{ route('admin.suppliers.delete', ['slug' => $supplier->slug]) }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a href="{{ route('admin.suppliers.edit', ['slug' => $supplier->slug]) }}"><button type="button" class="btn btn-primary">Sửa<i class="ml-2 fas fa-edit"></i></button></a>
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa không?')">Xóa<i class="ml-2 fa fa-trash" aria-hidden="true"></i></button>
+                                                <a href="{{ route('admin.suppliers.edit', ['slug' => $supplier->slug]) }}"><button type="button" class="btn btn-primary mb-1">Sửa<i class="ml-1 fas fa-edit"></i></button></a>
+                                                <button type="submit" class="btn btn-danger mb-1" onclick="return confirm('Bạn có muốn xóa không?')">Xóa<i class="ml-1 fa fa-trash" aria-hidden="true"></i></button>
                                             </form>
                                         </td>
                                     </tr>
