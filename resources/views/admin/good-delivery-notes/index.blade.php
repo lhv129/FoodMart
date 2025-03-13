@@ -64,9 +64,12 @@
                                         <td>{{ $delivery->created_at }}</td>
                                         <!-- {{-- Thẻ td cuối cùng --}} -->
                                         <td @if ($loop->last) class="" @else class="text-center" @endif>
+                                            @if($delivery->status === 'Success')
                                             <a href="{{ route('admin.delivery.detail' , $delivery->code) }}" type="button" class="btn btn-primary mb-1">Chi tiết</a>
+                                            @endif
                                             @if($delivery->status === 'Pending')
                                             <a href="{{ route('admin.delivery.confirm', $delivery->id) }}" type="button" class="btn btn-primary mb-1">Xác nhận</a>
+                                            <a href="{{ route('admin.delivery.edit', $delivery->id) }}" type="button" class="btn btn-warning mb-1">Chỉnh sửa</a>
                                             <form method="POST" action="{{ route('admin.delivery.delete', $delivery->code) }}">
                                                 @csrf
                                                 @method('DELETE')

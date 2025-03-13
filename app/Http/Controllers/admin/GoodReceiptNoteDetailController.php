@@ -60,7 +60,7 @@ class GoodReceiptNoteDetailController extends Controller
         return back();
     }
 
-    public function editDelete($id){
+    public function edit($id){
         $goodReceiptNoteDetail =  GoodReceiptNoteDetail::find($id);
         //Cập nhật lại giá cho tổng đơn hàng
         $goodReceiptNote = GoodReceiptNote::where('id',$goodReceiptNoteDetail->good_receipt_note_id)->first();
@@ -70,15 +70,13 @@ class GoodReceiptNoteDetailController extends Controller
 
         $goodReceiptNoteDetail->delete();
 
-        
-
         toast('Xóa thành công', 'success');
         return back();
     }
 
-    public function editStore(StoreGoodReceiptNoteDetail $request,$id){
+    public function update(StoreGoodReceiptNoteDetail $request,$id){
         //Kiểm tra sản phẩm đã có trong chi tiết đơn hàng chưa
-        $productInDetails = GoodReceiptNoteDetail::select('good_receipt_note_details.*','entry_price')
+        $productInDetails = GoodReceiptNoteDetail::select('good_receipt_note_details.*')
         ->join('products','products.id','product_id')
         ->where('good_receipt_note_id',$id)
         ->where('product_id',$request->product_id)

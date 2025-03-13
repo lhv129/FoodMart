@@ -112,6 +112,36 @@ class GoodDeliveryNoteController extends Controller
         }
     }
 
+    public function edit($id)
+    {
+        $goodDeliveryNote = GoodDeliveryNote::where('id', $id)->first();
+        if (Auth::user()->id == $goodDeliveryNote->user_id) {
+            $goodDeliveryNoteDetail = GoodDeliveryNoteDetail::select('good_delivery_note_details.*', 'products.name AS product_name', 'unit_id', 'units.name AS unit_name')
+                ->join('products', 'products.id', 'product_id')
+                ->join('units', 'units.id', 'unit_id')
+                ->where('good_delivery_note_id', $id)->get();
+            $payments = Payment_method::all();
+            $products = Product::all();
+            return view('admin/good-delivery-notes/edit', compact('payments', 'products', 'goodDeliveryNote', 'goodDeliveryNoteDetail'));
+        } else {
+            toast('Bạn chỉ có chỉnh sửa đơn của bạn tạo', 'error');
+            return redirect('admin/don-ban-hang');
+        }
+    }
+
+    public function update(Request $request,$id)
+    {
+        $goodDeliveryNote = GoodDeliveryNote::where('id', $id)->first();
+        $goodDeliveryNote->update([
+            'customer' => $request->customer,
+            'user_id' => Auth::user()->id,
+            'payment_method_id' => $request->payment_method_id
+        ]);
+
+        toast('Cập nhật thành công', 'success');
+        return redirect('admin/don-ban-hang');  
+    }
+
     public function detail($code)
     {
         $goodDeliveryNote = GoodDeliveryNote::select('good_delivery_notes.*', 'users.name As user_name', 'customer', 'payment_methods.name As payment_method_name')
