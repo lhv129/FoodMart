@@ -6,12 +6,14 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Mail\SendVerifyEmail;
-use Illuminate\Support\Facades\Mail;
-use App\Http\Requests\RegisterRequest;
-use App\Http\Requests\UpdateProfileAdminRequest;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\RegisterRequest;
+use Illuminate\Support\Facades\Session;
+use App\Http\Requests\UpdateProfileAdminRequest;
+use App\Http\Requests\ChangePasswordAdminRequest;
 
 class AuthController extends Controller
 {
@@ -36,7 +38,8 @@ class AuthController extends Controller
                     return redirect('/admin');
                 }
             } else if (Auth::user()->status === 'inactive') {
-                return back()->withErrors(['message' => "Tài khoản của bạn chưa được kích hoạt, vui lòng kiểm tra email"])->withInput();
+                toast('Tài khoản của bạn chưa được kích hoạt, vui lòng kiểm tra email', 'error');
+                return back()->withInput();
             } else {
                 Auth::logout();
                 toast('Tài khoản của bạn đã bị khóa, vui lòng liên hệ với nhân viên để được hỗ trợ', 'error');
@@ -110,16 +113,45 @@ class AuthController extends Controller
             $path_image = $user->avatar;
         }
         $user->update([
-                'name' => $request->name,
-                'avatar' => $path_image,
-                'fileAvatar' => $imageName ?? $user->fileAvatar,
-                'phone' => $request->phone,
-                'email' => $request->email,
-                'address' => $request->address,
-                'birthday' => $request->birthday,
+            'name' => $request->name,
+            'avatar' => $path_image,
+            'fileAvatar' => $imageName ?? $user->fileAvatar,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'address' => $request->address,
+            'birthday' => $request->birthday,
         ]);
         toast('Cập nhật thành công', 'success');
         return back();
+    }
+
+    public function changePassword()
+    {
+        return view('admin/profile/change-password');
+    }
+
+    public function handleChangePassword(ChangePasswordAdminRequest $request, $id)
+    {
+        // Lấy người dùng hiện tại
+        $user = User::findOrFail($id);
+
+        // Kiểm tra mật khẩu cũ
+        if (!Hash::check($request->old_password, $user->password)) {
+            return back()->withErrors(['old_password' => 'Mật khẩu cũ không đúng.'])->withInput();
+        }
+
+        // Kiểm tra mật khẩu mới và xác nhận mật khẩu mới có khớp nhau không
+        if ($request->password !== $request->password_confirm) {
+            return back()->withErrors(['password_confirm' => 'Mật khẩu xác nhận không khớp.'])->withInput();
+        }
+
+        // Cập nhật mật khẩu mới
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        // Thông báo thành công
+        toast('Mật khẩu đã được thay đổi', 'success');
+        return redirect('admin/ho-so-ca-nhan');
     }
 
     public function logout()

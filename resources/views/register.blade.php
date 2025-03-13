@@ -34,10 +34,12 @@
                     <div class="mb-5">
                         <div class="text-center mb-4">
                             <a href="#!">
-                                <img src="{{ asset('images/logo/logo.png') }}" alt="Logo">
+                                <img src="{{ asset('images/logo/logo.png') }}" alt="Logo" width="175">
                             </a>
                         </div>
-                        <h4 class="text-center">Đăng ký tài khoản</h4>
+                        <h4 class="text-center">Chào mừng bạn đến với FoodMart</h4>
+                        <p class="text-center m-0">Bạn đã có tài khoản rồi? <a href="{{ route('login') }}"
+                                class="text-secondary">Đăng nhập</a></p>
                     </div>
                 </div>
             </div>

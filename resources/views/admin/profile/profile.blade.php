@@ -111,7 +111,8 @@ Hồ sơ cá nhân
                                         </div>
                                     </div>
                                     <!-- Save changes button-->
-                                    <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
+                                    <button class="btn btn-success" type="submit">Lưu thay đổi</button>
+                                    <a href="{{ route('admin.profile.change') }}" class="btn btn-primary">Đổi mật khẩu</a>
                                 </form>
                             </div>
                         </div>

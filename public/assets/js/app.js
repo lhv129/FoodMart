@@ -8,3 +8,9 @@ function inNoiDung() {
 
     document.body.innerHTML = originalContents;
 }
+
+document.querySelectorAll(".changeRole").forEach(function (select) {
+    select.addEventListener("change", function () {
+        this.form.submit();
+    });
+});

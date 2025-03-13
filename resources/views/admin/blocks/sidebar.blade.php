@@ -116,6 +116,23 @@
             </div>
         </div>
     </li>
+
+    <!-- Nav Item - Users Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('admin.users') }}" data-toggle="collapse" data-target="#collapseUsers"
+            aria-expanded="true" aria-controls="collapseUsers">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Người dùng</span>
+        </a>
+        <div id="collapseUsers" class="collapse" aria-labelledby="headingUsers"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Chức năng:</h6>
+                <a class="collapse-item" href="{{ route('admin.users') }}">Danh sách người dùng</a>
+                <a class="collapse-item" href="{{ route('admin.users.staff') }}">Danh sách quản trị viên</a>
+            </div>
+        </div>
+    </li>
     @endif
 
     <!-- Nav Item - Warehouses Collapse Menu -->
