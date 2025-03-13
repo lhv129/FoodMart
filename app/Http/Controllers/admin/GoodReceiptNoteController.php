@@ -105,26 +105,59 @@ class GoodReceiptNoteController extends Controller
             toast('Xác nhận đơn thành công', 'success');
             return redirect('admin/don-nhap-hang');
         } else {
-            toast('Bạn chỉ có thể xác nhận đơn do bạn tạo ra', 'error');
+            toast('Bạn chỉ có thể xác nhận đơn của bạn tạo', 'error');
             return redirect('admin/don-nhap-hang');
         }
     }
 
-    public function detail($code){
+    public function detail($code)
+    {
         $goodReceiptNote = GoodReceiptNote::select('good_receipt_notes.*', 'suppliers.name As supplier_name', 'users.name As user_name', 'payment_methods.name As payment_method_name')
-        ->join('suppliers', 'suppliers.id', 'supplier_id')
-        ->join('users', 'users.id', 'user_id')
-        ->join('payment_methods', 'payment_methods.id', 'payment_method_id')
-        ->where('good_receipt_notes.code',$code)
-        ->first();
-    
-        $goodReceiptNoteDetail = GoodReceiptNoteDetail::select('good_receipt_note_details.*','products.name As product_name','sub_total','image','unit_id','units.name AS unit_name')
-        ->join('products','products.id','product_id')
-        ->join('units','units.id','unit_id')
-        ->where('good_receipt_note_id',$goodReceiptNote->id)
-        ->get();
-        
-        return view('admin/good-receipt-notes/detail',compact('goodReceiptNote','goodReceiptNoteDetail'));
+            ->join('suppliers', 'suppliers.id', 'supplier_id')
+            ->join('users', 'users.id', 'user_id')
+            ->join('payment_methods', 'payment_methods.id', 'payment_method_id')
+            ->where('good_receipt_notes.code', $code)
+            ->first();
+
+        $goodReceiptNoteDetail = GoodReceiptNoteDetail::select('good_receipt_note_details.*', 'products.name As product_name', 'sub_total', 'image', 'unit_id', 'units.name AS unit_name')
+            ->join('products', 'products.id', 'product_id')
+            ->join('units', 'units.id', 'unit_id')
+            ->where('good_receipt_note_id', $goodReceiptNote->id)
+            ->get();
+
+        return view('admin/good-receipt-notes/detail', compact('goodReceiptNote', 'goodReceiptNoteDetail'));
+    }
+
+    public function edit($id)
+    {
+        $goodReceiptNote = GoodReceiptNote::where('id', $id)->first();
+
+        if (Auth::user()->id == $goodReceiptNote->user_id) {
+            $goodReceiptNoteDetail = GoodReceiptNoteDetail::select('good_receipt_note_details.*', 'products.name AS product_name', 'unit_id', 'units.name AS unit_name')
+                ->join('products', 'products.id', 'product_id')
+                ->join('units', 'units.id', 'unit_id')
+                ->where('good_receipt_note_id', $id)->get();
+            $suppliers = Supplier::all();
+            $payments = Payment_method::all();
+            $products = Product::all();
+            return view('admin/good-receipt-notes/edit', compact('suppliers', 'payments', 'products', 'goodReceiptNote', 'goodReceiptNoteDetail'));
+        } else {
+            toast('Bạn chỉ có chỉnh sửa đơn của bạn tạo', 'error');
+            return redirect('admin/don-nhap-hang');
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $goodReceiptNote = GoodReceiptNote::where('id', $id)->first();
+        $goodReceiptNote->update([
+            'supplier_id' => $request->supplier_id,
+            'user_id' => Auth::user()->id,
+            'payment_method_id' => $request->payment_method_id
+        ]);
+
+        toast('Cập nhật thành công', 'success');
+        return redirect('admin/don-nhap-hang');
     }
 
     public function delete($code)

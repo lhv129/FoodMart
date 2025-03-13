@@ -61,18 +61,28 @@ Route::middleware(['checkRole:1,2'])->prefix('admin')->group(function () {
     Route::get('/don-nhap-hang', [GoodReceiptNoteController::class, 'index'])->name('admin.goods');
     Route::get('/don-nhap-hang/them-moi', [GoodReceiptNoteController::class, 'create'])->name('admin.goods.create');
     Route::post('/don-nhap-hang/them-moi', [GoodReceiptNoteController::class, 'store'])->name('admin.goods.store');
+    Route::get('/don-nhap-hang/{id}/chinh-sua',[GoodReceiptNoteController::class,'edit'])->name('admin.goods.edit');
+    Route::put('/don-nhap-hang/{id}/cap-nhat',[GoodReceiptNoteController::class,'update'])->name('admin.goods.update');
     Route::get('/don-nhap-hang/{id}/xac-nhan', [GoodReceiptNoteController::class, 'confirm'])->name('admin.goods.confirm');
     Route::get('/don-nhap-hang/{code}/chi-tiet', [GoodReceiptNoteController::class, 'detail'])->name('admin.goods.detail');
     Route::delete('/don-nhap-hang/{code}/xoa', [GoodReceiptNoteController::class, 'delete'])->name('admin.goods.delete');
 
     // Route goood_receipt_note_details (chi tiết đơn hàng)
+    //Thêm mới sản phẩm vào chi tiết đơn hàng lưu vào session
     Route::post('/them-chi-tiet-don-hang', [GoodReceiptNoteDetailController::class, 'store'])->name('admin.good.details.store');
-    Route::delete('/xoa/{product}/chi-tiet-don-hang',[GoodReceiptNoteDetailController::class,'delete'])->name('admin.good.details.delete');
+    //Xóa khỏi sản phẩm ra chi tiết đơn hàng (xóa trong session)
+    Route::delete('/chi-tiet-don-hang/{product}/xoa',[GoodReceiptNoteDetailController::class,'delete'])->name('admin.good.details.delete');
+
+    //Chỉnh sửa (xóa) để kiểm tra lại lần nữa trước khi xác nhận
+    Route::delete('/don-nhap-hang/chi-tiet-don-hang/{id}/xoa',[GoodReceiptNoteDetailController::class,'editDelete'])->name('admin.good.details.edit');
+    //Thêm mới lại sản phẩm sau khi vào chỉnh sửa đơn nhập hàng
+    Route::post('/don-nhap-hang/{id}/chi-tiet/them-moi',[GoodReceiptNoteDetailController::class,'editStore'])->name('admin.good.details.edit.store');
 
     //Route good_delivery_notes (bán hàng)
     Route::get('/don-ban-hang', [GoodDeliveryNoteController::class, 'index'])->name('admin.delivery');
     Route::get('/don-ban-hang/them-moi', [GoodDeliveryNoteController::class, 'create'])->name('admin.delivery.create');
     Route::post('/don-ban-hang/them-moi', [GoodDeliveryNoteController::class, 'store'])->name('admin.delivery.store');
+    
     Route::get('/don-ban-hang/{id}/xac-nhan', [GoodDeliveryNoteController::class, 'confirm'])->name('admin.delivery.confirm');
     Route::get('/don-ban-hang/{code}/chi-tiet', [GoodDeliveryNoteController::class, 'detail'])->name('admin.delivery.detail');
     Route::delete('/don-ban-hang/{code}/xoa', [GoodDeliveryNoteController::class, 'delete'])->name('admin.delivery.delete');

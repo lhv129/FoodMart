@@ -64,9 +64,12 @@
                                         <td>{{ $good->created_at }}</td>
                                         <!-- {{-- Thẻ td cuối cùng --}} -->
                                         <td @if ($loop->last) class="" @else class="text-center" @endif>
+                                            @if($good->status === 'Success')
                                             <a href="{{ route('admin.goods.detail' , $good->code) }}" type="button" class="btn btn-primary mb-1">Chi tiết</a>
+                                            @endif
                                             @if($good->status === 'Pending')
                                             <a href="{{ route('admin.goods.confirm', $good->id) }}" type="button" class="btn btn-primary mb-1">Xác nhận</a>
+                                            <a href="{{ route('admin.goods.edit', $good->id) }}" type="button" class="btn btn-warning mb-1">Chỉnh sửa</a>
                                             <form method="POST" action="{{ route('admin.goods.delete', $good->code) }}">
                                                 @csrf
                                                 @method('DELETE')

@@ -6,6 +6,8 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGoodReceiptNoteDetail;
+use App\Models\GoodReceiptNote;
+use App\Models\GoodReceiptNoteDetail;
 use Illuminate\Support\Facades\Session;
 
 class GoodReceiptNoteDetailController extends Controller
@@ -56,6 +58,77 @@ class GoodReceiptNoteDetailController extends Controller
         Session::put('cart', $cart);
 
         return back();
+    }
+
+    public function editDelete($id){
+        $goodReceiptNoteDetail =  GoodReceiptNoteDetail::find($id);
+        //Cập nhật lại giá cho tổng đơn hàng
+        $goodReceiptNote = GoodReceiptNote::where('id',$goodReceiptNoteDetail->good_receipt_note_id)->first();
+        $goodReceiptNote->update([
+            'total_price' => $goodReceiptNote->total_price - $goodReceiptNoteDetail->sub_total
+        ]);
+
+        $goodReceiptNoteDetail->delete();
+
+        
+
+        toast('Xóa thành công', 'success');
+        return back();
+    }
+
+    public function editStore(StoreGoodReceiptNoteDetail $request,$id){
+        //Kiểm tra sản phẩm đã có trong chi tiết đơn hàng chưa
+        $productInDetails = GoodReceiptNoteDetail::select('good_receipt_note_details.*','entry_price')
+        ->join('products','products.id','product_id')
+        ->where('good_receipt_note_id',$id)
+        ->where('product_id',$request->product_id)
+        ->first();
+        //Lấy ra giá sản phẩm
+        $product = Product::select('products.id','products.name', 'entry_price')
+            ->where('products.id', $request->product_id)
+            ->first();
+        //Nếu tồn tại thì thêm cập nhật lại số lượng
+        if($productInDetails){
+            $subTotal = $request->quantity * $product->entry_price;
+            $productInDetails->update([
+                'quantity' => $productInDetails->quantity + $request->quantity,
+                'sub_total' => $productInDetails->sub_total + $subTotal
+            ]);
+
+            //Cập nhật lại giá cho tổng đơn hàng
+            $totalPrice = $this->sumTotalPrice($id);
+            GoodReceiptNote::where('id',$id)->update([
+                'total_price' => $totalPrice,
+            ]);
+
+            return back();
+        }else{
+            GoodReceiptNoteDetail::create([
+                'good_receipt_note_id' => $id,
+                'product_id' => $request->product_id,
+                'quantity' => $request->quantity,
+                'sub_total' => $request->quantity * $product->entry_price 
+            ]);
+            //Cập nhật lại giá cho tổng đơn hàng
+            $totalPrice = $this->sumTotalPrice($id);
+            GoodReceiptNote::where('id',$id)->update([
+                'total_price' => $totalPrice,
+            ]);
+            return back();
+        }
+    }
+
+    public function sumTotalPrice($id){
+        $productInDetails = GoodReceiptNoteDetail::select('id','good_receipt_note_id','sub_total')
+        ->where('good_receipt_note_id',$id)
+        ->get();
+
+        $totalPrice = 0;
+        foreach($productInDetails as $item){
+            $totalPrice += $item->sub_total;
+        }
+
+        return $totalPrice;
     }
 
     public function delete($product)
