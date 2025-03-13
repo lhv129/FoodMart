@@ -24,6 +24,7 @@ class CheckRole
         // Kiểm tra vai trò của người dùng
         if (!in_array($request->user()->role_id, $roles)) {
             // return abort(403, 'Bạn không có quyền truy cập trang này.');
+            toast('Bạn không có quyền truy cập', 'error');
             return back();
         }
         return $next($request); // Cho phép request tiếp tục nếu có quyền truy cập

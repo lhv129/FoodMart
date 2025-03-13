@@ -59,6 +59,14 @@
                                     <th scope="col">Đơn giá</th>
                                 </tr>
                             </thead>
+                            <tfoot>
+                                <tr>
+                                    <th scope="col">&nbsp;</th>
+                                    <th scope="col">&nbsp;</th>
+                                    <th scope="col">Tổng tiền</th>
+                                    <th scope="col">{{ number_format($goodReceiptNote->total_price, 0, ',', '.') }} vnđ</th>
+                                </tr>
+                            </tfoot>
                             <tbody>
                                 @foreach($goodReceiptNoteDetail as $index => $item)
                                 <tr>
@@ -77,12 +85,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    </div>
-                </div>
-                <div class="total">
-                    <div class="row">
-                        <div class="col-9"></div>
-                        <div class="col-3">Tổng tiền: {{ number_format($goodReceiptNote->total_price, 0, ',', '.') }} vnđ</div>
                     </div>
                 </div>
             </div>
