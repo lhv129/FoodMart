@@ -52,6 +52,7 @@ class ProductController extends Controller
                 'retail_price' => $request->retail_price,
                 'slug' => Str::slug($request->name),
                 'description' => $request->description,
+                'discount' => $request->discount,
             ]);
 
             toast('Thêm mới thành công','success');
@@ -96,6 +97,7 @@ class ProductController extends Controller
             'retail_price' => $request->retail_price,
             'slug' => Str::slug($request->name),
             'description' => $request->description,
+            'discount' => $request->discount,
         ]);
         toast('Cập nhật thành công','success');
         return redirect('admin/san-pham');

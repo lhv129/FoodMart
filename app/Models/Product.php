@@ -21,6 +21,7 @@ class Product extends Model
         'retail_price',
         'slug',
         'deleted_at',
-        'description'
+        'description',
+        'discount'
     ];
 }

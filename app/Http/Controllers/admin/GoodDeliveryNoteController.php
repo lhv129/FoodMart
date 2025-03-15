@@ -99,6 +99,12 @@ class GoodDeliveryNoteController extends Controller
                     $productInWarehouse->update([
                         'quantity' => $productInWarehouse->quantity - $item->quantity
                     ]);
+
+                    //Cập nhật thêm topRate của sản phẩm
+                    $product = Product::where('id',$item->product_id)->first();
+                    $product->update([
+                        'topRate' => $product->topRate += 1
+                    ]);
                 }
                 $goodDeliveryNote->update([
                     'status' => 'Success',

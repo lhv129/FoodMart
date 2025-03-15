@@ -23,6 +23,7 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:categories,name,'.$this->id.'id',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
         ];
     }
 
@@ -31,6 +32,8 @@ class UpdateCategoryRequest extends FormRequest
         return [
             'name.required' => 'Danh mục sản phẩm không được để trống',
             'name.unique' => 'Danh mục sản phẩm này đã có, vui lòng nhập tên khác',
+            'image.image' => 'File tải lên phải là ảnh.',
+            'image.mimes' => 'Ảnh phải có định dạng: jpeg, png, jpg, gif, svg.',
         ];
     }
 }

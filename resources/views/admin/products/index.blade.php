@@ -48,6 +48,7 @@ Sản phẩm
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Ảnh</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Gía nhập</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Gía bán</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Giảm giá</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Đơn vị</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Mô tả</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Chức năng</th>
@@ -64,6 +65,7 @@ Sản phẩm
                                         </td>
                                         <td>{{ number_format($product->entry_price, 0, ',', '.') }} vnđ</td>
                                         <td>{{ number_format($product->retail_price, 0, ',', '.') }} vnđ</td>
+                                        <td>{{ number_format($product->discount, 0, ',', '.') }} vnđ</td>
                                         <td>{{ $product->unit_name }}</td>
                                         <td>
                                             <div style="width:150px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{ $product->description }}</div>

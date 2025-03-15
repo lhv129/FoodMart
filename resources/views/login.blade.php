@@ -32,7 +32,7 @@
                 <div class="col-12">
                     <div class="mb-5">
                         <div class="text-center mb-4">
-                            <a href="#!">
+                            <a href="{{ route('home') }}">
                                 <img src="{{ asset('images/logo/logo.png') }}" alt="Logo" width="175">
                             </a>
                         </div>

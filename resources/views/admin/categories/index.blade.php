@@ -44,6 +44,7 @@ Sản phẩm
                                     <tr role="row">
                                         <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 102px;">Số TT</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Tên danh mục</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Ảnh</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Chức năng</th>
                                     </tr>
                                 </thead>
@@ -52,6 +53,9 @@ Sản phẩm
                                     <tr class="odd">
                                         <td class="sorting_1">{{$index+1}}</td>
                                         <td>{{ $category->name }}</td>
+                                        <td>
+                                            <img src="{{ $category->image }}" width="100">
+                                        </td>
                                         <td @if ($loop->last) class="" @else class="text-center" @endif>
                                             <form method="POST" action="{{ route('admin.categories.delete', ['slug' => $category->slug]) }}">
                                                 @csrf

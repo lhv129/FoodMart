@@ -26,8 +26,9 @@ class StoreProductRequest extends FormRequest
             'category_id' => 'required',
             'unit_id' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
-            'entry_price' => 'required|min:0',
-            'retail_price' => 'required|min:0',
+            'entry_price' => 'required|numeric|min:1',
+            'retail_price' => 'required|numeric|min:1',
+            'discount' => 'required|numeric|min:0',
             'description' => 'required|min:100|max:1000'
         ];
     }
@@ -37,8 +38,9 @@ class StoreProductRequest extends FormRequest
         return [
             'required' => ':Attribute của sản phẩm không được để trống',
             'name.unique' => 'Tên sản phẩm này đã có, vui lòng nhập tên khác',
-            'entry_price.min' => 'Giá nhập phải lớn hơn hoặc bằng 0.',
-            'retail_price.min' => 'Giá bán lẻ phải lớn hơn hoặc bằng 0.',
+            'entry_price.min' => 'Giá nhập phải lớn hơn 0.',
+            'retail_price.min' => 'Giá bán lẻ phải lớn hơn 0.',
+            'discount.min' => 'Giá giảm phải lớn hơn hoặc bằng 0.',
             'image.required' => 'Vui lòng chọn ảnh sản phẩm.',
             'image.image' => 'File tải lên phải là ảnh.',
             'image.mimes' => 'Ảnh phải có định dạng: jpeg, png, jpg, gif, svg.',

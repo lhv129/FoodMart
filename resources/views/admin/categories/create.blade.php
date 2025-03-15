@@ -28,6 +28,14 @@ Sản phẩm
                         <div class="mt-2"><i class="fa fa-exclamation-triangle text-danger" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-danger">{{ $message }}</span></div>
                         @enderror
                     </div>
+
+                    <div class="form-group">
+                        <label>Ảnh danh mục</label>
+                        <input type="file" name="image" class="form-control-file">
+                        @error("image")
+                        <div class="mt-2"><i class="fa fa-exclamation-triangle text-danger" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-danger">{{ $message }}</span></div>
+                        @enderror
+                    </div>
                     <button type="submit" class="btn btn-primary">Thêm mới</button>
                 </form>
             </div>

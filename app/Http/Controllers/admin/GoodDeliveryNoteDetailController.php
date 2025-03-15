@@ -16,13 +16,13 @@ class GoodDeliveryNoteDetailController extends Controller
     public function store(StoreGoodDeliveryNoteDetail $request)
     {
         // Lấy dữ liệu từ request
-        $product = Product::select('products.id', 'unit_id', 'products.name', 'retail_price', 'units.name AS unit_name')
+        $product = Product::select('products.id', 'unit_id', 'products.name', 'retail_price','discount','units.name AS unit_name')
             ->join('units', 'units.id', 'unit_id')
             ->where('products.id', $request->product_id)
             ->first();
         $productInWarehouse = Warehouse::where('product_id', $product->id)->first();
         if ($request->quantity > $productInWarehouse->quantity) {
-            toast("Sản phẩm này trong kho chỉ còn $productInWarehouse->quantity", 'error');
+            toast("Sản phẩm $product->name trong kho chỉ còn $productInWarehouse->quantity", 'error');
             return back()->withInput();
         }
         // Tạo một mảng chứa thông tin sản phẩm
@@ -31,7 +31,7 @@ class GoodDeliveryNoteDetailController extends Controller
             'product' => $product->name,
             'unit' => $product->unit_name,
             'quantity' => $request->quantity,
-            'sub_total' => $product->retail_price * $request->quantity
+            'sub_total' => ($product->retail_price - $product->discount) * $request->quantity
         ];
         // Lấy mảng hiện tại từ session hoặc tạo mới nếu chưa có
         $cartDelivery = Session::get('cartDelivery', []);
@@ -51,7 +51,7 @@ class GoodDeliveryNoteDetailController extends Controller
                     break;
                 } else {
                     //Nếu không sẽ trả về thông báo lỗi
-                    toast("Sản phẩm này trong kho chỉ còn $productInWarehouse->quantity", 'error');
+                    toast("Sản phẩm $product->name trong kho chỉ còn $productInWarehouse->quantity", 'error');
                     return back()->withInput();
                 }
             }
@@ -96,7 +96,7 @@ class GoodDeliveryNoteDetailController extends Controller
             ->where('product_id', $request->product_id)
             ->first();
         //Lấy ra giá sản phẩm
-        $product = Product::select('products.id', 'products.name', 'retail_price')
+        $product = Product::select('products.id', 'products.name', 'retail_price','discount')
             ->where('products.id', $request->product_id)
             ->first();
         $productInWarehouse = Warehouse::where('product_id', $request->product_id)->first();
@@ -108,7 +108,7 @@ class GoodDeliveryNoteDetailController extends Controller
                 // Số lượng trong kho nhiều hơn hoặc bằng số lượng trong đơn thì cho cập nhật lại số lượng,sub_total trong chi tiết đơn
                 $productInDetails->update([
                     'quantity' => $totalQuantity,
-                    'sub_total' => $totalQuantity * $product->retail_price,
+                    'sub_total' => $totalQuantity * ($product->retail_price - $product->discount),
                 ]);
                 //Cập nhật lại giá cho tổng đơn hàng
                 $totalPrice = $this->sumTotalPrice($id);
@@ -130,7 +130,7 @@ class GoodDeliveryNoteDetailController extends Controller
                     'good_delivery_note_id' => $id,
                     'product_id' => $request->product_id,
                     'quantity' => $request->quantity,
-                    'sub_total' => $request->quantity * $product->retail_price
+                    'sub_total' => $request->quantity * ($product->retail_price - $product->discount)
                 ]);
                 //Cập nhật lại giá cho tổng đơn hàng
                 $totalPrice = $this->sumTotalPrice($id);

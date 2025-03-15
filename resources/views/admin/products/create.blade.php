@@ -76,6 +76,14 @@ Sản phẩm
                         <div class="mt-2"><i class="fa fa-exclamation-triangle text-danger" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-danger">{{ $message }}</span></div>
                         @enderror
                     </div>
+
+                    <div class="form-group">
+                        <label>Giảm giá</label>
+                        <input type="number" name="discount" class="form-control" placeholder="Gía giảm của sản phẩm" value="{{ old('discount') }}">
+                        @error("discount")
+                        <div class="mt-2"><i class="fa fa-exclamation-triangle text-danger" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-danger">{{ $message }}</span></div>
+                        @enderror
+                    </div>
                     <div class="form-group">
                         <label for="description">Mô tả sản phẩm</label>
                         <textarea name="description" id="description" class="form-control" rows="5" placeholder="Mô tả sản phẩm">{{ old('description') }}</textarea>

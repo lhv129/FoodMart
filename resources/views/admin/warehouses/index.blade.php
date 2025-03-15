@@ -52,7 +52,7 @@ Kho hàng
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Ảnh sản phẩm</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Gía nhập</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Gía bán</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Số lượng</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Tồn kho</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 154px;">Đơn vị</th>
                                     </tr>
                                 </thead>
@@ -65,7 +65,7 @@ Kho hàng
                                             <img src="{{ asset($warehouse->image) }}" alt="Ảnh sản phẩm" width="100px">
                                         </td>
                                         <td>{{ number_format($warehouse->entry_price, 0, ',', '.') }} vnđ</td>
-                                        <td>{{ number_format($warehouse->retail_price, 0, ',', '.') }} vnđ</td>
+                                        <td>{{ number_format($warehouse->retail_price - $warehouse->discount, 0, ',', '.') }} vnđ</td>
                                         <td>{{ $warehouse->quantity }}</td>
                                         <td>{{ $warehouse->unit_name }}</td>
                                     </tr>
