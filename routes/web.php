@@ -17,6 +17,7 @@ use App\Http\Controllers\admin\GoodDeliveryNoteController;
 use App\Http\Controllers\admin\GoodReceiptNoteDetailController;
 use App\Http\Controllers\admin\GoodDeliveryNoteDetailController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\client\ProductController as ClientProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -150,3 +151,13 @@ Route::middleware(['checkRole:1,2'])->prefix('admin')->group(function () {
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::prefix('san-pham')->group(function () {
+
+    //Lấy chi tiết sản phẩm
+    Route::get('{slug}/chi-tiet',[ClientProductController::class,'detail'])->name('products.detail');
+
+    // Lấy sản phẩm theo categories
+    Route::get('{slug}/danh-sach-san-pham',[ClientProductController::class,'getProductsInCategory'])->name('products.category');
+});
+
+

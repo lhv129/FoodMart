@@ -19,4 +19,9 @@ class Category extends Model
         'image',
         'deleted_at'
     ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

@@ -29,7 +29,7 @@ class StoreProductRequest extends FormRequest
             'entry_price' => 'required|numeric|min:1',
             'retail_price' => 'required|numeric|min:1',
             'discount' => 'required|numeric|min:0',
-            'description' => 'required|min:100|max:1000'
+            'description' => 'required|min:100|max:2000'
         ];
     }
 

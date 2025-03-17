@@ -24,4 +24,17 @@ class Product extends Model
         'description',
         'discount'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public static function getTopSellingProducts($limit = 3)
+    {
+        return self::with('category') // Eager load category relationship
+            ->orderBy('TopRate', 'desc')
+            ->take($limit)
+            ->get();
+    }
 }

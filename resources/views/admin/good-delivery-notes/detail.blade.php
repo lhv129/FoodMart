@@ -3,7 +3,7 @@
 
 @section('css')
 <!-- Nội dung ở trong đây sẽ được truyền sang yield('css') ở file layout/client -->
-<link href="{{ asset('assets/css/import-detail.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/admins/css/import-detail.css') }}" rel="stylesheet">
 @endsection
 
 @section('title')
@@ -96,6 +96,6 @@
 
 @section('js')
 
-<script src="{{ asset('assets/js/app.js') }}"></script>
+<script src="{{ asset('assets/admins/js/app.js') }}"></script>
 
 @endsection(js)
