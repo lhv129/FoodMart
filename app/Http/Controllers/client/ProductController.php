@@ -11,15 +11,12 @@ class ProductController extends Controller
 {
     public function getProductsInCategory($slug)
     {
-        //Để truyền vào header
-        $categories = Category::all();
-
         $category = Category::where('slug', $slug)->first();
         if ($category) {
             $products = Product::select('products.*')
                 ->where('category_id', $category->id)
                 ->get();
-            return view('client/products/getProductInCategory', compact('products', 'categories'));
+            return view('client/products/getProductInCategory', compact('products','category'));
         }else{
             toast('Danh mục sản phẩm này không tồn tại', 'error');
             return back();
@@ -29,9 +26,6 @@ class ProductController extends Controller
 
     public function detail($slug)
     {
-        //Để truyền vào header
-        $categories = Category::all();
-
         // select đến warehouses.quantity sẽ gặp lỗi nếu có sản phẩm nhưng trong kho chưa có bản khi của sản phẩm đó.
         $product = Product::select('products.*', 'categories.name AS category_name', 'units.name as unit_name', 'warehouses.quantity')
             ->join('categories', 'categories.id', 'category_id')
@@ -43,11 +37,11 @@ class ProductController extends Controller
             //Lấy ra các sản phẩm liên quan
             $products = Product::select('products.*', 'categories.name AS category_name')
                 ->join('categories', 'categories.id', 'category_id')
-                ->where('category_id', $product->id)
-                ->paginate(10);
-            return view('client/products/detail', compact('product', 'categories', 'products'));
+                ->where('category_id', $product->category_id)
+                ->paginate(5);
+            return view('client/products/detail', compact('product', 'products'));
         } else {
-            toast('Sản phẩm này không tồn tại', 'error');
+            toast('Sản phẩm này hiện tại chưa lên kệ bán, vui lòng quay lại sau', 'error');
             return back();
         }
     }

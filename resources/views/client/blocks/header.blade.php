@@ -186,7 +186,7 @@
                             <div class="collapse mt-2" id="collapseExample">
                                 <div class="card card-body">
                                     <ul class="list-unstyled">
-                                        @foreach ($categories as $index => $category)
+                                        @foreach ($headerData['categories'] as $category)
                                         <li><a class="dropdown-item" href="{{ route('products.category',$category->slug) }}">{{ $category->name }}</a></li>
                                         @endforeach
                                     </ul>
@@ -217,7 +217,7 @@
                                 Danh mục sản phẩm
                             </button>
                             <ul class="dropdown-menu">
-                                @foreach ($categories as $index => $category)
+                                @foreach ($headerData['categories'] as $category)
                                 <li><a class="dropdown-item" href="{{ route('products.category',$category->slug) }}">{{ $category->name }}</a></li>
                                 @endforeach
                             </ul>
