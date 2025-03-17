@@ -17,15 +17,31 @@ class HeaderServiceProvider extends ServiceProvider
             $data = $this->getDataForHeader();
             $view->with('headerData', $data);
         });
+
+        // Composer cho footer
+        View::composer('client.blocks.footer', function ($view) {
+            $data = $this->getDataForFooter(); // Hàm lấy dữ liệu cho footer
+            $view->with('footerData', $data);
+        });
     }
 
     private function getDataForHeader()
     {
         $categories = Category::all();
+        $user = auth()->check() ? auth()->user() : null; // Kiểm tra đăng nhập
         // Logic lấy dữ liệu cho topbar
         return [
-            // 'userName' => auth()->user()->name,
+            'user' => $user,
             'categories' => $categories
+        ];
+    }
+
+    private function getDataForFooter()
+    {
+        $categories = Category::all();
+        // Logic lấy dữ liệu cho footer
+        return [
+            'categories' => $categories,
         ];
     }
 }

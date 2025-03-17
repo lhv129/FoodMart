@@ -21,7 +21,7 @@ Sản phẩm
                 <div class="container">
                     <div class="flex flex-wrap">
                         <div class="w-full mb-6">
-                            <h2 class="text-lg">{{ $category->name }}</h2>
+                            <h2 class="text-lg">Từ khóa bạn tìm kiếm: {{ $keyword }}</h2>
                         </div>
                     </div>
                     <div class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:gap-4 xl:grid-cols-5">

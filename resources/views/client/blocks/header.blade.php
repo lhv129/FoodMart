@@ -12,13 +12,11 @@
                         </a>
                     </div>
                     <div class="lg:w-2/5 hidden lg:block">
-                        <form action="#">
+                        <form method="GET" action="{{ route('products.search') }}" enctype="multipart/form-data">
                             <div class="relative">
                                 <label for="searchProducts" class="invisible hidden">Tìm kiếm</label>
-                                <input
-                                    class="border border-gray-300 text-gray-900 rounded-lg focus:shadow-[0_0_0_.25rem_rgba(10,173,10,.25)] focus:ring-green-600 focus:ring-0 focus:border-green-600 block p-2 px-3 disabled:opacity-50 disabled:pointer-events-none w-full text-base"
-                                    type="search" placeholder="Tìm kiếm sản phẩm" id="searchProducts" />
-                                <button class="absolute right-0 top-0 p-3" type="button">
+                                <input class="border border-gray-300 text-gray-900 rounded-lg focus:shadow-[0_0_0_.25rem_rgba(10,173,10,.25)] focus:ring-green-600 focus:ring-0 focus:border-green-600 block p-2 px-3 disabled:opacity-50 disabled:pointer-events-none w-full text-base" type="text" name="keyword" placeholder="Tìm kiếm sản phẩm" />
+                                <button class="absolute right-0 top-0 p-3" type="submit">
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         class="icon icon-tabler icon-tabler-search" width="16" height="16"
                                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -142,12 +140,11 @@
                     </div>
                     <div class="offcanvas-body lg:flex lg:items-center">
                         <div class="block lg:hidden mb-4">
-                            <form action="#">
+                            <form method="GET" action="{{ route('products.search') }}" enctype="multipart/form-data">
                                 <div class="relative">
-                                    <label for="searhNavbar" class="invisible hidden">Search</label>
+                                    <label class="invisible hidden">Tìm kiếm sản phẩm</label>
                                     <input
-                                        class="border border-gray-300 text-gray-900 rounded-lg focus:shadow-[0_0_0_.25rem_rgba(10,173,10,.25)] focus:ring-green-600 focus:ring-0 focus:border-green-600 block p-2 px-3 disabled:opacity-50 disabled:pointer-events-none w-full text-base"
-                                        type="search" placeholder="Search for products" id="searhNavbar" />
+                                        class="border border-gray-300 text-gray-900 rounded-lg focus:shadow-[0_0_0_.25rem_rgba(10,173,10,.25)] focus:ring-green-600 focus:ring-0 focus:border-green-600 block p-2 px-3 disabled:opacity-50 disabled:pointer-events-none w-full text-base" type="text" name="keyword" placeholder="Tìm kiếm sản phẩm" />
                                     <button class="absolute right-0 top-0 p-3" type="button">
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-search" width="16" height="16"

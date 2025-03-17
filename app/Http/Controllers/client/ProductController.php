@@ -15,7 +15,7 @@ class ProductController extends Controller
         if ($category) {
             $products = Product::select('products.*')
                 ->where('category_id', $category->id)
-                ->get();
+                ->paginate(15);
             return view('client/products/getProductInCategory', compact('products','category'));
         }else{
             toast('Danh mục sản phẩm này không tồn tại', 'error');
@@ -44,5 +44,11 @@ class ProductController extends Controller
             toast('Sản phẩm này hiện tại chưa lên kệ bán, vui lòng quay lại sau', 'error');
             return back();
         }
+    }
+
+    public function getProductsInSearch(Request $request){
+        $keyword = $request->keyword;
+        $products = Product::where('name', 'LIKE', '%' . $request->keyword . '%')->paginate(15);
+        return view('client/products/getProductInSearch',compact('products','keyword'));
     }
 }

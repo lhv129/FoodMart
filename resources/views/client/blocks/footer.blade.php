@@ -4,32 +4,19 @@
 		<div class="w-full md:w-full lg:w-1/3 flex flex-col gap-4 mb-6">
 			<h6>Danh mục</h6>
 			<div class="flex flex-wrap">
+				@foreach ($footerData['categories'] as $index => $category)
+				@if ($index == 0 || $index % 5 == 0)
 				<div class="w-1/2">
 					<ul class="flex flex-col gap-2">
-						<li><a href="#!" class="inline-block hover:text-green-600">Rau củ & Trái cây</a></li>
-						<li><a href="#!" class="inline-block hover:text-green-600">Đồ ăn sáng & đồ ăn liền</a></li>
-						<li><a href="#!" class="inline-block hover:text-green-600">Bánh mì & Bánh quy</a></li>
-						<li><a href="#!" class="inline-block hover:text-green-600">Bột mì, gạo & đậu lăng</a></li>
-						<li><a href="#!" class="inline-block hover:text-green-600">Nước sốt & đồ phết</a></li>
-						<li><a href="#!" class="inline-block hover:text-green-600">Hữu cơ & cao cấp</a></li>
-						<li><a href="#!" class="inline-block hover:text-green-600">Chăm sóc em bé</a></li>
-						<li><a href="#!" class="inline-block hover:text-green-600">Đồ dùng thiết yếu cho việc vệ sinh</a></li>
-						<li><a href="#!" class="inline-block hover:text-green-600">Chăm sóc cá nhân</a></li>
+						@endif
+						<li>
+							<a href="{{ route('products.category',$category->slug) }}" class="inline-block hover:text-green-600">{{ $category->name }}</a>
+						</li>
+						@if (($index + 1) % 5 == 0 || $loop->last)
 					</ul>
 				</div>
-				<div class="w-1/2">
-					<ul class="flex flex-col gap-2">
-						<li><a href="#!" class="inline-block hover:text-green-600">Sữa, bánh mì & trứng</a></li>
-						<li><a href="#!" class="inline-block hover:text-green-600">Đồ uống lạnh & nước ép</a></li>
-						<li><a href="#!" class="inline-block hover:text-green-600">Trà, cà phê & đồ uống</a></li>
-						<li><a href="#!" class="inline-block hover:text-green-600">Gia vị, dầu ăn & nhiều hơn nữa</a></li>
-						<li><a href="#!" class="inline-block hover:text-green-600">Gà, thịt & cá</a></li>
-						<li><a href="#!" class="inline-block hover:text-green-600">Góc trầu cau</a></li>
-						<li><a href="#!" class="inline-block hover:text-green-600">Dược phẩm & sức khỏe</a></li>
-						<li><a href="#!" class="inline-block hover:text-green-600">Nhà cửa & văn phòng</a></li>
-						<li><a href="#!" class="inline-block hover:text-green-600">Chăm sóc thú cưng</a></li>
-					</ul>
-				</div>
+				@endif
+				@endforeach
 			</div>
 		</div>
 		<div class="w-full md:w-full lg:w-2/3">
@@ -57,7 +44,7 @@
 				<div class="w-1/2 sm:w-1/2 md:w-1/4 flex flex-col gap-4">
 					<h6>Trở thành người mua sắm</h6>
 					<ul class="flex flex-col gap-2">
-						<li><a href="#!" class="inline-block hover:text-green-600">Cơ hội dành cho người mua sắm</a></li>
+						<li><a href="#!" class="inline-block hover:text-green-600">Cơ hội dành cho người mua</a></li>
 						<li><a href="#!" class="inline-block hover:text-green-600">Trở thành người mua sắm</a></li>
 						<li><a href="#!" class="inline-block hover:text-green-600">Thu nhập</a></li>
 						<li><a href="#!" class="inline-block hover:text-green-600">Ý tưởng & hướng dẫn</a></li>

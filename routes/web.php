@@ -158,6 +158,9 @@ Route::prefix('san-pham')->group(function () {
 
     // Lấy sản phẩm theo categories
     Route::get('{slug}/danh-sach-san-pham',[ClientProductController::class,'getProductsInCategory'])->name('products.category');
+
+    //Lấy ra sản phẩm theo ô input tìm kiếm
+    Route::get('tim-kiem',[ClientProductController::class,'getProductsInSearch'])->name('products.search');
 });
 
 
