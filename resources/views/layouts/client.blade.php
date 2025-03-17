@@ -13,6 +13,7 @@
 	<link href="{{ asset('assets/clients/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet" />
 	<link rel="stylesheet" href="{{ asset('assets/clients/libs/swiper/swiper-bundle.min.css') }}" />
 	<link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/clients/images/favicon/favicon.ico') }}" />
+	<link href="{{ asset('assets/admins/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
 	<!-- Libs CSS -->
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,10 +28,9 @@
 	@yield('css')
 </head>
 
-<body>
+<body id="page-top">
 	<!-- Header -->
 	@include('client.blocks.header')
-
 	<!-- Modal -->
 	<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
@@ -89,9 +89,7 @@
 			</div>
 		</div>
 	</div>
-
 	<!-- Shop Cart -->
-
 	<div class="offcanvas offcanvas-right" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
 		<div class="offcanvas-header border-b">
 			<div>
@@ -418,7 +416,6 @@
 			</div>
 		</div>
 	</div>
-
 	<!-- Modal -->
 	<div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
@@ -508,19 +505,26 @@
 			</div>
 		</div>
 	</div>
-
-	@yield('content')
-
+	<div id="wrapper">
+		<div id="content-wrapper">
+			<div id="content">
+				@yield('content')
+			</div>
+		</div>
+	</div>
 	<!-- Footer -->
 	@include('client.blocks.footer')
+
+	<!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
 	<!-- Libs JS -->
 	<script src="{{ asset('assets/clients/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
 	<script src="{{ asset('assets/clients/libs/simplebar/dist/simplebar.min.js') }}"></script>
 
 	<!-- Theme JS -->
-
-	
 	<script src="{{ asset('assets/clients/js/theme.min.js') }}"></script>
 	<!-- endbuild -->
 
@@ -534,9 +538,15 @@
 	<script src="{{ asset('assets/clients/libs/swiper/swiper-bundle.min.js') }}"></script>
 	<script src="{{ asset('assets/clients/js/vendors/swiper.js') }}"></script>
 	<script src="{{ asset('assets/clients/js/vendors/validation.js') }}"></script>
-	 <!-- Sử dụng sweetalert2 để thông báo -->
-	 @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
-    <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11') }}"></script>
+	<!-- Sử dụng sweetalert2 để thông báo -->
+	@include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
+	<script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11') }}"></script>
+
+	<!-- Button Scroll -->
+	<script src="{{ asset('assets/admins/vendor/jquery/jquery.min.js') }}"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{{ asset('assets/admins/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('assets/admins/js/sb-admin-2.min.js') }}"></script>
 	@yield('js')
 
 </body>

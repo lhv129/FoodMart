@@ -53,7 +53,7 @@
                     <div class="lg:w-1/5 text-end md:w-1/2 w-3/5">
                         <div class="flex gap-7 items-center justify-end">
                             <div>
-                                <a href="#!" class="relative">
+                                <a href="{{ route('products.wishlist') }}" class="relative">
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         class="icon icon-tabler icon-tabler-heart" width="24" height="24"
                                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -64,7 +64,7 @@
                                     </svg>
                                     <span
                                         class="absolute top-0 -mt-1 left-full rounded-full h-5 w-5 -ml-2 bg-green-600 text-white text-center font-semibold text-sm">
-                                        5
+                                        {{ $headerData['totalWishList'] }}
                                         <span class="invisible">unread messages</span>
                                     </span>
                                 </a>
@@ -96,7 +96,7 @@
                                     </svg>
                                     <span id="cartCount"
                                         class="absolute top-0 -mt-1 left-full rounded-full h-5 w-5 -ml-3 bg-green-600 text-white text-center font-semibold text-sm">
-                                        0
+                                        {{ $headerData['totalCart'] }}
                                         <span class="invisible">unread messages</span>
                                     </span>
                                 </button>
@@ -256,14 +256,14 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="nav-item dropdown w-full lg:w-auto dropdown-fullwidth">
+                                    <a class="nav-link " href="{{ route('products.list') }}">Sản phẩm
+                                    </a>
+                                </li>
 
                                 <li class="nav-item dropdown w-full lg:w-auto dropdown-fullwidth">
-                                    <a class="nav-link " href="#!" target="_blank">Mega
-                                        menu
-                                        <span
-                                            class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-green-50 text-green-800">Pro</span>
+                                    <a class="nav-link " href="{{ route('aboutUs') }}">Giới thiệu
                                     </a>
-
                                 </li>
 
 

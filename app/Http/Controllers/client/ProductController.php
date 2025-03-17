@@ -9,6 +9,16 @@ use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
+    public function index(){
+        $products = Product::select('products.*', 'categories.name AS category_name', 'units.name as unit_name', 'warehouses.quantity')
+            ->join('categories', 'categories.id', 'category_id')
+            ->join('units', 'units.id', 'unit_id')
+            ->join('warehouses', 'warehouses.product_id', 'products.id')
+            ->paginate(15);
+        return view('client/products/index',compact('products'));
+    }
+
+
     public function getProductsInCategory($slug)
     {
         $category = Category::where('slug', $slug)->first();

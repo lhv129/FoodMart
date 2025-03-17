@@ -18,5 +18,8 @@ class HomeController extends Controller
         return view('client/home/index',compact('categories','products','topSellingProducts'));
     }
 
+    public function aboutUs(){
+        return view('client/home/about-us');
+    }
     
 }

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Category;
+use App\Models\Wishlist;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 
@@ -29,9 +30,15 @@ class HeaderServiceProvider extends ServiceProvider
     {
         $categories = Category::all();
         $user = auth()->check() ? auth()->user() : null; // Kiểm tra đăng nhập
+        $totalWishList = Wishlist::select('wishlists.*')
+        ->where('user_id',$user->id)
+        ->count();
+        $totalCart = 0;
         // Logic lấy dữ liệu cho topbar
         return [
             'user' => $user,
+            'totalWishList' => $totalWishList,
+            'totalCart' => $totalCart,
             'categories' => $categories
         ];
     }

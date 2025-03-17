@@ -42,22 +42,22 @@
 					</ul>
 				</div>
 				<div class="w-1/2 sm:w-1/2 md:w-1/4 flex flex-col gap-4">
-					<h6>Trở thành người mua sắm</h6>
+					<h6>Trở thành người mua</h6>
 					<ul class="flex flex-col gap-2">
-						<li><a href="#!" class="inline-block hover:text-green-600">Cơ hội dành cho người mua</a></li>
-						<li><a href="#!" class="inline-block hover:text-green-600">Trở thành người mua sắm</a></li>
+						<li><a href="#!" class="inline-block hover:text-green-600">Cơ hội dành cho người</a></li>
+						<li><a href="#!" class="inline-block hover:text-green-600">Trở thành người mua</a></li>
 						<li><a href="#!" class="inline-block hover:text-green-600">Thu nhập</a></li>
 						<li><a href="#!" class="inline-block hover:text-green-600">Ý tưởng & hướng dẫn</a></li>
 						<li><a href="#!" class="inline-block hover:text-green-600">Nhà bán lẻ mới</a></li>
 					</ul>
 				</div>
 				<div class="w-1/2 sm:w-1/2 md:w-1/4 flex flex-col gap-4">
-					<h6>Các chương trình của Freshcart</h6>
+					<h6>Các chương trình của FoodMart</h6>
 					<ul class="flex flex-col gap-2">
-						<li><a href="#!" class="inline-block hover:text-green-600">Các chương trình của Freshcart</a></li>
+						<li><a href="#!" class="inline-block hover:text-green-600">Các chương trình của FoodMart</a></li>
 						<li><a href="#!" class="inline-block hover:text-green-600">Thẻ quà tặng</a></li>
 						<li><a href="#!" class="inline-block hover:text-green-600">Khuyến mãi & phiếu giảm giá</a></li>
-						<li><a href="#!" class="inline-block hover:text-green-600">Quảng cáo Freshcart</a></li>
+						<li><a href="#!" class="inline-block hover:text-green-600">Quảng cáo FoodMart</a></li>
 						<li><a href="#!" class="inline-block hover:text-green-600">Nghề nghiệp</a></li>
 					</ul>
 				</div>
@@ -67,7 +67,7 @@
 			<div class="gap-y-4 flex flex-wrap items-center justify-center lg:justify-start">
 				<div class="lg:w-2/5 lg:text-left text-center">
 					<div class="flex md:flex-row flex-col gap-3 md:gap-6 items-center">
-						<div class="text-gray-900">Payment Partners</div>
+						<div class="text-gray-900">Đối tác thanh toán</div>
 						<ul class="flex items-center flex-row gap-4">
 							<li>
 								<a href="#!"><img src="{{ asset('assets/clients/images/payment/amazonpay.svg') }}"
@@ -92,7 +92,7 @@
 				</div>
 				<div class="lg:w-3/5 flex justify-end">
 					<div class="flex flex-col md:flex-row items-center gap-3 md:gap-6">
-						<div class="text-gray-900">Get deliveries with FreshCart</div>
+						<div class="text-gray-900">Nhận giao hàng với FoodMart</div>
 						<ul class="flex flex-row gap-2">
 							<li>
 								<a href="#!"><img src="{{ asset('assets/clients/images/appbutton/appstore-btn.svg') }}" alt=""

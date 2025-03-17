@@ -162,7 +162,9 @@ Sản phẩm
                             </div>
                         </div>
                         @endforeach
-
+                    </div>
+                    <div class="mt-3">
+                        {{ $products->links() }}
                     </div>
                 </div>
             </section>

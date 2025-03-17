@@ -21,10 +21,11 @@ Sản phẩm
                 <div class="container">
                     <div class="flex flex-wrap">
                         <div class="w-full mb-6">
-                            <h2 class="text-lg">{{ $category->name }}</h2>
+                            <h2 class="text-lg">Danh sách sản phẩm</h2>
                         </div>
                     </div>
                     <div class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:gap-4 xl:grid-cols-5">
+
                         @foreach ($products as $index => $product)
                         <div class="relative rounded-lg break-words border bg-white border-gray-300 card-product">
                             <div class="flex-auto p-4">

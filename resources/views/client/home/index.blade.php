@@ -30,7 +30,7 @@ FoodMart
                                     giao hàng tận nhà
                                     tiện lợi.</p>
                             </div>
-                            <a href="#!"
+                            <a href="{{ route('products.list') }}"
                                 class="btn inline-flex items-center gap-x-2 bg-gray-800 text-white border-gray-800 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-gray-900 hover:border-gray-900 active:bg-gray-900 active:border-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300">
                                 Mua ngay
                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +57,7 @@ FoodMart
                                 </h2>
                                 <p class="text-md font-light">Miễn phí vận chuyển chỉ dành cho khách hàng lần đầu, sau khi các chương trình khuyến mãi áp dụng.</p>
                             </div>
-                            <a href="#!"
+                            <a href="{{ route('products.list') }}"
                                 class="btn inline-flex items-center gap-x-2 bg-gray-800 text-white border-gray-800 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-gray-900 hover:border-gray-900 active:bg-gray-900 active:border-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300">
                                 Mua ngay
                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -140,7 +140,7 @@ FoodMart
                             </div>
 
                             <div class="flex flex-wrap">
-                                <a href=""
+                                <a href="{{ route('products.list') }}"
                                     class="btn inline-flex items-center gap-x-2 bg-gray-800 text-white border-gray-800 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-gray-900 hover:border-gray-900 active:bg-gray-900 active:border-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300">
                                     Mua ngay
                                 </a>
@@ -161,7 +161,7 @@ FoodMart
                             </div>
 
                             <div class="flex flex-wrap">
-                                <a href=""
+                                <a href="{{ route('products.list') }}"
                                     class="btn inline-flex items-center gap-x-2 bg-gray-800 text-white border-gray-800 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-gray-900 hover:border-gray-900 active:bg-gray-900 active:border-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300">
                                     Mua ngay
                                 </a>
@@ -197,34 +197,36 @@ FoodMart
                                     alt="ảnh sản phẩm" class="w-full" style="height:210px" /></a>
 
                             <div class="absolute w-full bottom-[15%] opacity-0 invisible card-product-action">
-                                <a href="{{ route('products.detail' , $product->slug) }}"
-                                    class="h-[34px] w-[34px] leading-[34px] bg-white shadow inline-flex items-center justify-center rounded-lg hover:bg-green-600 hover:text-white"
-                                    data-bs-toggle="tooltip" data-bs-html="true" title="Chi tiết">
-                                    <span data-bs-toggle="modal" data-bs-target="#quickViewModal">
+                                <form method="POST" action="{{ route('products.wishlist.store' , $product->slug) }}">
+                                    @csrf
+                                    <a href="{{ route('products.detail' , $product->slug) }}"
+                                        class="h-[34px] w-[34px] leading-[34px] bg-white shadow inline-flex items-center justify-center rounded-lg hover:bg-green-600 hover:text-white"
+                                        data-bs-toggle="tooltip" data-bs-html="true" title="Chi tiết">
+                                        <span data-bs-toggle="modal" data-bs-target="#quickViewModal">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-eye" width="16" height="16"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                                <path
+                                                    d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                            </svg>
+                                        </span>
+                                    </a>
+                                    <button
+                                        class="h-[34px] w-[34px] leading-[34px] bg-white shadow inline-flex items-center justify-center rounded-lg hover:bg-green-600 hover:text-white"
+                                        data-bs-toggle="tooltip" data-bs-html="true" title="Yêu thích" type="submit">
                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="icon icon-tabler icon-tabler-eye" width="16" height="16"
+                                            class="icon icon-tabler icon-tabler-heart" width="16" height="16"
                                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                                             stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
                                             <path
-                                                d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
                                         </svg>
-                                    </span>
-                                </a>
-                                <a href=""
-                                    class="h-[34px] w-[34px] leading-[34px] bg-white shadow inline-flex items-center justify-center rounded-lg hover:bg-green-600 hover:text-white"
-                                    data-bs-toggle="tooltip" data-bs-html="true" title="Yêu thích">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="icon icon-tabler icon-tabler-heart" width="16" height="16"
-                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path
-                                            d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-                                    </svg>
-                                </a>
-
+                                    </button>
+                                </form>
                             </div>
                         </div>
                         <div class="flex flex-col gap-3">
@@ -344,7 +346,7 @@ FoodMart
                                     <p class="text-white text-base">Nhận được ưu đãi tốt nhất.</p>
                                 </div>
                                 <div>
-                                    <a href="#!"
+                                    <a href="{{ route('products.list') }}"
                                         class="btn inline-flex items-center gap-x-2 bg-green-600 text-white border-green-600 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-green-700 hover:border-green-700 active:bg-green-700 active:border-green-700 focus:outline-none focus:ring-4 focus:ring-green-300">
                                         <span>Mua ngay</span>
                                         <span>
@@ -379,35 +381,37 @@ FoodMart
                                     <a href="{{ route('products.detail', $topSellingProduct->slug) }}"><img src="{{ $topSellingProduct->image }}"
                                             alt="ảnh sản phẩm"
                                             class="mb-3 m-auto max-w-full" style="height:220px" /></a>
-                                    <div
-                                        class="absolute w-full bottom-[15%] opacity-0 invisible card-product-action">
-                                        <a href="{{ route('products.detail', $topSellingProduct->slug) }}"
-                                            class="h-[34px] w-[34px] leading-[34px] bg-white shadow inline-flex items-center justify-center rounded-lg hover:bg-green-600 hover:text-white"
-                                            data-bs-toggle="tooltip" data-bs-html="true" title="Quick View">
-                                            <span data-bs-toggle="modal" data-bs-target="#quickViewModal">
+                                    <div class="absolute w-full bottom-[15%] opacity-0 invisible card-product-action">
+                                        <form method="POST" action="{{ route('products.wishlist.store' , $topSellingProduct->slug) }}">
+                                            @csrf
+                                            <a href="{{ route('products.detail' , $topSellingProduct->slug) }}"
+                                                class="h-[34px] w-[34px] leading-[34px] bg-white shadow inline-flex items-center justify-center rounded-lg hover:bg-green-600 hover:text-white"
+                                                data-bs-toggle="tooltip" data-bs-html="true" title="Chi tiết">
+                                                <span data-bs-toggle="modal" data-bs-target="#quickViewModal">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        class="icon icon-tabler icon-tabler-eye" width="16" height="16"
+                                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                                        <path
+                                                            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                    </svg>
+                                                </span>
+                                            </a>
+                                            <button
+                                                class="h-[34px] w-[34px] leading-[34px] bg-white shadow inline-flex items-center justify-center rounded-lg hover:bg-green-600 hover:text-white"
+                                                data-bs-toggle="tooltip" data-bs-html="true" title="Yêu thích" type="submit">
                                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                                    class="icon icon-tabler icon-tabler-eye" width="16" height="16"
-                                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    class="icon icon-tabler icon-tabler-heart" width="16" height="16"
+                                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                                    stroke-linecap="round" stroke-linejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
                                                     <path
-                                                        d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                        d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
                                                 </svg>
-                                            </span>
-                                        </a>
-                                        <a href="#!"
-                                            class="h-[34px] w-[34px] leading-[34px] bg-white shadow inline-flex items-center justify-center rounded-lg hover:bg-green-600 hover:text-white"
-                                            data-bs-toggle="tooltip" data-bs-html="true" title="Wishlist">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="icon icon-tabler icon-tabler-heart" width="16" height="16"
-                                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <path
-                                                    d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-                                            </svg>
-                                        </a>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="flex flex-col gap-3">

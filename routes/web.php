@@ -18,6 +18,7 @@ use App\Http\Controllers\admin\GoodReceiptNoteDetailController;
 use App\Http\Controllers\admin\GoodDeliveryNoteDetailController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\client\ProductController as ClientProductController;
+use App\Http\Controllers\client\WishlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,10 +61,10 @@ Route::middleware(['checkRole:1,2'])->prefix('admin')->group(function () {
     Route::get('/kho-hang', [WarehouseController::class, 'index'])->name('admin.warehouses');
 
     //Route profile
-    Route::get('/ho-so-ca-nhan',[AuthController::class,'profile'])->name('admin.profile');
-    Route::put('/ho-so-ca-nhan/{id}/cap-nhat',[AuthController::class,'handleUpdateProfile'])->name('admin.profile.update');
-    Route::get('/ho-so-ca-nhan/thay-doi-mat-khau',[AuthController::class,'changePassword'])->name('admin.profile.change');
-    Route::put('/ho-so-ca-nhan/{id}/thay-doi-mat-khau',[AuthController::class,'handleChangePassword'])->name('admin.profile.change.password');
+    Route::get('/ho-so-ca-nhan', [AuthController::class, 'profile'])->name('admin.profile');
+    Route::put('/ho-so-ca-nhan/{id}/cap-nhat', [AuthController::class, 'handleUpdateProfile'])->name('admin.profile.update');
+    Route::get('/ho-so-ca-nhan/thay-doi-mat-khau', [AuthController::class, 'changePassword'])->name('admin.profile.change');
+    Route::put('/ho-so-ca-nhan/{id}/thay-doi-mat-khau', [AuthController::class, 'handleChangePassword'])->name('admin.profile.change.password');
 
     //Route good_receipt_notes (nhập hàng)
     Route::get('/don-nhap-hang', [GoodReceiptNoteController::class, 'index'])->name('admin.goods');
@@ -142,25 +143,38 @@ Route::middleware(['checkRole:1,2'])->prefix('admin')->group(function () {
         Route::get('/danh-sach-nguoi-dung', [UserController::class, 'index'])->name('admin.users');
         Route::get('/danh-sach-nguoi-dung/{id}/chi-tet', [UserController::class, 'detail'])->name('admin.users.detail');
         Route::put('/danh-sach-nguoi-dung/{id}/cap-nhat-trang-thai', [UserController::class, 'updateStatus'])->name('admin.users.update.status');
-        Route::put('danh-sach-nguoi-dung/{id}/cap-nhat-chuc-vu',[UserController::class,'updateRole'])->name('admin.users.update.role');
+        Route::put('danh-sach-nguoi-dung/{id}/cap-nhat-chuc-vu', [UserController::class, 'updateRole'])->name('admin.users.update.role');
         Route::delete('/danh-sach-nguoi-dung/{id}/xoa', [UserController::class, 'delete'])->name('admin.users.delete');
         Route::get('/danh-sach/nhan-vien', [UserController::class, 'indexStaff'])->name('admin.users.staff');
         Route::get('/danh-sach/nhan-vien/{id}/chi-tet', [UserController::class, 'detail'])->name('admin.users.staff.detail');
-        
     });
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::prefix('san-pham')->group(function () {
 
+    Route::get('danh-sach', [ClientProductController::class, 'index'])->name('products.list');
+
     //Lấy chi tiết sản phẩm
-    Route::get('{slug}/chi-tiet',[ClientProductController::class,'detail'])->name('products.detail');
+    Route::get('{slug}/chi-tiet', [ClientProductController::class, 'detail'])->name('products.detail');
 
     // Lấy sản phẩm theo categories
-    Route::get('{slug}/danh-sach-san-pham',[ClientProductController::class,'getProductsInCategory'])->name('products.category');
+    Route::get('{slug}/danh-sach-san-pham', [ClientProductController::class, 'getProductsInCategory'])->name('products.category');
 
     //Lấy ra sản phẩm theo ô input tìm kiếm
-    Route::get('tim-kiem',[ClientProductController::class,'getProductsInSearch'])->name('products.search');
+    Route::get('tim-kiem', [ClientProductController::class, 'getProductsInSearch'])->name('products.search');
 });
 
+//Liên hệ này chưa làm 
+Route::get('lien-he',[HomeController::class,'contact'])->name('contact');
+//Về chung tôi chưa làm
+Route::get('thong-tin-ve-foodmart',[HomeController::class,'aboutUs'])->name('aboutUs');
 
+Route::middleware(['checkRole:3'])->group(function () {
+    Route::prefix('san-pham')->group(function () {
+        //Thêm sản phẩm vào mục yêu thích
+        Route::get('danh-sach-san-pham-yeu-thich', [WishlistController::class, 'index'])->name('products.wishlist');
+        Route::post('{slug}/them-san-pham-yeu-thich', [WishlistController::class, 'store'])->name('products.wishlist.store');
+        Route::delete('{id}/xoa-san-pham-yeu-thich', [WishlistController::class, 'delete'])->name('products.wishlist.delete');
+    });
+});
