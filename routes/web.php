@@ -150,6 +150,8 @@ Route::middleware(['checkRole:1,2'])->prefix('admin')->group(function () {
     });
 });
 
+
+//Route không cần đăng nhập
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::prefix('san-pham')->group(function () {
 
@@ -165,11 +167,17 @@ Route::prefix('san-pham')->group(function () {
     Route::get('tim-kiem', [ClientProductController::class, 'getProductsInSearch'])->name('products.search');
 });
 
-//Liên hệ này chưa làm 
+//Pages tĩnh
+//Liên hệ
 Route::get('lien-he',[HomeController::class,'contact'])->name('contact');
-//Về chung tôi chưa làm
-Route::get('thong-tin-ve-foodmart',[HomeController::class,'aboutUs'])->name('aboutUs');
+//Gioi thieu
+Route::get('gioi-thieu',[HomeController::class,'aboutUs'])->name('aboutUs');
+//Tin tuc
+Route::get('tin-tuc',[HomeController::class,'ourNew'])->name('ourNew');
+Route::post('tin-tuc/gui-form',[HomeController::class,'handleSubmitContact'])->name('handleSubmitContact');
 
+
+//Route cần đăng nhập
 Route::middleware(['checkRole:3'])->group(function () {
     Route::prefix('san-pham')->group(function () {
         //Thêm sản phẩm vào mục yêu thích

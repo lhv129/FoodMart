@@ -57,9 +57,11 @@ FoodMart
                                             </div>
                                             @else
                                             <div>
-                                                <button type="button" class="btn inline-flex items-center gap-x-1 bg-gray-800 text-white border-bg-gray-800 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-green-700 hover:border-green-700 active:bg-green-700 active:border-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 btn-sm">
-                                                    <span>Liên hệ</span>
-                                                </button>
+                                                <a href="{{ route('contact') }}">
+                                                    <button type="button" class="btn inline-flex items-center gap-x-1 bg-gray-800 text-white border-bg-gray-800 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-gray-700 hover:border-gray-700 active:bg-gray-700 active:border-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 btn-sm">
+                                                        <span>Liên hệ</span>
+                                                    </button>
+                                                </a>
                                             </div>
                                             @endif
                                         </td>

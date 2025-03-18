@@ -3,7 +3,7 @@
 
 @section('css')
 <!-- Nội dung ở trong đây sẽ được truyền sang yield('css') ở file layout/client -->
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 @endsection
 
 @section('title')
@@ -73,72 +73,68 @@ Giới thiệu
                 </div>
             </div>
         </section>
-    </div>
 
-    <div class="shop-banner" style="background-image: url('assets/clients/images/about/banner.jpg');width:100%;height:auto;background-repeat: no-repeat;background-size: cover;background-position: center;">
-        <div class="container">
-            <div class="py-12">
-                <h2>Khuyến mại tháng 12 đang diễn ra!<br>với mức<span class="active"> giảm giá lớn</span></h2>
-                <div class="sale-percent">
-                    <span class="inline-block p-2 text-sm align-baseline leading-none rounded-lg bg-yellow-500 text-gray-900 font-semibold mb-3 mt-3">Khuyến mại lên tới 50%</span>
+        <div class="shop-banner" style="background-image: url('assets/clients/images/about/banner.jpg');width:100%;height:auto;background-repeat: no-repeat;background-size: cover;background-position: center;">
+            <div class="container">
+                <div class="py-12">
+                    <h2>Khuyến mại tháng 12 đang diễn ra!<br>với mức<span class="active"> giảm giá lớn</span></h2>
+                    <div class="sale-percent">
+                        <span class="inline-block p-2 text-sm align-baseline leading-none rounded-lg bg-yellow-500 text-gray-900 font-semibold mb-3 mt-3">Khuyến mại lên tới 50%</span>
+                    </div>
+                    <a href="{{ route('products.list') }}" class="btn inline-flex items-center gap-x-2 bg-gray-800 text-white border-gray-800 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-gray-900 hover:border-gray-900 active:bg-gray-900 active:border-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                        Mua ngay
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right inline-block" width="14" height="14" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M5 12l14 0"></path>
+                            <path d="M13 18l6 -6"></path>
+                            <path d="M13 6l6 6"></path>
+                        </svg>
+                    </a>
                 </div>
-                <a href="#!" class="btn inline-flex items-center gap-x-2 bg-gray-800 text-white border-gray-800 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-gray-900 hover:border-gray-900 active:bg-gray-900 active:border-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300">
-                    Mua ngay
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right inline-block" width="14" height="14" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                        <path d="M5 12l14 0"></path>
-                        <path d="M13 18l6 -6"></path>
-                        <path d="M13 6l6 6"></path>
-                    </svg>
-                </a>
             </div>
         </div>
-    </div>
 
-    <section class="py-12">
-        <div class="container">
-            <div class="flex md:space-x-2 lg:space-x-6 flex-wrap md:flex-nowrap">
-                <div class="w-full md:w-1/2 mb-3 lg:">
-                    <div class="py-10 px-8 rounded-lg" style="background: url(assets/clients/images/banner/slide-1.jpg) no-repeat; background-size: cover; background-position: center">
-                        <div class="flex flex-col gap-5">
-                            <div class="flex flex-col gap-1">
-                                <h2 class="font-bold text-xl">Trái cây &amp; Rau củ</h2>
-                                <p>
-                                    Giảm giá lên đến
-                                    <span class="font-bold text-gray-800">30%</span>
-                                </p>
-                            </div>
-
-                            <div class="flex flex-wrap">
-                                <a href="" class="btn inline-flex items-center gap-x-2 bg-gray-800 text-white border-gray-800 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-gray-900 hover:border-gray-900 active:bg-gray-900 active:border-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300">
-                                    Mua ngay
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+        <div class="ourTeam mb-8 mt-8">
+            <div class="container text-center">
+                <div class="section-title">
+                    <h1>Thành viên sáng lập</h1>
+                    <p> Người góp vốn, tham gia xây dựng, thông qua và ký tên vào bản Điều lệ đầu tiên của công ty trách nhiệm hữu hạn, công ty.</p>
                 </div>
-                <div class="w-full md:w-1/2">
-                    <div class="py-10 px-8 rounded-lg" style="background: url(assets/clients/images/banner/slide-2.jpg) no-repeat; background-size: cover; background-position: center">
-                        <div class="flex flex-col gap-5">
-                            <div class="flex flex-col gap-1">
-                                <h2 class="font-bold text-xl">Bánh mì &amp; Sữa</h2>
-                                <p>
-                                    Giảm giá lên đến
-                                    <span class="font-bold text-gray-800">25%</span>
-                                </p>
-                            </div>
-
-                            <div class="flex flex-wrap">
-                                <a href="" class="btn inline-flex items-center gap-x-2 bg-gray-800 text-white border-gray-800 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-gray-900 hover:border-gray-900 active:bg-gray-900 active:border-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300">
-                                    Mua ngay
-                                </a>
-                            </div>
+                <div class="flex flex-wrap md:space-x-2 lg:space-x-6 md:flex-nowrap justify-content-between mt-8">
+                    <div class="single-team-item">
+                        <div class="team-item-bg" style="background-image: url('assets/clients/images/about/team-1.jpg')">
+                            <ul>
+                                <li><a href="#" class="fa fa-facebook"></a></li>
+                                <li><a href="" class="fa fa-twitter"></a></li>
+                                <li><a href="#" class="fa fa-instagram"></a></li>
+                            </ul>
                         </div>
+                        <h4 class="mb-3">Jimmy Doe<span>Farmer</span></h4>
+                    </div>
+                    <div class="single-team-item">
+                        <div class="team-item-bg" style="background-image: url('assets/clients/images/about/team-2.jpg')">
+                            <ul>
+                                <li><a href="#" class="fa fa-facebook"></a></li>
+                                <li><a href="" class="fa fa-twitter"></a></li>
+                                <li><a href="#" class="fa fa-instagram"></a></li>
+                            </ul>
+                        </div>
+                        <h4 class="mb-3">Marry Doe<span>Farmer</span></h4>
+                    </div>
+                    <div class="single-team-item">
+                        <div class="team-item-bg" style="background-image: url('assets/clients/images/about/team-3.jpg')">
+                            <ul>
+                                <li><a href="#" class="fa fa-facebook"></a></li>
+                                <li><a href="" class="fa fa-twitter"></a></li>
+                                <li><a href="#" class="fa fa-instagram"></a></li>
+                            </ul>
+                        </div>
+                        <h4 class="mb-3">Simon Joe<span>Farmer</span></h4>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </main>
 
 @endsection

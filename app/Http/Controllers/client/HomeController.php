@@ -21,5 +21,19 @@ class HomeController extends Controller
     public function aboutUs(){
         return view('client/home/about-us');
     }
+
+    public function ourNew(){
+        return view('client/home/our-new');
+    }
+
+    public function contact(){
+        return view('client/home/contact');
+    }
+
+    public function handleSubmitContact(){
+
+        toast('Hệ thống đang được bảo trì, hãy quay lại sau','error');
+        return back();
+    }
     
 }

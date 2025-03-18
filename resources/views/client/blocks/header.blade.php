@@ -266,13 +266,15 @@
                                     </a>
                                 </li>
 
-
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#!" target="_blank">Dashboard <span
-                                            class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-green-50 text-green-800">Pro</span></a>
+                                <li class="nav-item dropdown w-full lg:w-auto dropdown-fullwidth">
+                                    <a class="nav-link " href="{{ route('ourNew') }}">Tin tức
+                                    </a>
                                 </li>
 
-
+                                <li class="nav-item dropdown w-full lg:w-auto dropdown-fullwidth">
+                                    <a class="nav-link " href="{{ route('contact') }}">Liên hệ
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>
