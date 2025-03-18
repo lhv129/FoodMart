@@ -230,7 +230,7 @@ FoodMart
                             </div>
                         </div>
                         <div class="flex flex-col gap-3">
-                            <a href="#!" class="text-decoration-none text-gray-500"><small>{{ $product->category_name }}</small></a>
+                            <a href="{{ route('products.category',$product->category_slug) }}" class="text-decoration-none text-gray-500"><small>{{ $product->category_name }}</small></a>
                             <div class="flex flex-col gap-2">
                                 <h3 class="text-base truncate"><a href="{{ route('products.detail', $product->slug) }}">{{ $product->name }}</a></h3>
                                 <div class="flex items-center">

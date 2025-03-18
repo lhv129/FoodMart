@@ -9,13 +9,12 @@ use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
-    public function index(){
-        $products = Product::select('products.*', 'categories.name AS category_name', 'units.name as unit_name', 'warehouses.quantity')
+    public function index()
+    {
+        $products = Product::select('products.*', 'categories.name AS category_name', 'categories.slug as category_slug')
             ->join('categories', 'categories.id', 'category_id')
-            ->join('units', 'units.id', 'unit_id')
-            ->join('warehouses', 'warehouses.product_id', 'products.id')
             ->paginate(15);
-        return view('client/products/index',compact('products'));
+        return view('client/products/index', compact('products'));
     }
 
 
@@ -23,11 +22,12 @@ class ProductController extends Controller
     {
         $category = Category::where('slug', $slug)->first();
         if ($category) {
-            $products = Product::select('products.*')
+            $products = Product::select('products.*', 'categories.name AS category_name', 'categories.slug as category_slug')
+                ->join('categories', 'categories.id', 'category_id')
                 ->where('category_id', $category->id)
                 ->paginate(15);
-            return view('client/products/getProductInCategory', compact('products','category'));
-        }else{
+            return view('client/products/getProductInCategory', compact('products', 'category'));
+        } else {
             toast('Danh mục sản phẩm này không tồn tại', 'error');
             return back();
         }
@@ -56,9 +56,13 @@ class ProductController extends Controller
         }
     }
 
-    public function getProductsInSearch(Request $request){
+    public function getProductsInSearch(Request $request)
+    {
         $keyword = $request->keyword;
-        $products = Product::where('name', 'LIKE', '%' . $request->keyword . '%')->paginate(15);
-        return view('client/products/getProductInSearch',compact('products','keyword'));
+        $products = Product::select('products.*', 'categories.name AS category_name', 'categories.slug as category_slug')
+            ->join('categories', 'categories.id', 'category_id')
+            ->where('products.name', 'LIKE', '%' . $request->keyword . '%')
+            ->paginate(15);
+        return view('client/products/getProductInSearch', compact('products', 'keyword'));
     }
 }

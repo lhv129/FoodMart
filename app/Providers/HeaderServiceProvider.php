@@ -30,9 +30,13 @@ class HeaderServiceProvider extends ServiceProvider
     {
         $categories = Category::all();
         $user = auth()->check() ? auth()->user() : null; // Kiểm tra đăng nhập
-        $totalWishList = Wishlist::select('wishlists.*')
-        ->where('user_id',$user->id)
-        ->count();
+        if($user){
+            $totalWishList = Wishlist::select('wishlists.*')
+            ->where('user_id',$user->id)
+            ->count();
+        }else{
+            $totalWishList = 0;
+        }
         $totalCart = 0;
         // Logic lấy dữ liệu cho topbar
         return [

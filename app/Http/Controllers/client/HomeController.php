@@ -11,7 +11,7 @@ class HomeController extends Controller
 {
     public function index(){
         $categories = Category::all();
-        $products = Product::select('products.*','categories.name AS category_name')
+        $products = Product::select('products.*','categories.name AS category_name','categories.slug AS category_slug')
         ->join('categories','categories.id','category_id')
         ->paginate(10);
         $topSellingProducts = Product::getTopSellingProducts();
