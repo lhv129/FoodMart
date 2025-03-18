@@ -130,12 +130,7 @@
                         <a href="{{ route('home') }}"><img src="{{ asset('images/logo/logo.png') }}"
                                 alt="logo" /></a>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                class="icon icon-tabler icon-tabler-x text-gray-700" width="24" height="24"
-                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            </svg>
+                            <img src="{{ asset('assets/clients/images/icons/close.png') }}" width="16">
                         </button>
                     </div>
                     <div class="offcanvas-body lg:flex lg:items-center">
@@ -283,3 +278,120 @@
         </nav>
     </div>
 </header>
+
+<!-- Shop Cart -->
+<div class="offcanvas offcanvas-right" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header border-b">
+        <div>
+            <h5 id="offcanvasRightLabel">Giỏ hàng</h5>
+            @auth
+            <span>Địa chỉ giỏ hàng: 382480</span>
+            @endauth
+        </div>
+        <button type="button" class="btn-close text-inherit" data-bs-dismiss="offcanvas" aria-label="Close">
+            <img src="{{ asset('assets/clients/images/icons/close.png') }}" width="16">
+        </button>
+    </div>
+    <div class="offcanvas-body p-4">
+        <div>
+            <!-- alert -->
+            <div class="bg-red-500 bg-opacity-25 text-red-800 mb-3 rounded-lg p-4" role="alert">Bạn được giao hàng MIỄN PHÍ.
+                <a href="#!" class="alert-link">Bắt đầu thanh toán ngay!</a>
+            </div>
+            @auth
+            <ul class="list-none">
+                @foreach ($headerData['carts'] as $cart)
+                <!-- list group -->
+                <li class="py-3 border-t">
+                    <div class="flex items-center">
+                        <div class="w-1/2 md:w-1/2 lg:w-3/5">
+                            <div class="flex">
+                                <img src="{{ $cart->image }}" alt="ảnh sản phẩm"
+                                    class="w-16 h-16" />
+                                <div class="ml-3">
+                                    <!-- title -->
+                                    <a href="{{ route('products.detail', $cart->slug) }}" class="text-inherit">
+                                        <h6>{{ $cart->name }}</h6>
+                                    </a>
+                                    <span><small class="text-gray-500">{{ $cart->unit_name }}</small></span>
+                                    <!-- text -->
+                                    <div class="mt-2 small leading-none">
+                                        <form method="POST" action="{{ route('products.carts.delete', ['id' => $cart->id ]) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="text-green-600 flex items-center" type="submit">
+                                                <span class="mr-1 align-text-bottom">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        class="icon icon-tabler icon-tabler-trash" width="14"
+                                                        height="14" viewBox="0 0 24 24" stroke-width="2"
+                                                        stroke="currentColor" fill="none" stroke-linecap="round"
+                                                        stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                        <path d="M4 7l16 0" />
+                                                        <path d="M10 11l0 6" />
+                                                        <path d="M14 11l0 6" />
+                                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                                    </svg>
+                                                </span>
+                                                <span class="text-gray-500 text-sm">Xóa</span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- input group -->
+                        <div class="w-1/2 md:w-1/3 lg:w-1/4">
+                            <!-- input -->
+                            <div class="input-group input-spinner rounded-lg flex justify-between items-center">
+                                <input type="button" value="-"
+                                    class="button-minus w-8 py-1 border-r cursor-pointer border-gray-300"
+                                    data-field="quantity" />
+                                <input type="number" step="1" max="10" value="{{ $cart->quantity }}" name="quantity" class="quantity-field w-9 px-2 text-center h-7 border-0 bg-transparent" />
+                                <input type="button" value="+"
+                                    class="button-plus w-8 py-1 border-l cursor-pointer border-gray-300"
+                                    data-field="quantity" />
+                            </div>
+                        </div>
+                        <!-- price -->
+                        <div class="w-1/4 text-center md:w-1/4">
+                            @if ($cart->discount > 0)
+                            <span class="font-bold text-red-600">{{ number_format($cart->sub_total, 0, ',', '.') }}đ</span>
+                            <div class="line-through text-gray-500 small">{{ number_format($cart->retail_price * $cart->quantity, 0, ',', '.') }}đ</div>
+                            @else
+                            <span class="font-bold text-gray-800">{{ number_format($cart->sub_total, 0, ',', '.') }}đ</span>
+                            @endif
+                        </div>
+                    </div>
+                </li>
+                @endforeach
+            </ul>
+            <!-- btn -->
+            <div class="flex justify-between mt-4">
+                <a href="#!"
+                    class="btn inline-flex items-center gap-x-2 bg-green-600 text-white border-green-600 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-green-700 hover:border-green-700 active:bg-green-700 active:border-green-700 focus:outline-none focus:ring-4 focus:ring-green-300">
+                    Thanh toán
+                </a>
+                <a href="#!"
+                    class="btn inline-flex items-center gap-x-2 bg-gray-800 text-white border-gray-800 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-gray-900 hover:border-gray-900 active:bg-gray-900 active:border-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                    Tiếp tục mua hàng
+                </a>
+            </div>
+            @else
+            <!-- btn -->
+            <div class="justify-between mt-4">
+                <p class="mb-2">Bạn chưa đăng nhập?</p>
+                <a href="{{ route('login') }}">
+                    <button
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasRight"
+                        class="btn inline-flex items-center gap-x-2 bg-gray-800 text-white border-gray-800 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-gray-900 hover:border-gray-900 active:bg-gray-900 active:border-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                        Đăng nhập
+                    </button>
+                </a>
+            </div>
+            @endauth
+        </div>
+    </div>
+</div>

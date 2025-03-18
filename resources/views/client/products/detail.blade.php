@@ -207,30 +207,20 @@ Chi tiết sản phẩm
                                             @endif
                                             <div class="md:w-1/3 w-full">
                                                 <!-- btn -->
-                                                <a href="#"
-                                                    class="mr-1 btn inline-flex items-center gap-x-2 px-0 h-10 w-10 justify-center bg-white text-gray-800 border-gray-300 border disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-gray-700 hover:border-gray-700 active:bg-gray-700 active:border-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300">
-                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                        class="icon icon-tabler icon-tabler-arrows-exchange" width="20"
-                                                        height="20" viewBox="0 0 24 24" stroke-width="2"
-                                                        stroke="currentColor" fill="none" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                        <path d="M7 10h14l-4 -4"></path>
-                                                        <path d="M17 14h-14l4 4"></path>
-                                                    </svg>
-                                                </a>
-                                                <a href="#"
-                                                    class="btn inline-flex items-center gap-x-2 px-0 h-10 w-10 justify-center bg-white text-gray-800 border-gray-300 border disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-gray-700 hover:border-gray-700 active:bg-gray-700 active:border-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300">
-                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                        class="icon icon-tabler icon-tabler-heart" width="20"
-                                                        height="20" viewBox="0 0 24 24" stroke-width="2"
-                                                        stroke="currentColor" fill="none" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                        <path
-                                                            d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-                                                    </svg>
-                                                </a>
+                                                <form method="POST" action="{{ route('products.wishlist.store' , $product->slug) }}">
+                                                    @csrf
+                                                    <button type="submit" class="btn inline-flex items-center gap-x-2 px-0 h-10 w-10 justify-center bg-white text-gray-800 border-gray-300 border disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-gray-700 hover:border-gray-700 active:bg-gray-700 active:border-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="icon icon-tabler icon-tabler-heart" width="20"
+                                                            height="20" viewBox="0 0 24 24" stroke-width="2"
+                                                            stroke="currentColor" fill="none" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                            <path
+                                                                d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                                        </svg>
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                         <!-- hr -->
@@ -482,36 +472,37 @@ Chi tiết sản phẩm
                             @endif
                             <a href="{{ route('products.detail' , $product->slug) }}"><img src="{{ $product->image }}"
                                     alt="ảnh sản phẩm" class="w-full" style="height:210px" /></a>
-
                             <div class="absolute w-full bottom-[15%] opacity-0 invisible card-product-action">
-                                <a href="{{ route('products.detail' , $product->slug) }}"
-                                    class="h-[34px] w-[34px] leading-[34px] bg-white shadow inline-flex items-center justify-center rounded-lg hover:bg-green-600 hover:text-white"
-                                    data-bs-toggle="tooltip" data-bs-html="true" title="Chi tiết">
-                                    <span data-bs-toggle="modal" data-bs-target="#quickViewModal">
+                                <form method="POST" action="{{ route('products.wishlist.store' , $product->slug) }}">
+                                    @csrf
+                                    <a href="{{ route('products.detail' , $product->slug) }}"
+                                        class="h-[34px] w-[34px] leading-[34px] bg-white shadow inline-flex items-center justify-center rounded-lg hover:bg-green-600 hover:text-white"
+                                        data-bs-toggle="tooltip" data-bs-html="true" title="Chi tiết">
+                                        <span data-bs-toggle="modal" data-bs-target="#quickViewModal">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-eye" width="16" height="16"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                                <path
+                                                    d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                            </svg>
+                                        </span>
+                                    </a>
+                                    <button
+                                        class="h-[34px] w-[34px] leading-[34px] bg-white shadow inline-flex items-center justify-center rounded-lg hover:bg-green-600 hover:text-white"
+                                        data-bs-toggle="tooltip" data-bs-html="true" title="Yêu thích" type="submit">
                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="icon icon-tabler icon-tabler-eye" width="16" height="16"
+                                            class="icon icon-tabler icon-tabler-heart" width="16" height="16"
                                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                                             stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
                                             <path
-                                                d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
                                         </svg>
-                                    </span>
-                                </a>
-                                <a href=""
-                                    class="h-[34px] w-[34px] leading-[34px] bg-white shadow inline-flex items-center justify-center rounded-lg hover:bg-green-600 hover:text-white"
-                                    data-bs-toggle="tooltip" data-bs-html="true" title="Yêu thích">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="icon icon-tabler icon-tabler-heart" width="16" height="16"
-                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path
-                                            d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-                                    </svg>
-                                </a>
-
+                                    </button>
+                                </form>
                             </div>
                         </div>
                         <div class="flex flex-col gap-3">
@@ -589,18 +580,21 @@ Chi tiết sản phẩm
                                     @endif
                                 </div>
                                 <div>
-                                    <button type="button"
-                                        class="btn inline-flex items-center gap-x-1 bg-green-600 text-white border-green-600 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-green-700 hover:border-green-700 active:bg-green-700 active:border-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 btn-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="icon icon-tabler icon-tabler-plus" width="14" height="14"
-                                            viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" fill="none"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path d="M12 5l0 14" />
-                                            <path d="M5 12l14 0" />
-                                        </svg>
-                                        <span>Thêm</span>
-                                    </button>
+                                    <form method="POST" action="{{ route('products.carts.store', $product->slug) }}">
+                                        @csrf
+                                        <button type="submit"
+                                            class="btn inline-flex items-center gap-x-1 bg-green-600 text-white border-green-600 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-green-700 hover:border-green-700 active:bg-green-700 active:border-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 btn-sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-plus" width="14" height="14"
+                                                viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M12 5l0 14" />
+                                                <path d="M5 12l14 0" />
+                                            </svg>
+                                            <span>Thêm</span>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -611,7 +605,7 @@ Chi tiết sản phẩm
             </div>
         </div>
     </section>
-    <!-- Popular Related Items End-->    
+    <!-- Popular Related Items End-->
 </main>
 
 

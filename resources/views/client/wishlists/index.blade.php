@@ -14,7 +14,10 @@ FoodMart
     <section class="lg:my-14 my-8">
         <div class="container">
             <!-- Page Heading -->
-            <h3 class="h3 mb-2 text-gray-800">Danh sách sản phẩm</h3>
+            <div class="my-8">
+                <h3 class="text-gray-800">Danh sách sản phẩm</h3>
+                <p>Có {{ $totalWishList }} sản phẩm trong danh sách của bạn</p>
+            </div>
             <!-- DataTales Example -->
 
             <div class="table-responsive">
@@ -46,14 +49,17 @@ FoodMart
                                         <td>
                                             @if($wishlist->quantity > 0)
                                             <div>
-                                                <button type="button" class="btn inline-flex items-center gap-x-1 bg-green-600 text-white border-green-600 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-green-700 hover:border-green-700 active:bg-green-700 active:border-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 btn-sm">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="14" height="14" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                        <path d="M12 5l0 14"></path>
-                                                        <path d="M5 12l14 0"></path>
-                                                    </svg>
-                                                    <span>Thêm</span>
-                                                </button>
+                                                <form method="POST" action="{{ route('wishlits.store.cart', ['id' => $wishlist->id]) }}">
+                                                    @csrf
+                                                    <button type="submit" class="btn inline-flex items-center gap-x-1 bg-green-600 text-white border-green-600 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-green-700 hover:border-green-700 active:bg-green-700 active:border-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 btn-sm">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="14" height="14" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                            <path d="M12 5l0 14"></path>
+                                                            <path d="M5 12l14 0"></path>
+                                                        </svg>
+                                                        <span>Thêm</span>
+                                                    </button>
+                                                </form>
                                             </div>
                                             @else
                                             <div>

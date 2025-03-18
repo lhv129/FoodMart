@@ -17,6 +17,7 @@ use App\Http\Controllers\admin\GoodDeliveryNoteController;
 use App\Http\Controllers\admin\GoodReceiptNoteDetailController;
 use App\Http\Controllers\admin\GoodDeliveryNoteDetailController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\client\CartController;
 use App\Http\Controllers\client\ProductController as ClientProductController;
 use App\Http\Controllers\client\WishlistController;
 
@@ -179,10 +180,20 @@ Route::post('tin-tuc/gui-form',[HomeController::class,'handleSubmitContact'])->n
 
 //Route cần đăng nhập
 Route::middleware(['checkRole:3'])->group(function () {
-    Route::prefix('san-pham')->group(function () {
+    Route::prefix('san-pham-yeu-thich')->group(function () {
         //Thêm sản phẩm vào mục yêu thích
-        Route::get('danh-sach-san-pham-yeu-thich', [WishlistController::class, 'index'])->name('products.wishlist');
+        Route::get('/', [WishlistController::class, 'index'])->name('products.wishlist');
         Route::post('{slug}/them-san-pham-yeu-thich', [WishlistController::class, 'store'])->name('products.wishlist.store');
         Route::delete('{id}/xoa-san-pham-yeu-thich', [WishlistController::class, 'delete'])->name('products.wishlist.delete');
+
+        //Thêm sản phẩm từ mục yêu thích vào cart
+        Route::post('{id}/them-vao-gio-hang',[WishlistController::class,'createCart'])->name('wishlits.store.cart');
+    });
+
+    Route::prefix('gio-hang')->group(function () {
+        //Thêm sản phẩm vào mục yêu thích
+        Route::get('/', [CartController::class, 'index'])->name('products.carts');
+        Route::post('{slug}/them', [CartController::class, 'store'])->name('products.carts.store');
+        Route::delete('{id}/xoa', [CartController::class, 'delete'])->name('products.carts.delete');
     });
 });

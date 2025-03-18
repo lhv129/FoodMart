@@ -48,6 +48,7 @@ class ProductController extends Controller
             $products = Product::select('products.*', 'categories.name AS category_name')
                 ->join('categories', 'categories.id', 'category_id')
                 ->where('category_id', $product->category_id)
+                ->orderBy('id','desc')
                 ->paginate(5);
             return view('client/products/detail', compact('product', 'products'));
         } else {

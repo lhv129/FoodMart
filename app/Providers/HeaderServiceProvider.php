@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Wishlist;
 use Illuminate\Support\ServiceProvider;
@@ -34,16 +35,28 @@ class HeaderServiceProvider extends ServiceProvider
             $totalWishList = Wishlist::select('wishlists.*')
             ->where('user_id',$user->id)
             ->count();
+
+            $totalCart = Cart::select('carts.*')
+            ->where('user_id',$user->id)
+            ->count();
+
+            $carts = Cart::select('carts.*','products.name','products.image','products.retail_price','products.discount','products.slug','unit_id','units.name as unit_name')
+            ->join('products','products.id','carts.product_id')
+            ->join('units','units.id','unit_id')
+            ->where('user_id',$user->id)
+            ->get();
         }else{
+            $totalCart = 0;
             $totalWishList = 0;
         }
-        $totalCart = 0;
+        
         // Logic lấy dữ liệu cho topbar
         return [
             'user' => $user,
             'totalWishList' => $totalWishList,
             'totalCart' => $totalCart,
-            'categories' => $categories
+            'categories' => $categories,
+            'carts' => $carts ?? null
         ];
     }
 

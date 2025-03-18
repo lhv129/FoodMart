@@ -12,7 +12,7 @@ Giới thiệu
 @section('content')
 
 <main>
-    <div class="mt-8">
+    <div class="lg:my-14 my-8">
         <section>
             <div class="container mb-5">
                 <div class="flex flex-wrap md:space-x-2 lg:space-x-6 md:flex-nowrap">
@@ -74,7 +74,7 @@ Giới thiệu
             </div>
         </section>
 
-        <div class="shop-banner" style="background-image: url('assets/clients/images/about/banner.jpg');width:100%;height:auto;background-repeat: no-repeat;background-size: cover;background-position: center;">
+        <div class="shop-banner my-8 mt-8" style="background-image: url('assets/clients/images/about/banner.jpg');width:100%;height:auto;background-repeat: no-repeat;background-size: cover;background-position: center;">
             <div class="container">
                 <div class="py-12">
                     <h2>Khuyến mại tháng 12 đang diễn ra!<br>với mức<span class="active"> giảm giá lớn</span></h2>
@@ -109,7 +109,7 @@ Giới thiệu
                                 <li><a href="#" class="fa fa-instagram"></a></li>
                             </ul>
                         </div>
-                        <h4 class="mb-3">Jimmy Doe<span>Farmer</span></h4>
+                        <h4 class="mb-3">Jimmy Doe<span>Người chăm sóc</span></h4>
                     </div>
                     <div class="single-team-item">
                         <div class="team-item-bg" style="background-image: url('assets/clients/images/about/team-2.jpg')">
@@ -119,7 +119,7 @@ Giới thiệu
                                 <li><a href="#" class="fa fa-instagram"></a></li>
                             </ul>
                         </div>
-                        <h4 class="mb-3">Marry Doe<span>Farmer</span></h4>
+                        <h4 class="mb-3">Marry Doe<span>Người chăm sóc</span></h4>
                     </div>
                     <div class="single-team-item">
                         <div class="team-item-bg" style="background-image: url('assets/clients/images/about/team-3.jpg')">
@@ -129,7 +129,7 @@ Giới thiệu
                                 <li><a href="#" class="fa fa-instagram"></a></li>
                             </ul>
                         </div>
-                        <h4 class="mb-3">Simon Joe<span>Farmer</span></h4>
+                        <h4 class="mb-3">Simon Joe<span>Người chăm sóc</span></h4>
                     </div>
                 </div>
             </div>
