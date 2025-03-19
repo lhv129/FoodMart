@@ -194,6 +194,6 @@ Route::middleware(['checkRole:3'])->group(function () {
         //Thêm sản phẩm vào mục yêu thích
         Route::get('/', [CartController::class, 'index'])->name('products.carts');
         Route::post('{slug}/them', [CartController::class, 'store'])->name('products.carts.store');
-        Route::delete('{id}/xoa', [CartController::class, 'delete'])->name('products.carts.delete');
+        Route::put('cap-nhat',[CartController::class,'update'])->name('products.carts.update');
     });
 });

@@ -171,26 +171,25 @@ Chi tiết sản phẩm
                                         @if($product->quantity > 0)
                                         <div>
                                             <!-- input -->
-                                            <div class="w-1/3 md:w-1/4 lg:w-1/5">
-                                                <!-- input -->
-                                                <div
-                                                    class="input-group input-spinner rounded-lg flex justify-between items-center">
-                                                    <input type="button" value="-"
-                                                        class="button-minus w-8 py-1 border-r cursor-pointer border-gray-300"
-                                                        data-field="quantity" />
-                                                    <input type="number" step="1" max="10" value="1" name="quantity"
-                                                        class="quantity-field w-9 px-2 text-center h-7 border-0 bg-transparent" />
-                                                    <input type="button" value="+"
-                                                        class="button-plus w-8 py-1 border-l cursor-pointer border-gray-300"
-                                                        data-field="quantity" />
+                                            <form method="POST" action="{{ route('products.carts.store',$product->slug) }}">
+                                                @csrf
+                                                <div class="w-1/3 md:w-1/4 lg:w-1/5">
+                                                    <div class="input-group input-spinner rounded-lg flex justify-between items-center">
+                                                        <input type="button" value="-"
+                                                            class="button-minus w-8 py-1 border-r cursor-pointer border-gray-300"
+                                                            data-field="quantity" />
+                                                        <input type="number" step="1" max="10" value="1" name="quantity" min="1"
+                                                            class="quantity-field w-9 px-2 text-center h-7 border-0 bg-transparent" />
+                                                        <input type="button" value="+" id="button-plus"
+                                                            class="button-plus w-8 py-1 border-l cursor-pointer border-gray-300"
+                                                            data-field="quantity" />
+                                                    </div>
                                                 </div>
-                                            </div>
                                         </div>
                                         <div class="flex flex-wrap justify-start gap-2 items-center">
                                             <div class="lg:w-1/3 md:w-2/5 w-full grid">
-                                                <!-- button -->
                                                 <!-- btn -->
-                                                <button type="button"
+                                                <button type="submit"
                                                     class="btn bg-green-600 text-white border-green-600 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-green-700 hover:border-green-700 active:bg-green-700 active:border-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 justify-center">
                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                         class="icon icon-tabler icon-tabler-plus mr-2" width="12"
@@ -203,6 +202,7 @@ Chi tiết sản phẩm
                                                     </svg>
                                                     Thêm vào giỏ
                                                 </button>
+                                                </form>
                                             </div>
                                             @endif
                                             <div class="md:w-1/3 w-full">

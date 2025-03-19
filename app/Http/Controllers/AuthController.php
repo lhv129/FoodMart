@@ -30,11 +30,13 @@ class AuthController extends Controller
         ];
         if (Auth::attempt($data)) {
             if (Auth::user()->status === 'active') {
+                $name=Auth::user()->name;
                 if (Auth::user()->role_id === 3) {
-                    toast('Đăng nhập thành công', 'success');
+                    $name=Auth::user()->name;
+                    toast("Đăng nhập thành công, xin chào $name", 'success');
                     return redirect('/');
                 } else {
-                    toast('Đăng nhập thành công', 'success');
+                    toast("Đăng nhập thành công, xin chào $name", 'success');
                     return redirect('/admin');
                 }
             } else if (Auth::user()->status === 'inactive') {

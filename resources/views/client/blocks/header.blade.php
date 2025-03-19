@@ -300,26 +300,26 @@
             </div>
             @auth
             <ul class="list-none">
-                @foreach ($headerData['carts'] as $cart)
-                <!-- list group -->
-                <li class="py-3 border-t">
-                    <div class="flex items-center">
-                        <div class="w-1/2 md:w-1/2 lg:w-3/5">
-                            <div class="flex">
-                                <img src="{{ $cart->image }}" alt="ảnh sản phẩm"
-                                    class="w-16 h-16" />
-                                <div class="ml-3">
-                                    <!-- title -->
-                                    <a href="{{ route('products.detail', $cart->slug) }}" class="text-inherit">
-                                        <h6>{{ $cart->name }}</h6>
-                                    </a>
-                                    <span><small class="text-gray-500">{{ $cart->unit_name }}</small></span>
-                                    <!-- text -->
-                                    <div class="mt-2 small leading-none">
-                                        <form method="POST" action="{{ route('products.carts.delete', ['id' => $cart->id ]) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="text-green-600 flex items-center" type="submit">
+                <form method="POST" action="{{ route('products.carts.update') }}">
+                    @csrf
+                    @method('PUT')
+                    @foreach ($headerData['carts'] as $index => $cart)
+                    <!-- list group -->
+                    <li class="py-3 border-t">
+                        <div class="flex items-center">
+                            <div class="w-1/2 md:w-1/2 lg:w-3/5">
+                                <div class="flex">
+                                    <img src="{{ $cart->image }}" alt="ảnh sản phẩm"
+                                        class="w-16 h-16" />
+                                    <div class="ml-3">
+                                        <!-- title -->
+                                        <a href="{{ route('products.detail', $cart->slug) }}" class="text-inherit">
+                                            <h6>{{ $cart->name }}</h6>
+                                        </a>
+                                        <span><small class="text-gray-500">{{ $cart->unit_name }}</small></span>
+                                        <!-- text -->
+                                        <div class="mt-2 small leading-none">
+                                            <button class="text-green-600 flex items-center" type="submit" name="btn_delete" value="{{ $cart->id }}">
                                                 <span class="mr-1 align-text-bottom">
                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                         class="icon icon-tabler icon-tabler-trash" width="14"
@@ -336,46 +336,54 @@
                                                 </span>
                                                 <span class="text-gray-500 text-sm">Xóa</span>
                                             </button>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- input group -->
-                        <div class="w-1/2 md:w-1/3 lg:w-1/4">
-                            <!-- input -->
+                            <!-- input group -->
                             <div class="input-group input-spinner rounded-lg flex justify-between items-center">
                                 <input type="button" value="-"
                                     class="button-minus w-8 py-1 border-r cursor-pointer border-gray-300"
-                                    data-field="quantity" />
-                                <input type="number" step="1" max="10" value="{{ $cart->quantity }}" name="quantity" class="quantity-field w-9 px-2 text-center h-7 border-0 bg-transparent" />
+                                    data-field="cart[{{$cart->id}}][quantity]" />
+                                <input type="number" step="1" max="10" value="{{ $cart->quantity }}" name="cart[{{$cart->id}}][quantity]"
+                                    class="quantity-field w-9 px-2 text-center h-7 border-0 bg-transparent" />
                                 <input type="button" value="+"
                                     class="button-plus w-8 py-1 border-l cursor-pointer border-gray-300"
-                                    data-field="quantity" />
+                                    data-field="cart[{{$cart->id}}][quantity]" />
+                            </div>
+                            <!-- price -->
+                            <div class="w-1/4 text-center md:w-1/4">
+                                @if ($cart->discount > 0)
+                                <span class="font-bold text-red-600">{{ number_format($cart->sub_total, 0, ',', '.') }}đ</span>
+                                <div class="line-through text-gray-500 small">{{ number_format($cart->retail_price * $cart->quantity, 0, ',', '.') }}đ</div>
+                                @else
+                                <span class="font-bold text-gray-800">{{ number_format($cart->sub_total, 0, ',', '.') }}đ</span>
+                                @endif
                             </div>
                         </div>
-                        <!-- price -->
-                        <div class="w-1/4 text-center md:w-1/4">
-                            @if ($cart->discount > 0)
-                            <span class="font-bold text-red-600">{{ number_format($cart->sub_total, 0, ',', '.') }}đ</span>
-                            <div class="line-through text-gray-500 small">{{ number_format($cart->retail_price * $cart->quantity, 0, ',', '.') }}đ</div>
-                            @else
-                            <span class="font-bold text-gray-800">{{ number_format($cart->sub_total, 0, ',', '.') }}đ</span>
-                            @endif
+                    </li>
+                    @endforeach
+                    <li class="py-3 border-t">
+                        <div class="d-flex justify-between">
+                            <button type="submit" name="btn_update" value="update" class="btn inline-flex items-center gap-x-2 bg-yellow-300 text-white">
+                                Cập nhật giỏ hàng
+                            </button>
+                            <x-cart-total :carts="$headerData['carts']" />
                         </div>
-                    </div>
-                </li>
-                @endforeach
+                    </li>
+                </form>
             </ul>
             <!-- btn -->
             <div class="flex justify-between mt-4">
-                <a href="#!"
-                    class="btn inline-flex items-center gap-x-2 bg-green-600 text-white border-green-600 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-green-700 hover:border-green-700 active:bg-green-700 active:border-green-700 focus:outline-none focus:ring-4 focus:ring-green-300">
-                    Thanh toán
+                <a href="#!">
+                    <button data-bs-toggle="offcanvas" class="btn inline-flex items-center gap-x-2 bg-green-600 text-white border-green-600 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-green-700 hover:border-green-700 active:bg-green-700 active:border-green-700 focus:outline-none focus:ring-4 focus:ring-green-300">
+                        Thanh toán
+                    </button>
                 </a>
-                <a href="#!"
-                    class="btn inline-flex items-center gap-x-2 bg-gray-800 text-white border-gray-800 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-gray-900 hover:border-gray-900 active:bg-gray-900 active:border-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300">
-                    Tiếp tục mua hàng
+                <a href="{{ route('products.list') }}">
+                    <button data-bs-toggle="offcanvas" class="btn inline-flex items-center gap-x-2 bg-gray-800 text-white border-gray-800 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-gray-900 hover:border-gray-900 active:bg-gray-900 active:border-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                        Tiếp tục mua hàng
+                    </button>
                 </a>
             </div>
             @else
@@ -385,7 +393,6 @@
                 <a href="{{ route('login') }}">
                     <button
                         data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasRight"
                         class="btn inline-flex items-center gap-x-2 bg-gray-800 text-white border-gray-800 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-gray-900 hover:border-gray-900 active:bg-gray-900 active:border-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300">
                         Đăng nhập
                     </button>
