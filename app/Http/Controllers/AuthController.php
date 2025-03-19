@@ -165,11 +165,6 @@ class AuthController extends Controller
         return back();
     }
 
-    public function changePassword()
-    {
-        return view('admin/profile/change-password');
-    }
-
     public function handleChangePassword(ChangePasswordAdminRequest $request, $id)
     {
         // Lấy người dùng hiện tại

@@ -8,7 +8,7 @@
 @endsection
 
 @section('title')
-Sản phẩm
+Hồ sơ cá nhân
 @endsection
 
 @section('content')
@@ -99,7 +99,7 @@ Sản phẩm
                                     <button type="submit" class="btn inline-flex items-center gap-x-2 bg-green-600 text-white border-green-600 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-green-700 hover:border-green-700 active:bg-green-700 active:border-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 justify-center">
                                         Lưu thay đổi
                                     </button>
-                                    <a href="{{ route('admin.profile.change') }}" class="btn btn-primary">Đổi mật khẩu</a>
+                                    <a href="{{ route('user.profile.change') }}" class="btn inline-flex items-center gap-x-2 bg-gray-800 text-white border-gray-800 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-gray-900 hover:border-gray-900 active:bg-gray-900 active:border-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300">Đổi mật khẩu</a>
                                 </form>
                             </div>
                         </div>

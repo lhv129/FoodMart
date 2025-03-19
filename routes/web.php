@@ -64,7 +64,7 @@ Route::middleware(['checkRole:1,2'])->prefix('admin')->group(function () {
 
     //Route profile
     Route::get('/ho-so-ca-nhan', [AuthController::class, 'profile'])->name('admin.profile');
-    Route::get('/ho-so-ca-nhan/thay-doi-mat-khau', [AuthController::class, 'changePassword'])->name('admin.profile.change');
+    Route::get('/ho-so-ca-nhan/thay-doi-mat-khau', [UserController::class, 'changePassword'])->name('admin.profile.change');
 
     //Route good_receipt_notes (nhập hàng)
     Route::get('/don-nhap-hang', [GoodReceiptNoteController::class, 'index'])->name('admin.goods');
@@ -171,6 +171,7 @@ Route::middleware(['checkRole:1,2,3'])->group(function () {
 
     //Route update profile dùng cho cả admin, staff, member
     Route::get('/ho-so-ca-nhan', [ClientUserController::class, 'profile'])->name('profile');
+    Route::get('/ho-so-ca-nhan/thay-doi-mat-khau', [ClientUserController::class, 'changePassword'])->name('user.profile.change');
     Route::put('/ho-so-ca-nhan/{id}/thay-doi-mat-khau', [AuthController::class, 'handleChangePassword'])->name('profile.change.password');
     Route::put('/ho-so-ca-nhan/{id}/cap-nhat', [AuthController::class, 'handleUpdateProfile'])->name('profile.update');
 });

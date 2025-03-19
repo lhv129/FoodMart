@@ -19,12 +19,17 @@ class UserController extends Controller
 
     public function indexStaff()
     {
-        $users = User::select('users.*','roles.name AS role_name')
-            ->join('roles','roles.id','role_id')
+        $users = User::select('users.*', 'roles.name AS role_name')
+            ->join('roles', 'roles.id', 'role_id')
             ->whereIn('role_id', [1, 2])
             ->where('users.deleted_at', null)
             ->paginate(10);
         return view('admin/users/indexStaff', compact('users'));
+    }
+
+    public function changePassword()
+    {
+        return view('admin/profile/change-password');
     }
 
     public function detail($id)
@@ -62,7 +67,8 @@ class UserController extends Controller
         return back();
     }
 
-    public function updateRole(Request $request,$id){
+    public function updateRole(Request $request, $id)
+    {
         $user = User::find($id);
         $user->update([
             'role_id' => $request->role_id
