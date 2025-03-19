@@ -19,6 +19,7 @@ use App\Http\Controllers\admin\GoodDeliveryNoteDetailController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\client\CartController;
 use App\Http\Controllers\client\ProductController as ClientProductController;
+use App\Http\Controllers\client\UserController as ClientUserController;
 use App\Http\Controllers\client\WishlistController;
 
 /*
@@ -63,9 +64,7 @@ Route::middleware(['checkRole:1,2'])->prefix('admin')->group(function () {
 
     //Route profile
     Route::get('/ho-so-ca-nhan', [AuthController::class, 'profile'])->name('admin.profile');
-    Route::put('/ho-so-ca-nhan/{id}/cap-nhat', [AuthController::class, 'handleUpdateProfile'])->name('admin.profile.update');
     Route::get('/ho-so-ca-nhan/thay-doi-mat-khau', [AuthController::class, 'changePassword'])->name('admin.profile.change');
-    Route::put('/ho-so-ca-nhan/{id}/thay-doi-mat-khau', [AuthController::class, 'handleChangePassword'])->name('admin.profile.change.password');
 
     //Route good_receipt_notes (nhập hàng)
     Route::get('/don-nhap-hang', [GoodReceiptNoteController::class, 'index'])->name('admin.goods');
@@ -151,6 +150,31 @@ Route::middleware(['checkRole:1,2'])->prefix('admin')->group(function () {
     });
 });
 
+//Route admin, staff, admin đều dùng được
+Route::middleware(['checkRole:1,2,3'])->group(function () {
+    Route::prefix('san-pham-yeu-thich')->group(function () {
+        //Thêm sản phẩm vào mục yêu thích
+        Route::get('/', [WishlistController::class, 'index'])->name('products.wishlist');
+        Route::post('{slug}/them-san-pham-yeu-thich', [WishlistController::class, 'store'])->name('products.wishlist.store');
+        Route::delete('{id}/xoa-san-pham-yeu-thich', [WishlistController::class, 'delete'])->name('products.wishlist.delete');
+
+        //Thêm sản phẩm từ mục yêu thích vào cart
+        Route::post('{id}/them-vao-gio-hang', [WishlistController::class, 'createCart'])->name('wishlits.store.cart');
+    });
+
+    Route::prefix('gio-hang')->group(function () {
+        //Thêm sản phẩm vào mục yêu thích
+        Route::get('/', [CartController::class, 'index'])->name('products.carts');
+        Route::post('{slug}/them', [CartController::class, 'store'])->name('products.carts.store');
+        Route::put('cap-nhat', [CartController::class, 'update'])->name('products.carts.update');
+    });
+
+    //Route update profile dùng cho cả admin, staff, member
+    Route::get('/ho-so-ca-nhan', [ClientUserController::class, 'profile'])->name('profile');
+    Route::put('/ho-so-ca-nhan/{id}/thay-doi-mat-khau', [AuthController::class, 'handleChangePassword'])->name('profile.change.password');
+    Route::put('/ho-so-ca-nhan/{id}/cap-nhat', [AuthController::class, 'handleUpdateProfile'])->name('profile.update');
+});
+
 
 //Route không cần đăng nhập
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -167,33 +191,10 @@ Route::prefix('san-pham')->group(function () {
     //Lấy ra sản phẩm theo ô input tìm kiếm
     Route::get('tim-kiem', [ClientProductController::class, 'getProductsInSearch'])->name('products.search');
 });
-
-//Pages tĩnh
 //Liên hệ
-Route::get('lien-he',[HomeController::class,'contact'])->name('contact');
+Route::get('lien-he', [HomeController::class, 'contact'])->name('contact');
 //Gioi thieu
-Route::get('gioi-thieu',[HomeController::class,'aboutUs'])->name('aboutUs');
+Route::get('gioi-thieu', [HomeController::class, 'aboutUs'])->name('aboutUs');
 //Tin tuc
-Route::get('tin-tuc',[HomeController::class,'ourNew'])->name('ourNew');
-Route::post('tin-tuc/gui-form',[HomeController::class,'handleSubmitContact'])->name('handleSubmitContact');
-
-
-//Route cần đăng nhập
-Route::middleware(['checkRole:3'])->group(function () {
-    Route::prefix('san-pham-yeu-thich')->group(function () {
-        //Thêm sản phẩm vào mục yêu thích
-        Route::get('/', [WishlistController::class, 'index'])->name('products.wishlist');
-        Route::post('{slug}/them-san-pham-yeu-thich', [WishlistController::class, 'store'])->name('products.wishlist.store');
-        Route::delete('{id}/xoa-san-pham-yeu-thich', [WishlistController::class, 'delete'])->name('products.wishlist.delete');
-
-        //Thêm sản phẩm từ mục yêu thích vào cart
-        Route::post('{id}/them-vao-gio-hang',[WishlistController::class,'createCart'])->name('wishlits.store.cart');
-    });
-
-    Route::prefix('gio-hang')->group(function () {
-        //Thêm sản phẩm vào mục yêu thích
-        Route::get('/', [CartController::class, 'index'])->name('products.carts');
-        Route::post('{slug}/them', [CartController::class, 'store'])->name('products.carts.store');
-        Route::put('cap-nhat',[CartController::class,'update'])->name('products.carts.update');
-    });
-});
+Route::get('tin-tuc', [HomeController::class, 'ourNew'])->name('ourNew');
+Route::post('tin-tuc/gui-form', [HomeController::class, 'handleSubmitContact'])->name('handleSubmitContact');

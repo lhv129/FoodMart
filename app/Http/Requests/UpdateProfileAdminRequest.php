@@ -26,6 +26,7 @@ class UpdateProfileAdminRequest extends FormRequest
             'phone' => 'required|regex:/^(0)[0-9]{9}$/',
             'email' => 'required|email|unique:users,email,' . $this->id . 'id',
             'address' => 'required',
+            
             'birthday' => 'required'
         ];
     }
@@ -37,6 +38,7 @@ class UpdateProfileAdminRequest extends FormRequest
             'email' => 'Email không đúng định dạng.',
             'email.unique' => 'Email của bạn đã tồn tại, vui lòng chọn email khác.',
             'phone.regex' => 'Số điện thoại phải bắt đầu từ 0 và đủ 10 số.',
+            
         ];
     }
 }

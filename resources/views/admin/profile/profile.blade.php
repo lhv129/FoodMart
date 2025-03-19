@@ -18,7 +18,7 @@ Hồ sơ cá nhân
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form method="POST" enctype="multipart/form-data" action="{{ route('admin.profile.update', Auth::user()->id) }}">
+            <form method="POST" enctype="multipart/form-data" action="{{ route('profile.update', Auth::user()->id) }}">
                 @csrf
                 @method('PUT')
                 <div class="row">

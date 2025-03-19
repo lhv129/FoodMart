@@ -30,9 +30,9 @@ class AuthController extends Controller
         ];
         if (Auth::attempt($data)) {
             if (Auth::user()->status === 'active') {
-                $name=Auth::user()->name;
+                $name = Auth::user()->name;
                 if (Auth::user()->role_id === 3) {
-                    $name=Auth::user()->name;
+                    $name = Auth::user()->name;
                     toast("Đăng nhập thành công, xin chào $name", 'success');
                     return redirect('/');
                 } else {
@@ -99,21 +99,58 @@ class AuthController extends Controller
     public function handleUpdateProfile(UpdateProfileAdminRequest $request, $id)
     {
         $user = User::find(Auth::user()->id);
+
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
-            // Đường dẫn ảnh
             $imageDirectory = 'images/avatars/';
-            // Xóa ảnh nếu ảnh cũ
-            File::delete($imageDirectory . $user->fileAvatar);
-            // Tạo ngẫu nhiên tên ảnh 12 kí tự
-            $imageName = Str::random(12) . "." . $file->getClientOriginalExtension();
 
-            $file->move($imageDirectory, $imageName);
+            // Xóa ảnh cũ nếu có
+            if ($user->fileAvatar) {
+                $oldImagePath = public_path($imageDirectory . $user->fileAvatar);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
 
-            $path_image   = 'http://127.0.0.1:8000/' . ($imageDirectory . $imageName);
+            // Tạo tên ảnh ngẫu nhiên
+            $imageName = Str::random(12) . '.' . $file->getClientOriginalExtension();
+            $imagePath = public_path($imageDirectory . $imageName);
+
+            // Sử dụng GD Library để xử lý ảnh
+            $sourceImage = imagecreatefromstring(file_get_contents($file->getRealPath()));
+            $sourceWidth = imagesx($sourceImage);
+            $sourceHeight = imagesy($sourceImage);
+
+            // Xác định kích thước crop
+            $cropSize = 500;
+            $cropX = 0;
+            $cropY = 0;
+
+            if ($sourceWidth > $sourceHeight) {
+                $cropX = ($sourceWidth - $sourceHeight) / 2;
+                $sourceWidth = $sourceHeight;
+            } else {
+                $cropY = ($sourceHeight - $sourceWidth) / 2;
+                $sourceHeight = $sourceWidth;
+            }
+
+            // Tạo ảnh crop
+            $croppedImage = imagecreatetruecolor($cropSize, $cropSize);
+            imagecopyresampled($croppedImage, $sourceImage, 0, 0, $cropX, $cropY, $cropSize, $cropSize, $sourceWidth, $sourceHeight);
+
+            // Lưu ảnh đã crop
+            imagejpeg($croppedImage, $imagePath, 80); // Chất lượng 80
+
+            // Giải phóng bộ nhớ
+            imagedestroy($sourceImage);
+            imagedestroy($croppedImage);
+
+            $path_image = asset($imageDirectory . $imageName);
         } else {
             $path_image = $user->avatar;
+            $imageName = $user->fileAvatar; // Giữ nguyên tên ảnh cũ
         }
+
         $user->update([
             'name' => $request->name,
             'avatar' => $path_image,
@@ -123,6 +160,7 @@ class AuthController extends Controller
             'address' => $request->address,
             'birthday' => $request->birthday,
         ]);
+
         toast('Cập nhật thành công', 'success');
         return back();
     }
@@ -153,7 +191,7 @@ class AuthController extends Controller
 
         // Thông báo thành công
         toast('Mật khẩu đã được thay đổi', 'success');
-        return redirect('admin/ho-so-ca-nhan');
+        return back();
     }
 
     public function logout()
