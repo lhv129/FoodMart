@@ -315,13 +315,14 @@
                         <div class="flex items-center">
                             <div class="w-1/2 md:w-1/2 lg:w-3/5">
                                 <div class="flex">
-                                    <img src="{{ $cart->image }}" alt="ảnh sản phẩm"
-                                        class="w-16 h-16" />
+                                    <a href="{{ route('products.detail' , $cart->slug) }}">
+                                        <button type="button" data-bs-dismiss="offcanvas">
+                                            <img src="{{ $cart->image }}" alt="ảnh sản phẩm" class="w-16 h-16" />
+                                        </button>
+                                    </a>
                                     <div class="ml-3">
                                         <!-- title -->
-                                        <a href="{{ route('products.detail', $cart->slug) }}" class="text-inherit">
-                                            <h6>{{ $cart->name }}</h6>
-                                        </a>
+                                        <h6>{{ $cart->name }}</h6>
                                         <span><small class="text-gray-500">{{ $cart->unit_name }}</small></span>
                                         <!-- text -->
                                         <div class="mt-2 small leading-none">
@@ -381,7 +382,7 @@
             </ul>
             <!-- btn -->
             <div class="flex justify-between mt-4">
-                <a href="#!">
+                <a href="{{ route('orders') }}">
                     <button data-bs-toggle="offcanvas" class="btn inline-flex items-center gap-x-2 bg-green-600 text-white border-green-600 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-green-700 hover:border-green-700 active:bg-green-700 active:border-green-700 focus:outline-none focus:ring-4 focus:ring-green-300">
                         Thanh toán
                     </button>

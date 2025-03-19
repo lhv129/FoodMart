@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Warehouse;
 use Illuminate\Support\Facades\Auth;
 
 class WishlistController extends Controller
@@ -30,7 +31,9 @@ class WishlistController extends Controller
         $product = Product::where('slug', $slug)->first();
 
         //Kiểm tra xem mục yêu thích của bạn đã có sản phẩm đó chưa
-        $productInWishlist = Wishlist::where('product_id', $product->id)->first();
+        $productInWishlist = Wishlist::where('product_id', $product->id)
+            ->where('user_id', Auth::user()->id)
+            ->first();
         if ($productInWishlist) {
             toast('Sản phẩm này đã có trong mục yêu thích của bạn', 'success');
             return back();
@@ -52,9 +55,21 @@ class WishlistController extends Controller
 
         $priceProduct = $product->retail_price - $product->discount;
         $quantity = $request->quantity ?? 1;
+
+        //Lấy ra sản phẩm trong kho
+        $productInWarehouse = Warehouse::where('product_id', $product->id)->first();
+
         //Kiểm tra xem sản phẩm có trong cart chưa
-        $productInCart = Cart::where('product_id', $product->id)->first();
+        $productInCart = Cart::where('product_id', $product->id)
+            ->where('user_id', Auth::user()->id)
+            ->first();
+
         if ($productInCart) {
+            //Nếu số lượng thêm vào giỏ + số lượng có sẵn trong giỏ lớn hơn số lượng trong kho thì trả về lỗi
+            if ($productInCart->quantity + $quantity > $productInWarehouse->quantity) {
+                toast("Sản phẩm này đã có trong giỏ hàng của bạn và chỉ còn số lượng trong kho là $productInWarehouse->quantity", 'error');
+                return back();
+            }
             $newQuantity = $productInCart->quantity + 1;
             $productInCart->update([
                 'quantity' => $newQuantity,

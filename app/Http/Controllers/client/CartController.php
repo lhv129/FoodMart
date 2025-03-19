@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Warehouse;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
@@ -23,9 +24,28 @@ class CartController extends Controller
         } else {
             $quantity = 1;
         }
-        //Kiểm tra xem sản phẩm có trong cart chưa
-        $productInCart = Cart::where('product_id', $product->id)->first();
+
+        //Lấy ra sản phẩm trong kho
+        $productInWarehouse = Warehouse::where('product_id', $product->id)->first();
+
+        //B1. Kiểm tra số lượng ô input có vượt quá số lượng trong kho không
+        if ($quantity > $productInWarehouse->quantity) {
+            toast("Sản phẩm này chỉ còn số lượng trong kho là $productInWarehouse->quantity", 'error');
+            return back();
+        }
+
+        //Kiểm tra xem sản phẩm có trong giỏ hàng chưa
+        $productInCart = Cart::where('product_id', $product->id)
+        ->where('user_id',Auth::user()->id)
+        ->first();
         if ($productInCart) {
+            //Nếu số lượng thêm vào giỏ + số lượng có sẵn trong giỏ lớn hơn số lượng trong kho thì trả về lỗi
+            if ($productInCart->quantity + $quantity > $productInWarehouse->quantity) {
+                toast("Sản phẩm này đã có trong giỏ hàng của bạn và chỉ còn số lượng trong kho là $productInWarehouse->quantity", 'error');
+                return back();
+            }
+
+            //Nếu không thì cập nhật lại giỏ hàng
             $newQuantity = $productInCart->quantity + $quantity;
             $productInCart->update([
                 'quantity' => $newQuantity,
@@ -62,16 +82,23 @@ class CartController extends Controller
             }
             foreach ($carts as $index => $cart) {
                 $productInCart = Cart::find($index);
-                $product = Product::select('id', 'retail_price', 'discount')
+                $product = Product::select('id','name','retail_price', 'discount')
                     ->where('id', $productInCart->product_id)
                     ->first();
 
                 $quantity = $cart['quantity'];
+
+                $productInWarehouse = Warehouse::where('product_id', $product->id)->first();
+                if ($quantity > $productInWarehouse->quantity) {
+                    toast("$product->name chỉ còn $productInWarehouse->quantity số lượng trong kho", 'error');
+                    return back();
+                }
+
                 // Nếu số lượng sản phẩm nhỏ hơn 0 thì xóa sản phẩm ra khỏi giỏ hàng
                 if ($quantity <= 0) {
                     Cart::where('id', $index)->delete();
                 }
-                // Nếu > 0 thì cập nhật lại số lượng và đơn giá (sub_total)
+                // Nếu > 0 thì và nhỏ hơn số lượng trong kho cập nhật lại số lượng và đơn giá (sub_total)
                 $productInCart->update([
                     'quantity' => $quantity,
                     'sub_total' => $quantity * ($product->retail_price - $product->discount)

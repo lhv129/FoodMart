@@ -18,6 +18,7 @@ use App\Http\Controllers\admin\GoodReceiptNoteDetailController;
 use App\Http\Controllers\admin\GoodDeliveryNoteDetailController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\client\CartController;
+use App\Http\Controllers\client\OrderController;
 use App\Http\Controllers\client\ProductController as ClientProductController;
 use App\Http\Controllers\client\UserController as ClientUserController;
 use App\Http\Controllers\client\WishlistController;
@@ -174,6 +175,9 @@ Route::middleware(['checkRole:1,2,3'])->group(function () {
     Route::get('/ho-so-ca-nhan/thay-doi-mat-khau', [ClientUserController::class, 'changePassword'])->name('user.profile.change');
     Route::put('/ho-so-ca-nhan/{id}/thay-doi-mat-khau', [AuthController::class, 'handleChangePassword'])->name('profile.change.password');
     Route::put('/ho-so-ca-nhan/{id}/cap-nhat', [AuthController::class, 'handleUpdateProfile'])->name('profile.update');
+
+    //Route orders
+    Route::get('thanh-toan',[OrderController::class,'index'])->name('orders');
 });
 
 

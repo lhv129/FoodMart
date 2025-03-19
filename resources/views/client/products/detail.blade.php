@@ -232,7 +232,7 @@ Chi tiết sản phẩm
                                             <tbody>
                                                 <tr>
                                                     <td class="px-6 py-3">Tình trạng:</td>
-                                                    <td class="px-6 py-3">{{ $product->quantity > 0 ? 'Còn hàng' : 'Hết hàng' }}</td>
+                                                    <td class="px-6 py-3">{{ $product->quantity > 0 ? 'Còn hàng: '.$product->quantity . $product->unit_name : 'Hết hàng' }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="px-6 py-3">Danh mục:</td>
