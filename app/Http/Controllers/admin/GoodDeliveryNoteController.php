@@ -4,14 +4,16 @@ namespace App\Http\Controllers\admin;
 
 use App\Models\Product;
 use App\Models\Warehouse;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Models\Payment_method;
 use App\Models\GoodDeliveryNote;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreGoodDeliveryRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\GoodDeliveryNoteDetail;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Http\Request;
 
 class GoodDeliveryNoteController extends Controller
 {
@@ -32,7 +34,7 @@ class GoodDeliveryNoteController extends Controller
         return view('admin/good-delivery-notes/create', compact('payments', 'products'));
     }
 
-    public function store(Request $request)
+    public function store(StoreGoodDeliveryRequest $request)
     {
         $cartDelivery = Session::get('cartDelivery');
         // Kiểm tra xem session 'cartDelivery' có tồn tại hay không
@@ -46,7 +48,7 @@ class GoodDeliveryNoteController extends Controller
             'user_id' => $request->user_id,
             'payment_method_id' => $request->payment_method_id,
             'customer' => $request->customer,
-            'code' => 'HD-' . rand(1, 99999999),
+            'code' => 'HD-' . Str::upper(Str::random(5)) . rand(1, 99999999),
             'total_price' => 0,
             'created_at' => now(),
         ]);
@@ -71,13 +73,13 @@ class GoodDeliveryNoteController extends Controller
         return redirect('admin/don-ban-hang');
     }
 
-    public function confirm($id)
+    public function confirm($code)
     {
         // Kiểm tra người xác nhận đơn
-        $goodDeliveryNote = GoodDeliveryNote::where('id', $id)->first();
+        $goodDeliveryNote = GoodDeliveryNote::where('code', $code)->first();
         if (Auth::user()->id == $goodDeliveryNote->user_id) {
             // Lấy ra đơn bán hàng
-            $details = GoodDeliveryNoteDetail::where('good_delivery_note_id', $id)->get();
+            $details = GoodDeliveryNoteDetail::where('good_delivery_note_id', $goodDeliveryNote->id)->get();
             // Bước 1: Kiểm tra tất cả các phần tử
             $allConditionsMet = true;
             foreach ($details as $item) {
@@ -118,14 +120,14 @@ class GoodDeliveryNoteController extends Controller
         }
     }
 
-    public function edit($id)
+    public function edit($code)
     {
-        $goodDeliveryNote = GoodDeliveryNote::where('id', $id)->first();
+        $goodDeliveryNote = GoodDeliveryNote::where('code', $code)->first();
         if (Auth::user()->id == $goodDeliveryNote->user_id) {
             $goodDeliveryNoteDetail = GoodDeliveryNoteDetail::select('good_delivery_note_details.*', 'products.name AS product_name', 'unit_id', 'units.name AS unit_name')
                 ->join('products', 'products.id', 'product_id')
                 ->join('units', 'units.id', 'unit_id')
-                ->where('good_delivery_note_id', $id)->get();
+                ->where('good_delivery_note_id', $goodDeliveryNote->id)->get();
             $payments = Payment_method::all();
             $products = Product::all();
             return view('admin/good-delivery-notes/edit', compact('payments', 'products', 'goodDeliveryNote', 'goodDeliveryNoteDetail'));
@@ -135,9 +137,9 @@ class GoodDeliveryNoteController extends Controller
         }
     }
 
-    public function update(Request $request,$id)
+    public function update(Request $request,$code)
     {
-        $goodDeliveryNote = GoodDeliveryNote::where('id', $id)->first();
+        $goodDeliveryNote = GoodDeliveryNote::where('code', $code)->first();
         $goodDeliveryNote->update([
             'customer' => $request->customer,
             'user_id' => Auth::user()->id,
@@ -163,5 +165,18 @@ class GoodDeliveryNoteController extends Controller
             ->get();
 
         return view('admin/good-delivery-notes/detail', compact('goodDeliveryNote', 'goodDeliveryNoteDetail'));
+    }
+
+    public function delete($code)
+    {
+        $goodDeliveryNote = GoodDeliveryNote::where('code', $code)->first();
+        if ($goodDeliveryNote->user_id == Auth::user()->id) {
+            $goodDeliveryNote->delete();
+            toast('Xóa thành công đơn nhập hàng', 'success');
+            return redirect('admin/don-ban-hang');
+        } else {
+            toast('Bạn chỉ có thể xóa đơn do bạn tạo ra', 'error');
+            return redirect('admin/don-ban-hang');
+        }
     }
 }

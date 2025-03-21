@@ -3,6 +3,7 @@
 
 @section('css')
 <!-- Nội dung ở trong đây sẽ được truyền sang yield('css') ở file layout/client -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 @endsection
 
 @section('title')
@@ -59,23 +60,51 @@
                                         <td>{{ $good->code }}</td>
                                         <td>{{ $good->supplier_name }}</td>
                                         <td>{{ $good->user_name }}</td>
-                                        <td>{{ $good->payment_method_name }}</td>
+                                        <td>
+                                            @if($good->payment_method_name === 'Tiền mặt')
+                                                <span class="badge text-white bg-info">{{ $good->payment_method_name }}</span>
+                                            @elseif($good->payment_method_name === 'Chuyển khoản')
+                                            <span class="badge text-white bg-primary">{{ $good->payment_method_name }}</span>
+                                            @else
+                                            <span class="badge text-white bg-success">{{ $good->payment_method_name }}</span>
+                                            @endif
+                                        </td>
                                         <td>{{ number_format($good->total_price, 0, ',', '.') }} vnđ</td>
                                         <td>{{ $good->created_at }}</td>
                                         <!-- {{-- Thẻ td cuối cùng --}} -->
                                         <td @if ($loop->last) class="" @else class="text-center" @endif>
-                                            @if($good->status === 'Success')
-                                            <a href="{{ route('admin.goods.detail' , $good->code) }}" type="button" class="btn btn-primary mb-1">Chi tiết</a>
-                                            @endif
-                                            @if($good->status === 'Pending')
-                                            <a href="{{ route('admin.goods.confirm', $good->id) }}" type="button" class="btn btn-primary mb-1">Xác nhận</a>
-                                            <a href="{{ route('admin.goods.edit', $good->id) }}" type="button" class="btn btn-warning mb-1">Chỉnh sửa</a>
-                                            <form method="POST" action="{{ route('admin.goods.delete', $good->code) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger mb-1" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</button>
-                                            </form>
-                                            @endif
+
+                                            <div class="d-flex justify-content-center">
+                                                @if($good->status === 'Success')
+                                                <a href="{{ route('admin.goods.detail' , $good->code) }}" class="ml-2 mr-2" type="submit" name="btn-edit">
+                                                    <button type="button" style="color: #4e73df;border:none;background-color:white">
+                                                        <i class="fa fa-eye"></i>
+                                                    </button>
+                                                </a>
+                                                @endif
+                                                @if($good->status === 'Pending')
+                                                <form method="POST" action="{{ route('admin.goods.confirm', $good->code) }}">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="submit" style="color: #4e73df;border:none;background-color:white">
+                                                        <i class="fa fa-check-circle" style="font-size: 17px;"></i>
+                                                    </button>
+                                                </form>
+                                                <a href="{{ route('admin.goods.edit', $good->code) }}" class="ml-2 mr-2" type="submit" name="btn-edit">
+                                                    <button type="button" style="color: #4e73df;border:none;background-color:white">
+                                                        <i class="fa fa-edit"></i>
+                                                    </button>
+                                                </a>
+                                                <form method="POST" action="{{ route('admin.goods.delete', $good->code) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" style="color: #4e73df;border:none;background-color:white" onclick="return confirm('Bạn có chắc chắn muốn xóa?')" class="ml-2 mr-2">
+                                                        <i class="fa fa-trash-o" style="font-size: 17px;"></i>
+                                                    </button>
+                                                </form>
+                                                @endif
+                                            </div>
+
                                         </td>
                                     </tr>
                                     @endforeach

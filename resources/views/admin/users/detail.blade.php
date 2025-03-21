@@ -18,7 +18,7 @@ Thông tin người dùng
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form method="POST" enctype="multipart/form-data" action="{{ route('admin.profile.update', $user->id) }}">
+            <form method="POST" enctype="multipart/form-data" action="{{ route('profile.update', $user->id) }}">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -74,6 +74,7 @@ Thông tin người dùng
                                             <select class="form-control" disabled>
                                                 <option value="1" {{ $user->role_id == 1 ? 'selected' : '' }}>Admin</option>
                                                 <option value="2" {{ $user->role_id == 2 ? 'selected' : '' }}>Nhân viên</option>
+                                                <option value="3" {{ $user->role_id == 3 ? 'selected' : '' }}>Khách hàng</option>
                                             </select>
                                         </div>
                                         <!-- Form Group (birthday)-->

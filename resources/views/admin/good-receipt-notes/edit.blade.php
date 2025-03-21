@@ -91,7 +91,7 @@
         <div class="card-body">
             <h4>Tạo phiếu</h4>
             <div class="row">
-                <form class="col-xl-4 col-lg-5 col-md-6 col-12" method="POST" enctype="multipart/form-data" action="{{ route('admin.goods.update', $goodReceiptNote->id) }}">
+                <form class="col-xl-4 col-lg-5 col-md-6 col-12" method="POST" enctype="multipart/form-data" action="{{ route('admin.goods.update', $goodReceiptNote->code) }}">
                     @csrf
                     @method('PUT')
                     <div class="form-group">

@@ -3,6 +3,7 @@
 
 @section('css')
 <!-- Nội dung ở trong đây sẽ được truyền sang yield('css') ở file layout/client -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 @endsection
 
 @section('title')
@@ -86,12 +87,22 @@ Người dùng
                                             </form>
                                         </td>
                                         <td @if ($loop->last) class="" @else class="text-center" @endif>
+
                                             <form method="POST" action="{{ route('admin.users.delete', ['id' => $user->id]) }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a href="{{ route('admin.users.staff.detail', ['id' => $user->id]) }}"><button type="button" class="btn btn-primary mb-1">Chi tiết<i class="ml-1 fas fa-edit"></i></button></a>
-                                                <button type="submit" class="btn btn-danger mb-1" onclick="return confirm('Bạn có muốn xóa không?')">Xóa<i class="ml-1 fa fa-trash" aria-hidden="true"></i></button>
+                                                <div class="d-flex justify-content-center">
+                                                    <a href="{{ route('admin.users.staff.detail', ['id' => $user->id]) }}" class="ml-2 mr-2" type="submit" name="btn-edit">
+                                                        <button type="button" style="color: #4e73df;border:none;background-color:white">
+                                                            <i class="fa fa-edit"></i>
+                                                        </button>
+                                                    </a>
+                                                    <button type="submit" style="color: #4e73df;border:none;background-color:white" onclick="return confirm('Bạn có chắc chắn muốn xóa?')" class="ml-2 mr-2">
+                                                        <i class="fa fa-trash-o" style="font-size: 17px;"></i>
+                                                    </button>
+                                                </div>
                                             </form>
+
                                         </td>
                                     </tr>
                                     @endforeach

@@ -37,7 +37,7 @@
                                     <td>{{ $goodDeliveryNote->customer }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Người đặt:</td>
+                                    <td>Người tạo đơn:</td>
                                     <td>{{ $goodDeliveryNote->user_name }}</td>
                                 </tr>
                                 <tr>

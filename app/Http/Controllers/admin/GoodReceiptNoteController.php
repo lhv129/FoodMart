@@ -51,7 +51,7 @@ class GoodReceiptNoteController extends Controller
             'supplier_id' => $request->supplier_id,
             'user_id' => $request->user_id,
             'payment_method_id' => $request->payment_method_id,
-            'code' => 'HD-' . rand(1, 99999999),
+            'code' => 'HD-' . Str::upper(Str::random(5)) . rand(1, 99999999),
             'total_price' => 0,
             'created_at' => now(),
         ]);
@@ -75,13 +75,13 @@ class GoodReceiptNoteController extends Controller
         return redirect('admin/don-nhap-hang');
     }
 
-    public function confirm($id)
+    public function confirm($code)
     {
         // Kiểm tra người xác nhận đơn
-        $goodReceiptNote = GoodReceiptNote::where('id', $id)->first();
+        $goodReceiptNote = GoodReceiptNote::where('code', $code)->first();
         if (Auth::user()->id == $goodReceiptNote->user_id) {
             // Lấy ra đơn nhập hàng
-            $details = GoodReceiptNoteDetail::where('good_receipt_note_id', $id)->get();
+            $details = GoodReceiptNoteDetail::where('good_receipt_note_id',$goodReceiptNote->id)->get();
             foreach ($details as $item) {
                 //Kiểm tra sản phẩm trong kho
                 $productInWarehouse = Warehouse::where('product_id', $item->product_id)->first();
@@ -128,15 +128,15 @@ class GoodReceiptNoteController extends Controller
         return view('admin/good-receipt-notes/detail', compact('goodReceiptNote', 'goodReceiptNoteDetail'));
     }
 
-    public function edit($id)
+    public function edit($code)
     {
-        $goodReceiptNote = GoodReceiptNote::where('id', $id)->first();
+        $goodReceiptNote = GoodReceiptNote::where('code', $code)->first();
 
         if (Auth::user()->id == $goodReceiptNote->user_id) {
             $goodReceiptNoteDetail = GoodReceiptNoteDetail::select('good_receipt_note_details.*', 'products.name AS product_name', 'unit_id', 'units.name AS unit_name')
                 ->join('products', 'products.id', 'product_id')
                 ->join('units', 'units.id', 'unit_id')
-                ->where('good_receipt_note_id', $id)->get();
+                ->where('good_receipt_note_id',$goodReceiptNote->id)->get();
             $suppliers = Supplier::all();
             $payments = Payment_method::all();
             $products = Product::all();
@@ -147,9 +147,9 @@ class GoodReceiptNoteController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $code)
     {
-        $goodReceiptNote = GoodReceiptNote::where('id', $id)->first();
+        $goodReceiptNote = GoodReceiptNote::where('code', $code)->first();
         $goodReceiptNote->update([
             'supplier_id' => $request->supplier_id,
             'user_id' => Auth::user()->id,

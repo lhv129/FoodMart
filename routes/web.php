@@ -74,9 +74,9 @@ Route::middleware(['checkRole:1,2'])->prefix('admin')->group(function () {
     Route::get('/don-nhap-hang', [GoodReceiptNoteController::class, 'index'])->name('admin.goods');
     Route::get('/don-nhap-hang/them-moi', [GoodReceiptNoteController::class, 'create'])->name('admin.goods.create');
     Route::post('/don-nhap-hang/them-moi', [GoodReceiptNoteController::class, 'store'])->name('admin.goods.store');
-    Route::get('/don-nhap-hang/{id}/chinh-sua', [GoodReceiptNoteController::class, 'edit'])->name('admin.goods.edit');
-    Route::put('/don-nhap-hang/{id}/cap-nhat', [GoodReceiptNoteController::class, 'update'])->name('admin.goods.update');
-    Route::get('/don-nhap-hang/{id}/xac-nhan', [GoodReceiptNoteController::class, 'confirm'])->name('admin.goods.confirm');
+    Route::get('/don-nhap-hang/{code}/chinh-sua', [GoodReceiptNoteController::class, 'edit'])->name('admin.goods.edit');
+    Route::put('/don-nhap-hang/{code}/cap-nhat', [GoodReceiptNoteController::class, 'update'])->name('admin.goods.update');
+    Route::put('/don-nhap-hang/{code}/xac-nhan', [GoodReceiptNoteController::class, 'confirm'])->name('admin.goods.confirm');
     Route::get('/don-nhap-hang/{code}/chi-tiet', [GoodReceiptNoteController::class, 'detail'])->name('admin.goods.detail');
     Route::delete('/don-nhap-hang/{code}/xoa', [GoodReceiptNoteController::class, 'delete'])->name('admin.goods.delete');
 
@@ -95,9 +95,9 @@ Route::middleware(['checkRole:1,2'])->prefix('admin')->group(function () {
     Route::get('/don-ban-hang', [GoodDeliveryNoteController::class, 'index'])->name('admin.delivery');
     Route::get('/don-ban-hang/them-moi', [GoodDeliveryNoteController::class, 'create'])->name('admin.delivery.create');
     Route::post('/don-ban-hang/them-moi', [GoodDeliveryNoteController::class, 'store'])->name('admin.delivery.store');
-    Route::get('/don-ban-hang/{id}/chinh-sua', [GoodDeliveryNoteController::class, 'edit'])->name('admin.delivery.edit');
-    Route::put('/don-ban-hang/{id}/cap-nhat', [GoodDeliveryNoteController::class, 'update'])->name('admin.delivery.update');
-    Route::get('/don-ban-hang/{id}/xac-nhan', [GoodDeliveryNoteController::class, 'confirm'])->name('admin.delivery.confirm');
+    Route::get('/don-ban-hang/{code}/chinh-sua', [GoodDeliveryNoteController::class, 'edit'])->name('admin.delivery.edit');
+    Route::put('/don-ban-hang/{code}/cap-nhat', [GoodDeliveryNoteController::class, 'update'])->name('admin.delivery.update');
+    Route::put('/don-ban-hang/{code}/xac-nhan', [GoodDeliveryNoteController::class, 'confirm'])->name('admin.delivery.confirm');
     Route::get('/don-ban-hang/{code}/chi-tiet', [GoodDeliveryNoteController::class, 'detail'])->name('admin.delivery.detail');
     Route::delete('/don-ban-hang/{code}/xoa', [GoodDeliveryNoteController::class, 'delete'])->name('admin.delivery.delete');
 
