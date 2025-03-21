@@ -30,7 +30,7 @@ class CartController extends Controller
 
         //B1. Kiểm tra số lượng ô input có vượt quá số lượng trong kho không
         if ($quantity > $productInWarehouse->quantity) {
-            toast("Sản phẩm này chỉ còn số lượng trong kho là $productInWarehouse->quantity", 'error');
+            toast("Sản phẩm này còn $productInWarehouse->quantity số lượng trong kho.", 'error');
             return back();
         }
 

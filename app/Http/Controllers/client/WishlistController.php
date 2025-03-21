@@ -67,7 +67,7 @@ class WishlistController extends Controller
         if ($productInCart) {
             //Nếu số lượng thêm vào giỏ + số lượng có sẵn trong giỏ lớn hơn số lượng trong kho thì trả về lỗi
             if ($productInCart->quantity + $quantity > $productInWarehouse->quantity) {
-                toast("Sản phẩm này đã có trong giỏ hàng của bạn và chỉ còn số lượng trong kho là $productInWarehouse->quantity", 'error');
+                toast("Sản phẩm này đã có trong giỏ hàng của bạn và trong kho còn $productInWarehouse->quantity số lượng", 'error');
                 return back();
             }
             $newQuantity = $productInCart->quantity + 1;

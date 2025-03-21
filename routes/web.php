@@ -1,27 +1,29 @@
 <?php
 
+use App\Models\Order;
 use Illuminate\Http\Request;
-use App\Models\GoodReceiptNoteDetail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\admin\UnitController;
+use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\client\CartController;
 use App\Http\Controllers\client\HomeController;
+use App\Http\Controllers\client\OrderController;
 use App\Http\Controllers\admin\ProductController;
+
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\SupplierController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\WarehouseController;
+use App\Http\Controllers\client\WishlistController;
 use App\Http\Controllers\admin\PaymentMethodController;
+use App\Http\Controllers\client\Payment\VnPayController;
 use App\Http\Controllers\admin\GoodReceiptNoteController;
 use App\Http\Controllers\admin\GoodDeliveryNoteController;
 use App\Http\Controllers\admin\GoodReceiptNoteDetailController;
 use App\Http\Controllers\admin\GoodDeliveryNoteDetailController;
-use App\Http\Controllers\admin\UserController;
-use App\Http\Controllers\client\CartController;
-use App\Http\Controllers\client\OrderController;
-use App\Http\Controllers\client\ProductController as ClientProductController;
 use App\Http\Controllers\client\UserController as ClientUserController;
-use App\Http\Controllers\client\WishlistController;
+use App\Http\Controllers\client\ProductController as ClientProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -170,6 +172,8 @@ Route::middleware(['checkRole:1,2,3'])->group(function () {
         Route::put('cap-nhat', [CartController::class, 'update'])->name('products.carts.update');
     });
 
+
+
     //Route update profile dùng cho cả admin, staff, member
     Route::get('/ho-so-ca-nhan', [ClientUserController::class, 'profile'])->name('profile');
     Route::get('/ho-so-ca-nhan/thay-doi-mat-khau', [ClientUserController::class, 'changePassword'])->name('user.profile.change');
@@ -177,7 +181,22 @@ Route::middleware(['checkRole:1,2,3'])->group(function () {
     Route::put('/ho-so-ca-nhan/{id}/cap-nhat', [AuthController::class, 'handleUpdateProfile'])->name('profile.update');
 
     //Route orders
-    Route::get('thanh-toan',[OrderController::class,'index'])->name('orders');
+    Route::get('thanh-toan', [OrderController::class, 'index'])->name('orders');
+    Route::get('thanh-toan/kiem-tra-thong-tin', [OrderController::class, 'order'])->name('order');
+    Route::post('thanh-toan/xac-nhan', [OrderController::class, 'handleOrder'])->name('confirm.order');
+
+    Route::prefix('don-dat-hang')->group(function () {
+        Route::get('danh-sach', [OrderController::class, 'orderList'])->name('oder.list');
+        Route::get('{code}/chi-tiet', [OrderController::class, 'orderDetail'])->name('oder.detail');
+        Route::get('{code}/chinh-sua', [OrderController::class, 'orderEdit'])->name('order.edit');
+        Route::put('{code}/chinh-sua', [OrderController::class, 'handleUpdateOrder'])->name('order.update');
+        Route::delete('{code}/xoa', [OrderController::class, 'deleteOrder'])->name('order.delete');
+        Route::get('{code}/mua-lai', [OrderController::class, 'restoreOrder'])->name('order.restore');
+        Route::put('{code}/mua-lai', [OrderController::class, 'handleRestoreOrder'])->name('order.handleRestore');
+    });
+
+    Route::get('/payment', [VnPayController::class, 'createPayment'])->name('payment.create');
+    Route::get('/vnpay-return', [VnPayController::class, 'vnpayReturn'])->name('vnpay.return');
 });
 
 

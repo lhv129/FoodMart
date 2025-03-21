@@ -178,7 +178,7 @@ Chi tiết sản phẩm
                                                         <input type="button" value="-"
                                                             class="button-minus w-8 py-1 border-r cursor-pointer border-gray-300"
                                                             data-field="quantity" />
-                                                        <input type="number" step="1" max="10" value="1" name="quantity" min="1"
+                                                        <input type="number" step="1" value="1" name="quantity" min="1"
                                                             class="quantity-field w-9 px-2 text-center h-7 border-0 bg-transparent" />
                                                         <input type="button" value="+" id="button-plus"
                                                             class="button-plus w-8 py-1 border-l cursor-pointer border-gray-300"

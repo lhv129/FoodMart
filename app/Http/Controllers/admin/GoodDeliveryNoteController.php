@@ -67,7 +67,7 @@ class GoodDeliveryNoteController extends Controller
 
         session()->forget('cartDelivery');
 
-        toast('Tạo thành công đơn bán nhập hàng', 'success');
+        toast('Tạo thành công đơn bán hàng', 'success');
         return redirect('admin/don-ban-hang');
     }
 

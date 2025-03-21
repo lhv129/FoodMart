@@ -1,5 +1,5 @@
 <header>
-    <div class="notificationBar notificationBar--shop"></div>
+    <div class="notificationBar bg-green-600"></div>
     <!-- navbar -->
     <div class="border-b">
         <div class="pt-5">
@@ -313,17 +313,19 @@
                     <!-- list group -->
                     <li class="py-3 border-t">
                         <div class="flex items-center">
-                            <div class="w-1/2 md:w-1/2 lg:w-3/5">
+                            <div class="w-1/2 md:w-1/2">
                                 <div class="flex">
                                     <a href="{{ route('products.detail' , $cart->slug) }}">
                                         <button type="button" data-bs-dismiss="offcanvas">
                                             <img src="{{ $cart->image }}" alt="ảnh sản phẩm" class="w-16 h-16" />
                                         </button>
                                     </a>
-                                    <div class="ml-3">
+                                    <div class="ml-3 truncate w-3/5 md:w-16">
                                         <!-- title -->
                                         <h6>{{ $cart->name }}</h6>
-                                        <span><small class="text-gray-500">{{ $cart->unit_name }}</small></span>
+                                        <span>
+                                            <small class="text-gray-500">{{ $cart->unit_name }}</small>
+                                        </span>
                                         <!-- text -->
                                         <div class="mt-2 small leading-none">
                                             <button class="text-green-600 flex items-center" type="submit" name="btn_delete" value="{{ $cart->id }}">
@@ -352,7 +354,7 @@
                                 <input type="button" value="-"
                                     class="button-minus w-8 py-1 border-r cursor-pointer border-gray-300"
                                     data-field="cart[{{$cart->id}}][quantity]" />
-                                <input type="number" step="1" max="10" value="{{ $cart->quantity }}" name="cart[{{$cart->id}}][quantity]"
+                                <input type="number" step="1" value="{{ $cart->quantity }}" name="cart[{{$cart->id}}][quantity]"
                                     class="quantity-field w-9 px-2 text-center h-7 border-0 bg-transparent" />
                                 <input type="button" value="+"
                                     class="button-plus w-8 py-1 border-l cursor-pointer border-gray-300"
