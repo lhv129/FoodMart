@@ -30,7 +30,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('admin.products') }}" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
+            <img src="{{ asset('images/sidebar-icons/dairy-products.png') }}">
             <span>Sản phẩm</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -51,7 +51,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('admin.categories') }}" data-toggle="collapse" data-target="#collapseCategories"
             aria-expanded="true" aria-controls="collapseCategories">
-            <i class="fas fa-fw fa-wrench"></i>
+            <img src="{{ asset('images/sidebar-icons/options.png') }}">
             <span>Danh mục sản phẩm</span>
         </a>
         <div id="collapseCategories" class="collapse" aria-labelledby="headingCategories"
@@ -68,7 +68,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('admin.units') }}" data-toggle="collapse" data-target="#collapseUnits"
             aria-expanded="true" aria-controls="collapseUnits">
-            <i class="fas fa-fw fa-wrench"></i>
+            <img src="{{ asset('images/sidebar-icons/boxes.png') }}">
             <span>Đơn vị</span>
         </a>
         <div id="collapseUnits" class="collapse" aria-labelledby="headingUnits"
@@ -87,7 +87,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('admin.suppliers') }}" data-toggle="collapse" data-target="#collapseSuppliers"
             aria-expanded="true" aria-controls="collapseSuppliers">
-            <i class="fas fa-fw fa-wrench"></i>
+            <img src="{{ asset('images/sidebar-icons/supplier.png') }}">
             <span>Nhà cung cấp</span>
         </a>
         <div id="collapseSuppliers" class="collapse" aria-labelledby="headingSuppliers"
@@ -104,7 +104,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('admin.payments') }}" data-toggle="collapse" data-target="#collapsePayments"
             aria-expanded="true" aria-controls="collapsePayments">
-            <i class="fas fa-fw fa-wrench"></i>
+            <img src="{{ asset('images/sidebar-icons/payment-method.png') }}">
             <span>Phương thức thanh toán</span>
         </a>
         <div id="collapsePayments" class="collapse" aria-labelledby="headingPayments"
@@ -121,7 +121,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('admin.users') }}" data-toggle="collapse" data-target="#collapseUsers"
             aria-expanded="true" aria-controls="collapseUsers">
-            <i class="fas fa-fw fa-wrench"></i>
+            <img src="{{ asset('images/sidebar-icons/profile.png') }}">
             <span>Người dùng</span>
         </a>
         <div id="collapseUsers" class="collapse" aria-labelledby="headingUsers"
@@ -135,11 +135,28 @@
     </li>
     @endif
 
+    <!-- Nav Item - Order Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('admin.delivery') }}" data-toggle="collapse" data-target="#collapseOrder"
+            aria-expanded="true" aria-controls="collapseOrder">
+            <img src="{{ asset('images/sidebar-icons/food-delivery.png') }}">
+            <span>Đơn đặt hàng</span>
+        </a>
+        <div id="collapseOrder" class="collapse" aria-labelledby="headingOrder"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Chức năng:</h6>
+                <a class="collapse-item" href="{{ route('admin.orders') }}">Danh sách</a>
+                <a class="collapse-item" href="{{ route('admin.orders.pending') }}">Đơn chờ xử lý</a>
+            </div>
+        </div>
+    </li>
+
     <!-- Nav Item - Warehouses Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('admin.warehouses') }}" data-toggle="collapse" data-target="#collapseWarehouses"
             aria-expanded="true" aria-controls="collapseWarehouses">
-            <i class="fa fa-archive" aria-hidden="true"></i>
+            <img src="{{ asset('images/sidebar-icons/warehouse.png') }}">
             <span>Kho hàng</span>
         </a>
         <div id="collapseWarehouses" class="collapse" aria-labelledby="headingWarehouses"
@@ -155,7 +172,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('admin.goods') }}" data-toggle="collapse" data-target="#collapseGoods"
             aria-expanded="true" aria-controls="collapseGoods">
-            <i class="fas fa-fw fa-wrench"></i>
+            <img src="{{ asset('images/sidebar-icons/import.png') }}">
             <span>Đơn nhập hàng</span>
         </a>
         <div id="collapseGoods" class="collapse" aria-labelledby="headingGoods"
@@ -172,7 +189,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('admin.delivery') }}" data-toggle="collapse" data-target="#collapseDelivery"
             aria-expanded="true" aria-controls="collapseDelivery">
-            <i class="fas fa-fw fa-wrench"></i>
+            <img src="{{ asset('images/sidebar-icons/cargo.png') }}">
             <span>Đơn bán hàng</span>
         </a>
         <div id="collapseDelivery" class="collapse" aria-labelledby="headingDelivery"

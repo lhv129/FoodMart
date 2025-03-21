@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\client\Payment;
 
-use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class VnPayController extends Controller
 {
-    public function createPayment(Request $request,$orderLastId)
+    public function createPayment(Request $request, $orderLastId)
     {
         // Lấy thông tin config: 
         $vnp_TmnCode = config('vnpay.vnp_TmnCode'); // Mã website của bạn tại VNPAY 
@@ -90,11 +92,6 @@ class VnPayController extends Controller
             // Thêm mã băm bảo mật vào URL để đảm bảo tính toàn vẹn của dữ liệu
             $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
         }
-
-        if($request->vnp_ResponseCode === '00'){
-            dd('Thanh toán thành công');
-        }
-
         return $vnp_Url;
     }
 
@@ -116,14 +113,27 @@ class VnPayController extends Controller
         if ($secureHash === $vnp_SecureHash) {
             if ($request->vnp_ResponseCode == '00') {
                 // Thanh toán thành công
-                return view('payment_success', compact('inputData'));
+                toast('Thanh toán thành công', 'success');
+                return redirect('don-dat-hang/danh-sach');
             } else {
                 // Thanh toán không thành công
-                return view('payment_failed');
+                // Lấy $order từ session
+                $orderId = Session::get('orderId');
+                // Xóa $order khỏi session
+                Session::forget('orderId');
+                // Xóa $order khỏi cơ sở dữ liệu (nếu cần)
+                if ($orderId) {
+                    Order::find($orderId)->update([
+                        'status' => 'Failed'
+                    ]);
+                }
+                toast('Thanh toán thất bại', 'error');
+                return redirect('don-dat-hang/danh-sach');
             }
         } else {
             // Dữ liệu không hợp lệ
-            return view('payment_failed');
+            return 'invalid';
         }
+        return view('404');
     }
 }

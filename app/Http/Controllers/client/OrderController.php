@@ -103,16 +103,15 @@ class OrderController extends Controller
                 ->where('orders.id', $lastInsertedId)
                 ->first();
 
+            session(['orderId' => $lastInsertedId]);
+
             $vnpayController = new VnPayController();
             $vnpUrl = $vnpayController->createPayment($request, $orderLastId);
             if ($vnpUrl) {
                 $orderLastId->update([
                     'status' => 'Paid'
                 ]);
-                toast('Thanh toán thành công', 'success');
                 return redirect($vnpUrl);
-            } else {
-                Order::find($lastInsertedId)->delete();
             }
         }
     }
@@ -203,10 +202,8 @@ class OrderController extends Controller
                     'payment_method_id' => $request->payment_method_id,
                     'status' => 'Paid'
                 ]);
-                toast('Thanh toán thành công', 'success');
+                session(['orderId' => $order->id]);
                 return redirect($vnpUrl);
-            } else {
-                Order::find($order->id)->delete();
             }
         }
     }
@@ -255,7 +252,6 @@ class OrderController extends Controller
                 'note' => $request->note,
                 'payment_method_id' => $request->payment_method_id,
                 'status' => 'Pending'
-
             ]);
             toast('Mua hàng thành công', 'success');
             return redirect('don-dat-hang/danh-sach');
@@ -277,10 +273,8 @@ class OrderController extends Controller
                     'payment_method_id' => $request->payment_method_id,
                     'status' => 'Paid'
                 ]);
-                toast('Thanh toán thành công', 'success');
+                session(['orderId' => $order->id]);
                 return redirect($vnpUrl);
-            } else {
-                Order::find($order->id)->delete();
             }
         }
     }

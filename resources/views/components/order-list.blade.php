@@ -66,7 +66,7 @@
             @method('DELETE')
             <button type="submit" class="text-blue-500 hover:text-blue-700 ml-3" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn không?')">Hủy</button>
         </form>
-        @elseif ($order['status'] === 'Failed' && $order['payment_method_id'] === 1)
+        @elseif ($order['status'] === 'Failed')
         <a href="{{ route('order.restore', $order['code']) }}"><button class="text-blue-500 hover:text-blue-700 ml-3">Mua lại</button></a>
         @endif
     </div>

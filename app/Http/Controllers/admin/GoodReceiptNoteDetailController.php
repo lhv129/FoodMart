@@ -57,7 +57,7 @@ class GoodReceiptNoteDetailController extends Controller
         // Lưu lại vào session
         Session::put('cart', $cart);
 
-        return back();
+        return back()->withInput();
     }
 
     public function edit($id){
@@ -71,7 +71,7 @@ class GoodReceiptNoteDetailController extends Controller
         $goodReceiptNoteDetail->delete();
 
         toast('Xóa thành công', 'success');
-        return back();
+        return back()->withInput();
     }
 
     public function update(StoreGoodReceiptNoteDetail $request,$id){
@@ -99,7 +99,7 @@ class GoodReceiptNoteDetailController extends Controller
                 'total_price' => $totalPrice,
             ]);
 
-            return back();
+            return back()->withInput();
         }else{
             GoodReceiptNoteDetail::create([
                 'good_receipt_note_id' => $id,
@@ -112,7 +112,7 @@ class GoodReceiptNoteDetailController extends Controller
             GoodReceiptNote::where('id',$id)->update([
                 'total_price' => $totalPrice,
             ]);
-            return back();
+            return back()->withInput();
         }
     }
 
@@ -140,6 +140,6 @@ class GoodReceiptNoteDetailController extends Controller
         }
         Session::put('cart', array_values($cart));
 
-        return back();
+        return back()->withInput();
     }
 }

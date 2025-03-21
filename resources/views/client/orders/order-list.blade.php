@@ -34,8 +34,10 @@
                     </div>
                     <nav>
                         <div class="nav nav-tabs justify-center" id="nav-tab" role="tablist">
-                            <a href="#" class="nav-link text-uppercase fs-6 mx-10" id="nav-success-tab" data-bs-toggle="tab" data-bs-target="#nav-success" aria-selected="true" role="tab">Hoàn thành</a>
-                            <a href="#" class="nav-link text-uppercase fs-6 mx-10" id="nav-pending-tab" data-bs-toggle="tab" data-bs-target="#nav-pending" aria-selected="false" tabindex="-1" role="tab">Chờ xác nhận</a>
+                            <a href="#" class="nav-link text-uppercase fs-6 mx-10" id="nav-success-tab" data-bs-toggle="tab" data-bs-target="#nav-success" aria-selected="false" tabindex="-1" role="tab">
+                                Hoàn thành
+                            </a>
+                            <a href="#" class="nav-link text-uppercase fs-6 mx-10" id="nav-pending-tab" data-bs-toggle="tab" data-bs-target="#nav-pending" aria-selected="true" role="tab">Chờ xác nhận</a>
                             <a href="#" class="nav-link text-uppercase fs-6 mx-10" id="nav-failed-tab" data-bs-toggle="tab" data-bs-target="#nav-failed" aria-selected="false" tabindex="-1" role="tab">Đã hủy</a>
                         </div>
                     </nav>
@@ -49,7 +51,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane fade show" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
+                    <div class="tab-pane fade " id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
                         <div class="product-grid row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 mx-auto w-full md:w-1/2">
                             <x-order-list :orders="$orderData['pending']" />
                         </div>

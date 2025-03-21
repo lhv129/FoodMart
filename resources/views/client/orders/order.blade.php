@@ -39,7 +39,7 @@ Xác nhận đơn đặt hàng
                                             <!-- Form Group (phone name)-->
                                             <div class="w-full md:w-1/2 mb-3 lg:">
                                                 <label class="mb-2 block text-gray-800">Số điện thoại</label>
-                                                <input type="number" value="{{ old('phone') ? old('phone') : Auth::user()->phone }}" name="phone" class="form-control border border-gray-300 text-gray-900 rounded-lg focus:shadow-[0_0_0_.25rem_rgba(10,173,10,.25)] focus:ring-green-600 focus:ring-0 focus:border-green-600 block p-2 px-3 disabled:opacity-50 disabled:pointer-events-none w-full text-base" placeholder="Nhập họ và tên">
+                                                <input type="number" value="{{ old('phone') ? old('phone') : Auth::user()->phone }}" name="phone" class="form-control border border-gray-300 text-gray-900 rounded-lg focus:shadow-[0_0_0_.25rem_rgba(10,173,10,.25)] focus:ring-green-600 focus:ring-0 focus:border-green-600 block p-2 px-3 disabled:opacity-50 disabled:pointer-events-none w-full text-base" placeholder="Nhập số điện thoại">
                                                 @error('phone')
                                                 <div class="mt-2"><i class="fa fa-exclamation-triangle text-red-600" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-red-600"> {{ $message }}</span></div>
                                                 @enderror
@@ -47,7 +47,7 @@ Xác nhận đơn đặt hàng
                                             <!-- Form Group (address)-->
                                             <div class="w-full md:w-1/2">
                                                 <label class="mb-2 block text-gray-800">Địa chỉ</label>
-                                                <input type="text" value="{{ old('address') ? old('address') : Auth::user()->address }} " name="address" class="form-control border border-gray-300 text-gray-900 rounded-lg focus:shadow-[0_0_0_.25rem_rgba(10,173,10,.25)] focus:ring-green-600 focus:ring-0 focus:border-green-600 block p-2 px-3 disabled:opacity-50 disabled:pointer-events-none w-full text-base" placeholder="Nhập họ và tên">
+                                                <input type="text" value="{{ old('address') ? old('address') : Auth::user()->address }} " name="address" class="form-control border border-gray-300 text-gray-900 rounded-lg focus:shadow-[0_0_0_.25rem_rgba(10,173,10,.25)] focus:ring-green-600 focus:ring-0 focus:border-green-600 block p-2 px-3 disabled:opacity-50 disabled:pointer-events-none w-full text-base" placeholder="Nhập địa chỉ">
                                                 @error('address')
                                                 <div class="mt-2"><i class="fa fa-exclamation-triangle text-red-600" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-red-600"> {{ $message }}</span></div>
                                                 @enderror
@@ -56,7 +56,7 @@ Xác nhận đơn đặt hàng
                                         <!-- Form Group (email address)-->
                                         <div class="mb-3">
                                             <label class="mb-2 block text-gray-800">Email</label>
-                                            <input type="text" value="{{ old('email') ? old('email') : Auth::user()->email }}" name="email" class="form-control border border-gray-300 text-gray-900 rounded-lg focus:shadow-[0_0_0_.25rem_rgba(10,173,10,.25)] focus:ring-green-600 focus:ring-0 focus:border-green-600 block p-2 px-3 disabled:opacity-50 disabled:pointer-events-none w-full text-base" placeholder="Nhập họ và tên">
+                                            <input type="text" value="{{ old('email') ? old('email') : Auth::user()->email }}" name="email" class="form-control border border-gray-300 text-gray-900 rounded-lg focus:shadow-[0_0_0_.25rem_rgba(10,173,10,.25)] focus:ring-green-600 focus:ring-0 focus:border-green-600 block p-2 px-3 disabled:opacity-50 disabled:pointer-events-none w-full text-base" placeholder="Nhập email ở đây">
                                             @error('email')
                                             <div class="mt-2"><i class="fa fa-exclamation-triangle text-red-600" style="font-size: 15px;" aria-hidden="true"></i><span class="ps-2 text-red-600"> {{ $message }}</span></div>
                                             @enderror

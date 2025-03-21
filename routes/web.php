@@ -22,6 +22,7 @@ use App\Http\Controllers\admin\GoodReceiptNoteController;
 use App\Http\Controllers\admin\GoodDeliveryNoteController;
 use App\Http\Controllers\admin\GoodReceiptNoteDetailController;
 use App\Http\Controllers\admin\GoodDeliveryNoteDetailController;
+use App\Http\Controllers\admin\OrderController as AdminOrderController;
 use App\Http\Controllers\client\UserController as ClientUserController;
 use App\Http\Controllers\client\ProductController as ClientProductController;
 
@@ -109,7 +110,15 @@ Route::middleware(['checkRole:1,2'])->prefix('admin')->group(function () {
     //Thêm mới lại sản phẩm sau khi vào chỉnh sửa đơn nhập hàng
     Route::post('/don-ban-hang/{id}/chi-tiet/them-moi', [GoodDeliveryNoteDetailController::class, 'update'])->name('admin.delivery.details.edit.update');
 
+    Route::prefix('don-dat-hang')->group(function () {
+        Route::get('/', [AdminOrderController::class, 'index'])->name('admin.orders');
+        Route::get('{code}/chi-tiet', [AdminOrderController::class, 'detail'])->name('admin.orders.detail');
 
+        Route::get('cho-xu-ly', [AdminOrderController::class, 'listOrderPending'])->name('admin.orders.pending');
+        Route::put('{code}/duyet-don-hang', [AdminOrderController::class, 'updateStatus'])->name('admin.orders.update.status');
+
+        // Route::get('{code}/chinh-sua',[AdminOrderController::class,'edit'])->name('admin.orders.edit');
+    });
 
     Route::middleware(['checkRole:1'])->group(function () {
 
@@ -198,6 +207,7 @@ Route::middleware(['checkRole:1,2,3'])->group(function () {
     Route::get('/payment', [VnPayController::class, 'createPayment'])->name('payment.create');
     Route::get('/vnpay-return', [VnPayController::class, 'vnpayReturn'])->name('vnpay.return');
 });
+
 
 
 //Route không cần đăng nhập
