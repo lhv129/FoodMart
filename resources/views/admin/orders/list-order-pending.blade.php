@@ -65,7 +65,7 @@
                                         </td>
                                         <td>{{ number_format($order->total_price, 0, ',', '.') }} ₫</td>
                                         <td>
-                                            <span class="badge bg-warning text-white">{{ $order->status === 'Pending' ? 'Đang chờ xử lý' : 'Đã thanh toán & chờ xử lý'}}</span>
+                                            <span class="badge text-white {{ $order->status === 'Pending' ? 'bg-warning' : 'bg-success'}}">{{ $order->status === 'Pending' ? 'Đang chờ xử lý' : 'Đã thanh toán & chờ xử lý'}}</span>
                                         </td>
                                         <!-- {{-- Thẻ td cuối cùng --}} -->
                                         <td @if ($loop->last) class="" @else class="text-center" @endif>
@@ -84,7 +84,7 @@
                                                 <form method="POST" action="{{ route('admin.orders.delete', $order->code) }}">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="ml-1 mr-1" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn không?')">
+                                                    <button type="submit" class="ml-1 mr-1" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn không?')" style="color: #4e73df;border:none;background-color:white" class="ml-1 mr-1">
                                                         <i class="fa fa-trash-o"></i>
                                                     </button>
                                                 </form>

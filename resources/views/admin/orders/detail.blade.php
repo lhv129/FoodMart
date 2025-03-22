@@ -18,6 +18,17 @@
         <h1 class="h3 mb-0 text-gray-800">Chi tiết hóa đơn</h1>
         <button onclick="inNoiDung()" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50 mr-2"></i>In hóa đơn</button>
     </div>
+    @if($order->status === 'Pending' || $order->status === 'Paid')
+    <form method="POST" action="{{ route('admin.orders.confirm', $order->code) }}">
+        @csrf
+        <div class="mt-3 mb-3">
+            <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class='fas fa-shipping-fast text-white-50 mr-2'></i>
+                Xác nhận đơn hàng
+            </button>
+        </div>
+    </form>
+    @endif
     <div class="row" id="noiDungIn">
         <div class="col-xxl-9 col-12">
             <div class="card">
@@ -35,11 +46,20 @@
                             <tbody>
                                 <tr>
                                     <td>Khách hàng:</td>
-                                    <td>{{ $order->customer }}</td>
+                                    <td class="w-40">{{ $order->customer }}</td>
                                 </tr>
                                 <tr>
+                                    <td>Số điên thoại:</td>
+                                    <td class="w-40">{{ $order->phone }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Địa chỉ nhận hàng:</td>
+                                    <td class="w-40">{{ $order->address }}</td>
+                                </tr>
+
+                                <tr>
                                     <td>Phương thức thanh toán:</td>
-                                    <td>{{ $order->payment_method_name }}</td>
+                                    <td class="w-40">{{ $order->payment_method_name }}</td>
                                 </tr>
                             </tbody>
                         </table>

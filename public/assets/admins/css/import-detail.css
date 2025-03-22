@@ -173,3 +173,7 @@
 #progressbar li.active:after {
     background: rgb(252, 103, 49);
 }
+
+.w-40{
+    width: 40%;
+}

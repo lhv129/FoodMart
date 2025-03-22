@@ -171,6 +171,7 @@ return [
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         App\Providers\HeaderServiceProvider::class,
         App\Providers\OrderServiceProvider::class,
+        App\Providers\TopBarServiceProvider::class,
     ])->toArray(),
 
     /*
