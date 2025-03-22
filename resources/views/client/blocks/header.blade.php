@@ -223,10 +223,11 @@
                         <div>
                             <ul class="navbar-nav lg:flex gap-3 lg:items-center">
                                 <li class="nav-item dropdown w-full lg:w-auto">
-                                    <a class="nav-link " href="{{ route('home') }}" role="button">Home</a>
+                                    <a class="nav-link " href="{{ route('home') }}" role="button">Trang chủ</a>
 
                                 </li>
-                                <li class="nav-item dropdown w-full lg:w-auto">
+                                
+                                <!-- <li class="nav-item dropdown w-full lg:w-auto">
                                     <a class="nav-link dropdown-toggle" href="#" role="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">Dropdown Menu</a>
                                     <ul class="dropdown-menu">
@@ -256,7 +257,8 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li> -->
+
                                 <li class="nav-item dropdown w-full lg:w-auto dropdown-fullwidth">
                                     <a class="nav-link " href="{{ route('products.list') }}">Sản phẩm
                                     </a>

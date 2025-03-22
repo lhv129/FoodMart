@@ -26,6 +26,7 @@ use App\Http\Controllers\admin\OrderController as AdminOrderController;
 use App\Http\Controllers\admin\OrderDetailController;
 use App\Http\Controllers\client\UserController as ClientUserController;
 use App\Http\Controllers\client\ProductController as ClientProductController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -240,3 +241,4 @@ Route::get('gioi-thieu', [HomeController::class, 'aboutUs'])->name('aboutUs');
 //Tin tuc
 Route::get('tin-tuc', [HomeController::class, 'ourNew'])->name('ourNew');
 Route::post('tin-tuc/gui-form', [HomeController::class, 'handleSubmitContact'])->name('handleSubmitContact');
+
