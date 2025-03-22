@@ -102,7 +102,7 @@ class GoodDeliveryNoteDetailController extends Controller
         $productInWarehouse = Warehouse::where('product_id', $request->product_id)->first();
         if ($productInDetails) {
             //Nếu sản phẩm có trong chi tiết hóa đơn
-            //Kiểm tra trước số lượng sản phẩm trong kho + thêm mới
+            //Kiểm tra trước số lượng sản phẩm trong chi tiết + thêm mới
             $totalQuantity = $productInDetails->quantity + $request->quantity;
             if ($productInWarehouse->quantity >= $totalQuantity) {
                 // Số lượng trong kho nhiều hơn hoặc bằng số lượng trong đơn thì cho cập nhật lại số lượng,sub_total trong chi tiết đơn

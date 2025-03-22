@@ -73,28 +73,42 @@
 
                                             @if($order->status === 'Paid')
                                             <div class="d-flex justify-content-center">
-                                                <form method="POST" action="{{ route('admin.orders.update.status', $order->code) }}">
+                                                <form method="POST" action="{{ route('admin.orders.confirm', $order->code) }}">
                                                     @csrf
-                                                    @method('PUT')
+                                                    @method('POST')
                                                     <button type="submit" style="color: #4e73df;border:none;background-color:white" class="ml-1 mr-1">
                                                         <i class='fas fa-shipping-fast'></i>
                                                     </button>
                                                 </form>
                                                 <a href="{{ route('admin.orders.detail', $order->code) }}" class="ml-3 mr-3"><i class="fa fa-eye"></i></a>
-                                                <a href="" type="submit" name="btn-delete" class="ml-3 mr-3"><i class="fa fa-trash-o"></i></a>
+                                                <form method="POST" action="{{ route('admin.orders.delete', $order->code) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="ml-1 mr-1" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn không?')">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </button>
+                                                </form>
                                             </div>
                                             @else
                                             <div class="d-flex justify-content-center">
-                                                <form method="POST" action="{{ route('admin.orders.update.status', $order->code) }}">
+                                                <form method="POST" action="{{ route('admin.orders.confirm', $order->code) }}">
                                                     @csrf
-                                                    @method('PUT')
+                                                    @method('POST')
                                                     <button type="submit" style="color: #4e73df;border:none;background-color:white" class="ml-1 mr-1">
                                                         <i class='fas fa-shipping-fast'></i>
                                                     </button>
                                                 </form>
                                                 <a href="{{ route('admin.orders.detail', $order->code) }}" class="ml-3 mr-3"><i class="fa fa-eye"></i></a>
-                                                <a href="" class="ml-3 mr-3" type="submit" name="btn-edit"><i class="fa fa-edit"></i></a>
-                                                <a href="" type="submit" name="btn-delete" class="ml-3 mr-3"><i class="fa fa-trash-o"></i></a>
+                                                <a href="{{ route('admin.orders.edit',$order->code) }}" class="ml-3 mr-3" type="submit">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <form method="POST" action="{{ route('admin.orders.delete', $order->code) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="ml-1 mr-1" style="color: #4e73df;border:none;background-color:white" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn không?')">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </button>
+                                                </form>
                                             </div>
                                             @endif
 

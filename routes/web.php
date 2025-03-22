@@ -23,6 +23,7 @@ use App\Http\Controllers\admin\GoodDeliveryNoteController;
 use App\Http\Controllers\admin\GoodReceiptNoteDetailController;
 use App\Http\Controllers\admin\GoodDeliveryNoteDetailController;
 use App\Http\Controllers\admin\OrderController as AdminOrderController;
+use App\Http\Controllers\admin\OrderDetailController;
 use App\Http\Controllers\client\UserController as ClientUserController;
 use App\Http\Controllers\client\ProductController as ClientProductController;
 
@@ -115,9 +116,16 @@ Route::middleware(['checkRole:1,2'])->prefix('admin')->group(function () {
         Route::get('{code}/chi-tiet', [AdminOrderController::class, 'detail'])->name('admin.orders.detail');
 
         Route::get('cho-xu-ly', [AdminOrderController::class, 'listOrderPending'])->name('admin.orders.pending');
-        Route::put('{code}/duyet-don-hang', [AdminOrderController::class, 'updateStatus'])->name('admin.orders.update.status');
-
-        // Route::get('{code}/chinh-sua',[AdminOrderController::class,'edit'])->name('admin.orders.edit');
+        Route::post('{code}/duyet-don-hang', [AdminOrderController::class, 'confirmOrder'])->name('admin.orders.confirm');
+        Route::get('{code}/chinh-sua',[AdminOrderController::class,'edit'])->name('admin.orders.edit');
+        Route::put('{code}/cap-nhat-don-hang',[AdminOrderController::class,'update'])->name('admin.orders.update');
+        Route::delete('{code}/huy-don-hang',[AdminOrderController::class,'delete'])->name('admin.orders.delete');
+        
+        //Chỉnh sửa hóa đơn
+        //Thêm chi tiết hóa đơn đang chỉnh sửa
+        Route::post('{id}/them-chi-tiet-hoa-don',[OrderDetailController::class,'update'])->name('admin.order.detail.update');
+        //Xóa được chi tiết của hóa đơn đó
+        Route::delete('{id}/xoa-chi-tiet-hoa-don',[OrderDetailController::class,'delete'])->name('admin.order.details.delete');
     });
 
     Route::middleware(['checkRole:1'])->group(function () {

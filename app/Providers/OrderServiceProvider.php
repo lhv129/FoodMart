@@ -24,7 +24,7 @@ class OrderServiceProvider extends ServiceProvider
             ->where('user_id', Auth::user()->id)
             ->whereIn('status', ['Pending', 'Paid'])
             ->orderBy('id', 'desc')
-            ->paginate(10);
+            ->get();
 
         $dataOrderPending = $orderPending->map(function ($order) {
             return [
@@ -51,7 +51,7 @@ class OrderServiceProvider extends ServiceProvider
             ->where('user_id', Auth::user()->id)
             ->where('status', 'Success')
             ->orderBy('id', 'desc')
-            ->paginate(1);
+            ->get();
 
         $dataOrderSuccess = $orderSuccess->map(function ($order) {
             return [
@@ -78,7 +78,7 @@ class OrderServiceProvider extends ServiceProvider
             ->where('user_id', Auth::user()->id)
             ->where('status', 'Failed')
             ->orderBy('id', 'desc')
-            ->paginate(10);
+            ->get();
 
         $dataOrderFailed = $orderFailed->map(function ($order) {
             return [
