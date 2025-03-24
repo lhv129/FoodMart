@@ -41,7 +41,7 @@ Xác nhận đơn đặt hàng
                                     $check = false;
                                     @endphp
                                     @foreach ($carts as $index => $cart)
-                                    <tr class="odd"  style="border-bottom: 1px solid #ecf0ef">
+                                    <tr class="odd" style="border-bottom: 1px solid #ecf0ef">
                                         <td>
                                             <a href="{{ route('products.detail' , $cart->slug) }}">
                                                 <img src="{{ asset($cart->image) }}" alt="Ảnh sản phẩm" width="150px">
@@ -109,28 +109,27 @@ Xác nhận đơn đặt hàng
                                         </td>
                                         <td></td>
                                     </tr>
-                                    <tr>
-                                        <td colspan="3"></td>
-                                        <td colspan="2" class="text-right">
-                                            <button type="submit" name="btn_update" value="update" class="btn inline-flex items-center gap-x-2 bg-yellow-300 text-white">
-                                                Cập nhật giỏ hàng
-                                            </button>
-                                        </td>
-                                        <td colspan="2" class="text-left">
-                                            @if($check === false)
-                                            <a href="{{ route('order') }}">
-                                                <button type="button" name="btn_update" value="update" class="btn inline-flex items-center gap-x-2 bg-green-600 text-white border-green-600 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-green-700 hover:border-green-700 active:bg-green-700 active:border-green-700 focus:outline-none focus:ring-4 focus:ring-green-300">
-                                                    Thanh toán
-                                                </button>
-                                            </a>
-                                            @endif
-                                        </td>
-                                    </tr>
                                 </form>
                             </tbody>
                         </table>
                         {{ $carts->links() }}
                     </div>
+                </div>
+            </div>
+            <div class="flex justify-end flex-wrap">
+                <div class="w-full md:w-1/5 mr-2 ml-2 mt-3">
+                    <button type="submit" name="btn_update" value="update" class="w-full btn inline-flex items-center gap-x-2 bg-yellow-300 text-white">
+                        Cập nhật giỏ hàng
+                    </button>
+                </div>
+                <div class="w-full md:w-1/5 mr-2 ml-2 mt-3">
+                    @if($check === false)
+                    <a href="{{ route('order') }}">
+                        <button type="button" name="btn_update" value="update" class="w-full btn inline-flex items-center gap-x-2 bg-green-600 text-white border-green-600 disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-green-700 hover:border-green-700 active:bg-green-700 active:border-green-700 focus:outline-none focus:ring-4 focus:ring-green-300">
+                            Thanh toán
+                        </button>
+                    </a>
+                    @endif
                 </div>
             </div>
         </div>
