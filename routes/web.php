@@ -26,6 +26,8 @@ use App\Http\Controllers\admin\OrderController as AdminOrderController;
 use App\Http\Controllers\admin\OrderDetailController;
 use App\Http\Controllers\client\UserController as ClientUserController;
 use App\Http\Controllers\client\ProductController as ClientProductController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\GoogleController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -46,8 +48,24 @@ Route::get('/dang-nhap', [AuthController::class, 'login'])->name('login');
 Route::post('/dang-nhap', [AuthController::class, 'handleLogin'])->name('handle.login');
 Route::get('dang-xuat', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('google/url', [GoogleController::class, 'loginUrl'])->name('loginUrl');
+Route::get('google/callback', [GoogleController::class, 'loginCallback'])->name('loginCallback');
+
+//get view
+Route::get('/quen-mat-khau',[ForgotPasswordController::class,'index'])->name('forget');
+//send token
+Route::post('/quen-mat-khau',[ForgotPasswordController::class,'handleForgetPassword'])->name('handle.forget');
+//get view confirm token
+Route::get('/quen-mat-khau/xac-nhan',[ForgotPasswordController::class,'checkToken'])->name('forget.checkToken');
+//confirm token
+Route::post('/quen-mat-khau/xac-nhan',[ForgotPasswordController::class,'handleConfirmToken'])->name('handle.confirm.forget');
+//get view update password
+Route::get('/doi-mat-khau',[ForgotPasswordController::class,'changePassword'])->name('change.password');
+//handle update password
+Route::post('/doi-mat-khau',[ForgotPasswordController::class,'handleChangePassword'])->name('handle.change.password');
+
 Route::middleware(['checkRole:1,2'])->prefix('admin')->group(function () {
-    // Route mà Admin, Staff có thể truy cập
+    // Route Admin, Staff
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     //Route products

@@ -27,8 +27,8 @@ class StoreProductRequest extends FormRequest
             'unit_id' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'entry_price' => 'required|numeric|min:1',
-            'retail_price' => 'required|numeric|min:1',
-            'discount' => 'required|numeric|min:0',
+            'retail_price' => 'required|numeric|min:1|gt:entry_price',
+            'discount' => 'required|numeric|min:0|lt:entry_price',
             'description' => 'required|min:100|max:2000'
         ];
     }
@@ -38,9 +38,17 @@ class StoreProductRequest extends FormRequest
         return [
             'required' => ':Attribute của sản phẩm không được để trống',
             'name.unique' => 'Tên sản phẩm này đã có, vui lòng nhập tên khác',
-            'entry_price.min' => 'Giá nhập phải lớn hơn 0.',
-            'retail_price.min' => 'Giá bán lẻ phải lớn hơn 0.',
-            'discount.min' => 'Giá giảm phải lớn hơn hoặc bằng 0.',
+            'entry_price.required' => 'Giá nhập không được để trống.',
+            'entry_price.numeric' => 'Giá nhập phải là số.',
+            'entry_price.min' => 'Giá nhập phải lớn hơn hoặc bằng 0.',
+            'retail_price.required' => 'Giá bán không được để trống.',
+            'retail_price.numeric' => 'Giá bán phải là số.',
+            'retail_price.min' => 'Giá bán phải lớn hơn hoặc bằng 0.',
+            'retail_price.gt' => 'Giá bán phải lớn hơn giá nhập.', // Thông báo lỗi cho ràng buộc retail_price > entry_price
+            'discount.required' => 'Giảm giá không được để trống.',
+            'discount.numeric' => 'Giảm giá phải là số.',
+            'discount.min' => 'Giảm giá phải lớn hơn hoặc bằng 0.',
+            'discount.lt' => 'Giảm giá phải nhỏ hơn giá nhập.',
             'image.required' => 'Vui lòng chọn ảnh sản phẩm.',
             'image.image' => 'File tải lên phải là ảnh.',
             'image.mimes' => 'Ảnh phải có định dạng: jpeg, png, jpg, gif, svg.',

@@ -1,0 +1,52 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use Illuminate\Http\Request;
+use App\Models\SocialAccount;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
+
+class GoogleController extends Controller
+{
+    public function loginUrl()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function loginCallback()
+    {
+        $googleUser = Socialite::driver('google')->user();
+        
+        $existingUser = User::where('email', $googleUser->getEmail())->first();
+
+        if($existingUser){
+            Auth::login($existingUser);
+            toast('Đăng nhập thành công', 'success');
+            return redirect('/');
+        }else{
+            $user = User::create([
+                'name' => $googleUser->getName(),
+                'email' => $googleUser->getEmail(),
+                'avatar' => $googleUser->getAvatar(),
+                'email_verified_at' => now(),
+                'status' => 'active',
+                'role_id' => 3
+            ]);
+
+            SocialAccount::create([
+                'user_id' => $user->id,
+                'social_id' => $googleUser->getId(),
+                'social_provider' => 'google',
+                'social_name' =>  $googleUser->getName(),
+            ]);
+
+            Auth::login($user);
+            toast('Đăng nhập thành công', 'success');
+            return redirect('/');
+        }
+
+    }
+}
