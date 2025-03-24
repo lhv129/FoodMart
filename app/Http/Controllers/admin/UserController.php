@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -82,9 +83,15 @@ class UserController extends Controller
     public function delete($id)
     {
         $user = User::find($id);
+
+        // Đường dẫn ảnh
+        $imageDirectory = 'images/avatars/';
+        // Xóa sản phẩm thì xóa luôn ảnh sản phẩm đó
+        File::delete($imageDirectory . $user->fileAvatar);
+
         $user->delete();
 
-        toast('Xóa người dùng này thành công', 'success');
+        toast('Xóa người dùng thành công', 'success');
         return back();
     }
 }

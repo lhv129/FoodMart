@@ -33,7 +33,7 @@ class CategoryController extends Controller
             $imageDirectory = 'images/categories/';
 
             $file->move($imageDirectory, $imageName);
-            $path_image   = 'http://127.0.0.1:8000/' . ($imageDirectory . $imageName);
+            $path_image   = 'http://lhv.io.vn/' . ($imageDirectory . $imageName);
         }
 
         Category::create([
@@ -67,7 +67,7 @@ class CategoryController extends Controller
 
             $file->move($imageDirectory, $imageName);
 
-            $path_image   = 'http://127.0.0.1:8000/' . ($imageDirectory . $imageName);
+            $path_image   = 'http://lhv.io.vn/' . ($imageDirectory . $imageName);
         } else {
             $path_image = $category->image;
         }

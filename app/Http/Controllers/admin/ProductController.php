@@ -40,7 +40,7 @@ class ProductController extends Controller
             $imageDirectory = 'images/products/';
 
             $file->move($imageDirectory, $imageName);
-            $path_image   = 'http://127.0.0.1:8000/' . ($imageDirectory . $imageName);
+            $path_image   = 'http://lhv.io.vn/' . ($imageDirectory . $imageName);
 
             $product = Product::create([
                 'name' => $request->name,
@@ -82,7 +82,7 @@ class ProductController extends Controller
 
             $file->move($imageDirectory, $imageName);
 
-            $path_image   = 'http://127.0.0.1:8000/' . ($imageDirectory . $imageName);
+            $path_image   = 'http://lhv.io.vn/' . ($imageDirectory . $imageName);
         } else {
             $path_image = $product->image;
         }

@@ -63,7 +63,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'avatar' => 'http://127.0.0.1:8000/images/avatars/default.jpg',
+            'avatar' => 'http://lhv.io.vn/images/avatars/default.jpg',
             'verification_token' => Str::random(40),
             'role_id' => 3,
         ]);
