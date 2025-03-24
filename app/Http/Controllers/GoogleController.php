@@ -19,14 +19,14 @@ class GoogleController extends Controller
     public function loginCallback()
     {
         $googleUser = Socialite::driver('google')->user();
-        
+
         $existingUser = User::where('email', $googleUser->getEmail())->first();
 
-        if($existingUser){
+        if ($existingUser) {
             Auth::login($existingUser);
             toast('Đăng nhập thành công', 'success');
             return redirect('/');
-        }else{
+        } else {
             $user = User::create([
                 'name' => $googleUser->getName(),
                 'email' => $googleUser->getEmail(),
@@ -44,9 +44,21 @@ class GoogleController extends Controller
             ]);
 
             Auth::login($user);
-            toast('Đăng nhập thành công', 'success');
-            return redirect('/');
+            if (Auth::user()->status === 'active') {
+                $name = Auth::user()->name;
+                if (Auth::user()->role_id === 3) {
+                    $name = Auth::user()->name;
+                    toast("Đăng nhập thành công, xin chào $name", 'success');
+                    return redirect('/');
+                } else {
+                    toast("Đăng nhập thành công, xin chào $name", 'success');
+                    return redirect('/admin');
+                }
+            } else {
+                Auth::logout();
+                toast('Tài khoản của bạn đã bị khóa, vui lòng liên hệ với nhân viên để được hỗ trợ', 'error');
+                return back()->withInput();
+            }
         }
-
     }
 }
