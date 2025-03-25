@@ -71,6 +71,36 @@ The WebApp is compatible with devices of all sizes and all OS's, and consistent 
 
 ![Thiết kế chưa có tên (1)](https://github.com/user-attachments/assets/02a66b09-ec2e-4fb3-8c76-53d8d742e0f6)
 
+## Installation
+
+1.  **Clone project to github:**
+    ```
+    git clone https://github.com/lhv129/FoodMart.git
+    ```
+2.  **Install Composer (if needed):**
+    ```bash
+    composer install
+    composer update
+    ```
+3.  **Environment configuration on the server:**
+    * Create a `.env` file with appropriate environment variables.
+4.  **Run migration:**
+    ```bash
+    php artisan migrate
+    ```
+5.  **Install SweetAlert2:**
+    ```bash
+    composer require realrashid/sweet-alert
+    ```
+6.  **Install Socialite:**
+    ```bash
+    composer require laravel/socialite
+    ```
+7.  **Start the application:**
+    ```bash
+    php artisan serve
+    ```
+
 ## [Usage](http://lhv.io.vn/) 
 
 ### Users:
