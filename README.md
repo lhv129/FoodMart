@@ -41,6 +41,10 @@ Here is a working live demo :  http://lhv.io.vn/
 
 ### Admin:
 
+* **Statistics Dashboard:**
+    * Statistics on import order amounts.
+    * Statistics on sales order amounts.
+    * Statistics on user count.
 * **Role Management:**
     * Assign roles for employees and admins.
 * **Notifications:**
@@ -48,10 +52,10 @@ Here is a working live demo :  http://lhv.io.vn/
     * Notifications for sales orders (both online and at the counter).
 * **Create Sales Order:**
     * Check product quantity in stock when creating sales orders for employees.
-* **Statistics Dashboard:**
-    * Statistics on import order amounts.
-    * Statistics on sales order amounts.
-    * Statistics on user count.
+* **Building a warehouse management system:**
+    * Track and update inventory quantity.
+    * Automatically update product quantity when there is an order (increase, decrease quantity).
+    * Ensure that the quantity of products in stock is sufficient to meet orders.
 * **Account Management:**
     * Manage user accounts.
     * Block or restrict user accounts.
