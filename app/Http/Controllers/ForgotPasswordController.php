@@ -23,6 +23,12 @@ class ForgotPasswordController extends Controller
 
     public function handleForgetPassword(ForgotPasswordRequest $request)
     {
+        $user = User::where('email',$request->email)->first();
+        if($user->status === 'inactive'){
+            toast('Toàn khoản của bạn đã bị khóa, vui lòng liên hệ tới quản trị viên.', 'error');
+            return back();
+        }
+
         $token = Str::random(5) . rand(1, 3);
         $expiresAt = Carbon::now()->addMinutes(10);
 

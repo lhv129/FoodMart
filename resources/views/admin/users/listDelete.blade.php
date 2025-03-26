@@ -4,6 +4,7 @@
 @section('css')
 <!-- Nội dung ở trong đây sẽ được truyền sang yield('css') ở file layout/client -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 @endsection
 
 @section('title')
@@ -66,43 +67,26 @@ Người dùng
                                         </td>
                                         <td>{{ $user->birthday }}</td>
                                         <td>
-                                            <form method="POST" action=" {{ route('admin.users.update.role',['id' => $user->id]) }} ">
-                                                @csrf
-                                                @method('PUT')
-                                                <select class="changeRole border-0 badge" name="role_id">
-                                                    <option value="1" class="border-0 badge">Admin</option>
-                                                    <option value="2" class="border-0 badge">Staff</option>
-                                                    <option value="3" class="border-0 badge" {{ $user->role_id == 3 ? 'selected' : '' }}>Member</option>
-                                                </select>
-                                            </form>
+                                            <button class="border-0 badge">
+                                                {{ $user->role_name }}
+                                            </button>
                                         </td>
                                         <td>
-                                            <form method="POST" action="{{ route('admin.users.update.status',['id' => $user->id]) }}">
-                                                @csrf
-                                                @method('PUT')
-                                                <input type="hidden" name="status" value="{{ $user->status == 'active' ? 'block' : 'active' }}">
-                                                <button type="submit" class="border-0 badge {{ $user->status == 'active' ? 'badge-primary' : 'badge-danger' }}">
-                                                    {{ $user->status }}
-                                                </button>
-                                            </form>
+                                            <button type="submit" class="border-0 badge {{ $user->status == 'active' ? 'badge-primary' : 'badge-danger' }}">
+                                                {{ $user->status }}
+                                            </button>
                                         </td>
                                         <td @if ($loop->last) class="" @else class="text-center" @endif>
 
-                                            <form method="POST" action="{{ route('admin.users.delete', ['id' => $user->id]) }}">
+                                            <form method="POST" action="{{ route('admin.users.restore', ['email' => $user->email]) }}">
                                                 @csrf
-                                                @method('DELETE')
+                                                @method('PUT')
                                                 <div class="d-flex justify-content-center">
-                                                    <a href="{{ route('admin.users.detail', ['id' => $user->id]) }}" class="ml-2 mr-2" type="submit" name="btn-edit">
-                                                        <button type="button" style="color: #4e73df;border:none;background-color:white">
-                                                            <i class="fa fa-edit"></i>
-                                                        </button>
-                                                    </a>
-                                                    <button type="submit" style="color: #4e73df;border:none;background-color:white" onclick="return confirm('Bạn có chắc chắn muốn xóa?')" class="ml-2 mr-2">
-                                                        <i class="fa fa-trash-o" style="font-size: 17px;"></i>
+                                                    <button type="submit" style="color: #4e73df;border:none;background-color:white" onclick="return confirm('Bạn có chắc chắn muốn khôi phục không?')" class="ml-2 mr-2">
+                                                        <i class="material-icons" style="font-size:24px;color:black">restore</i>
                                                     </button>
                                                 </div>
                                             </form>
-
                                         </td>
                                     </tr>
                                     @endforeach

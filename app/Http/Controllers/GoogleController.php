@@ -18,9 +18,11 @@ class GoogleController extends Controller
 
     public function loginCallback()
     {
-        $googleUser = Socialite::driver('google')->user();
+        $googleUser = Socialite::driver('google')->with(['prompt' => 'select_account'])->user();
 
-        $existingUser = User::where('email', $googleUser->getEmail())->first();
+        $existingUser = User::withTrashed()
+        ->where('email', $googleUser->getEmail())
+        ->first();
 
         if ($existingUser) {
             Auth::login($existingUser);
@@ -37,7 +39,7 @@ class GoogleController extends Controller
             } else {
                 Auth::logout();
                 toast('Tài khoản của bạn đã bị khóa, vui lòng liên hệ với nhân viên để được hỗ trợ', 'error');
-                return back()->withInput();
+                return redirect('/dang-nhap')->withInput();
             }
         } else {
             $user = User::create([
@@ -67,10 +69,6 @@ class GoogleController extends Controller
                     toast("Đăng nhập thành công, xin chào $name", 'success');
                     return redirect('/admin');
                 }
-            } else {
-                Auth::logout();
-                toast('Tài khoản của bạn đã bị khóa, vui lòng liên hệ với nhân viên để được hỗ trợ', 'error');
-                return back()->withInput();
             }
         }
     }

@@ -186,6 +186,9 @@ Route::middleware(['checkRole:1,2'])->prefix('admin')->group(function () {
         Route::delete('/danh-sach-nguoi-dung/{id}/xoa', [UserController::class, 'delete'])->name('admin.users.delete');
         Route::get('/danh-sach/nhan-vien', [UserController::class, 'indexStaff'])->name('admin.users.staff');
         Route::get('/danh-sach/nhan-vien/{id}/chi-tet', [UserController::class, 'detail'])->name('admin.users.staff.detail');
+
+        Route::get('/danh-sach-nguoi-dung/xoa', [UserController::class, 'listDelete'])->name('admin.users.list.delete');
+        Route::put('/danh-sach-nguoi-dung/{email}/khoi-phuc', [UserController::class, 'restore'])->name('admin.users.restore');
     });
 });
 

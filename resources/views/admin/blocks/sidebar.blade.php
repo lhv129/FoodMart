@@ -129,6 +129,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Chức năng:</h6>
                 <a class="collapse-item" href="{{ route('admin.users') }}">Danh sách người dùng</a>
+                <a class="collapse-item" href="{{ route('admin.users.list.delete') }}">Danh sách xóa</a>
                 <a class="collapse-item" href="{{ route('admin.users.staff') }}">Danh sách quản trị viên</a>
             </div>
         </div>

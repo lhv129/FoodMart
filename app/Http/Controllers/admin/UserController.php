@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use PhpParser\Node\Stmt\Block;
 
 class UserController extends Controller
 {
@@ -84,14 +85,42 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        // Đường dẫn ảnh
-        $imageDirectory = 'images/avatars/';
-        // Xóa sản phẩm thì xóa luôn ảnh sản phẩm đó
-        File::delete($imageDirectory . $user->fileAvatar);
+        $user->update([
+            'status' => 'block'
+        ]);
 
         $user->delete();
 
         toast('Xóa người dùng thành công', 'success');
         return back();
+    }
+
+    public function listDelete()
+    {
+        $users = User::onlyTrashed()
+            ->select('users.*', 'roles.name as role_name')
+            ->join('roles', 'roles.id', 'role_id')
+            ->where('role_id', 3)
+            ->paginate(10);
+        return view('admin/users/listDelete', compact('users'));
+    }
+
+    public function restore($email)
+    {
+        $user = User::withTrashed()
+            ->where('email', $email)
+            ->first();
+        if ($user) {
+            $user->update([
+                'status' => 'active',
+                'deleted_at' => null,   
+            ]);
+            toast('Khôi phục thành công', 'success');
+            return redirect('admin/danh-sach-nguoi-dung');
+        } else {
+            toast('Không tìm thấy người dùng', 'success');
+            return back();
+            // Thông báo không tìm thấy người dùng
+        }
     }
 }

@@ -122,6 +122,6 @@ Người dùng
 
 @section('js')
 
-<script src="{{ asset('assets/js/app.js') }}"></script>
+<script src="{{ asset('assets/admins/js/app.js') }}"></script>
 
 @endsection(js)
